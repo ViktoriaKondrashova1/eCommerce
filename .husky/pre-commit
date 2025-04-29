@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged
+
+RESULT=$?
+
+if [ $RESULT -eq 0 ]; then
+    git add -u
+fi
+
+exit $RESULT

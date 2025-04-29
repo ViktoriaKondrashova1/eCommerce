@@ -1,10 +1,5 @@
+import { theme } from '@/shared/configs/theme'
 import { Button, ConfigProvider } from 'antd'
-
-const theme = {
-  token: {
-    colorPrimary: '#61d627',
-  },
-}
 
 function App() {
   return (

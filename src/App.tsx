@@ -1,10 +1,11 @@
+import { AppButton } from '@/components/AppButton/AppButton'
 import { theme } from '@/shared/configs/theme'
-import { Button, ConfigProvider } from 'antd'
+import { ConfigProvider } from 'antd'
 
 function App() {
   return (
     <ConfigProvider theme={theme}>
-      <Button type="primary">Primary Button</Button>
+      <AppButton type="primary">Primary Button</AppButton>
       {' '}
     </ConfigProvider>
   )

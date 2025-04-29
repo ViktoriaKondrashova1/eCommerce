@@ -9,9 +9,17 @@ export default antfu({
       'ts/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
     },
   },
+  ignores: ['*.config.ts', '*.d.ts'],
 }, {
   files: ['**/*.test.ts', '**/*.test.tsx'],
   rules: {
     'ts/consistent-type-assertions': 'off',
+    'ts/no-unsafe-assignment': 'off',
+    'ts/no-unsafe-call': 'off',
+  },
+}, {
+  files: ['vite.config.ts'],
+  rules: {
+    'ts/strict-boolean-expressions': 'off',
   },
 })

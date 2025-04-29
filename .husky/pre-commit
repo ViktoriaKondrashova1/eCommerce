@@ -1,0 +1,10 @@
+
+npx lint-staged
+
+RESULT=$?
+
+if [ $RESULT -eq 0 ]; then
+    git add -u
+fi
+
+exit $RESULT

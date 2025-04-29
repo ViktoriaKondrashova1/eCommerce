@@ -42,5 +42,11 @@
     "sass": "^1.87.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.3"
-  }
+  },
+  "browserslist": [
+    "last 10 versions",
+    "> 0.2%",
+    "not dead",
+    "not ie <= 11"
+  ]
 }

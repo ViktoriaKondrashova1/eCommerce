@@ -1,10 +1,33 @@
-# :beers: eCommerce Graduate project
+# :beers: eCommerce Graduate Project
 
 Welcome to **BrewPort** eCommerce project. This project is a graduation work developed as part of the JavaScript/Front-end course at RSScool.
 
 ## :pencil: Describe
 
-## :dart: Goal
+## :dart: Goals
+
+:white_check_mark: Setup project and CommerceTools integration
+- setting up the repository
+- organizing the task board
+- integrating with CommerceTools to establish the API client
+- configuring the development environment
+
+:white_check_mark: Login, Registration, and Main Pages Implementation
+- implementing the login and registration features
+- managing user authentication state
+- saving the authentication token
+- setting up navigation between pages
+
+:white_check_mark: Catalog Product, Detailed Product, and User Profile Pages Implementation
+- implementing the Catalog Product page
+- implementing the Detailed Product page
+- implementing the User Profile page
+
+:white_check_mark: Detailed Product Page Enhancement, Basket Page, Catalog Page Enhancement, and About Us Page Implementation
+- improving the Detailed Product page
+- building the Basket page
+- improving the Catalog page
+- implementing the About Us page
 
 ## :hammer_and_wrench: Stack
 - **[React](https://react.dev/)** - The JavaScript library that is used to build the user interface

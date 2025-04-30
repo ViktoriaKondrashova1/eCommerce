@@ -22,6 +22,14 @@ Welcome to **BrewPort** eCommerce project. This project is a graduation work dev
 
 ## :arrow_forward: Scripts
 
+- `npm run start`          - Starts the development server provided by Vite for local development
+- `npm run build`          - Compiles TypeScript files and creates an optimized production build with Vite
+- `npm run lint`           - Runs ESLint to analyze the code
+- `npm run lint:fix`       - Runs ESLint with automatic fixing enabled, correcting fixable issues
+- `npm run preview`        - Starts a local server to preview the production build of the project
+- `npm run prepare`        - Initializes Husky, enabling Git hooks to run scripts
+- `npm run ts-lint`        - Runs the TypeScript compiler in check types and catch errors without emitting files
+
 ## :file_folder: Project Structure
 
 ```
@@ -55,6 +63,28 @@ ecommerce/
 └── vitest.config.ts       # Configuration file for Vitest
 ```
 
+## :rocket: Getting started
+
 ### Prerequisites
 
+- Node.js >= 18.0.0
+- npm or yarn
+
 ### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/ViktoriaKondrashova1/eCommerce.git
+cd ecommerce
+```
+2. Install dependencies:
+
+```bash
+npm install
+```
+3. Start application:
+
+```bash
+npm run start
+```

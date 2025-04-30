@@ -1,7 +1,7 @@
 import type { FC } from 'react'
-import { Layout } from 'antd';
+import { Layout } from 'antd'
 
-const { Header } = Layout;
+const { Header } = Layout
 
 export const AppHeader: FC = () => {
   return (

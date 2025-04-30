@@ -1,17 +1,20 @@
-import { resolve } from 'node:path'
+import path from 'node:path'
+import process from 'node:process'
 import react from '@vitejs/plugin-react'
+import * as dotenv from 'dotenv'
 import { defineConfig } from 'vite'
 
-// https://vitejs.dev/config/
+dotenv.config()
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   server: {
-    port: 3000,
+    port: Number.parseInt(process.env.VITE_PORT, 10) || 3000,
     open: true,
   },
   build: {

@@ -11,8 +11,11 @@
       "@/*": ["src/*"]
     },
     "resolveJsonModule": true,
+    "types": ["vite/client", "vitest/globals", "@types/node"],
     "allowImportingTsExtensions": true,
+    "allowJs": true,
     "strict": true,
+    "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -21,6 +24,13 @@
     "skipLibCheck": true
   },
   "references": [{ "path": "./tsconfig.node.json" }],
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src",
+    "vitest.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "*.config.ts",
+    "*.d.ts"
+  ]
 }

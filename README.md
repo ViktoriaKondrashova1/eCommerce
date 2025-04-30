@@ -65,6 +65,9 @@ This project is a graduation work developed as part of the JavaScript/Front-end 
 - `npm run preview`        - Starts a local server to preview the production build of the project
 - `npm run prepare`        - Initializes Husky, enabling Git hooks to run scripts
 - `npm run ts-lint`        - Runs the TypeScript compiler in check types and catch errors without emitting files
+- `npm run test`           - Runs tests in "watch" mode
+- `npm run test:ui`        - Runs tests in "ui" mode
+- `npm run coverage`       - analysis coverage tests
 
 ## :file_folder: Project Structure
 

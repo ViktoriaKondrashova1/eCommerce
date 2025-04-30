@@ -1,8 +1,10 @@
 # :beers: eCommerce Graduate Project
 
-Welcome to **BrewPort** eCommerce project. This project is a graduation work developed as part of the JavaScript/Front-end course at RSScool.
+Welcome to **BrewPort** eCommerce project.
 
 ## :pencil: Describe
+
+This project is a graduation work developed as part of the JavaScript/Front-end course at RSScool. The application was built using CommerceTools, TypeScript, Vite, React, and Ant Design. Its purpose is to consolidate the skills acquired during the course and prepare for the upcoming advanced framework-based courses. This project serves as a practical step towards mastering modern front-end development tools and best practices.
 
 ## :dart: Goals
 
@@ -42,6 +44,17 @@ Welcome to **BrewPort** eCommerce project. This project is a graduation work dev
 - **Git Hooks**:
   - [Husky](https://typicode.github.io/husky/) - Git hooks made easy
   - [lint-staged](https://github.com/okonet/lint-staged) - Run linters on git staged files
+
+<div>
+    <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original.svg" title="React" **alt="react-icon" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/typescript/typescript-original.svg" title="TypeScript" **alt="ts-icon" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/vitejs/vitejs-original.svg"  title="Vite" alt="vite-icon" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/vitest/vitest-original.svg"  title="Vitest" alt="vitest-icon" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/postcss/postcss-original.svg"  title="PostCSS" alt="postcss-icon" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/antdesign/antdesign-original.svg"  title="AntDesign" alt="antdesign-icon" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/eslint/eslint-original.svg"  title="ESLint" alt="eslint-icon" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/github/github-original.svg" title="GitHub" **alt="github-icon" width="40" height="40"/>
+</div>
 
 ## :arrow_forward: Scripts
 

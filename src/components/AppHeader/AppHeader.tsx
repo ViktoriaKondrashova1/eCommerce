@@ -19,13 +19,13 @@ export const AppHeader: FC = () => {
   ]
 
   const authMenuItems: ItemType[] = [
-    { key: '/cart', icon: <ShoppingCartOutlined style={{fontSize: '18px'}} />},
-    { key: '/profile', icon: <UserOutlined style={{fontSize: '18px'}} /> },
-    { key: '/login', icon: <LogoutOutlined style={{fontSize: '18px'}} /> },
+    { key: '/cart', icon: <ShoppingCartOutlined />},
+    { key: '/profile', icon: <UserOutlined /> },
+    { key: '/login', icon: <LogoutOutlined /> },
   ]
 
   const unauthMenuItems: ItemType[] = [
-    { key: '/cart', icon: <ShoppingCartOutlined style={{fontSize: '18px'}} /> },
+    { key: '/cart', icon: <ShoppingCartOutlined /> },
     { key: '/login', label: "LOG IN" },
     { key: '/register', label: "SIGN UP" },
   ]
@@ -37,7 +37,7 @@ export const AppHeader: FC = () => {
         <AppTitle style={{ margin: 0 }}>{appName}</AppTitle>
         <AppHeaderMenu items={isAuthenticated ? authMenuItems : unauthMenuItems}/>
       </Flex>
-      <Divider style={{borderColor: "inherit"}}/>
+      <Divider />
     </Header>
   )
 }

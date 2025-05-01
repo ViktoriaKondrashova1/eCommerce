@@ -1,19 +1,16 @@
+import type { Product } from '@commercetools/platform-sdk'
 import { makeAutoObservable } from 'mobx'
 
 class ProductStore {
-  products: unknown[]
+  products: Product[] | []
   constructor() {
     this.products = []
 
     makeAutoObservable(this)
   }
 
-  setProducts(products: unknown[]) {
+  setProducts(products: Product[]) {
     this.products = [...products]
-  }
-
-  updateProducts(products: unknown[]) {
-    this.products = [this.products, ...products]
   }
 }
 

@@ -1,6 +1,7 @@
+import type { ClientResponse, ProductPagedQueryResponse } from '@commercetools/platform-sdk'
 import { commerceApi } from '@/shared/configs/commerce-client'
 
-export async function fetchProducts() {
+export async function fetchProducts(): Promise<ClientResponse<ProductPagedQueryResponse>> {
   try {
     const response = await commerceApi
       .products()
@@ -9,7 +10,7 @@ export async function fetchProducts() {
 
     return response
   }
-  catch (error) {
-    console.error('Ошибка при получении продуктов:', error)
+  catch {
+    throw new Error('Failed to fetch products')
   }
 }

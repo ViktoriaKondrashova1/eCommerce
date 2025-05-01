@@ -17,6 +17,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "6.0.0",
+    "@commercetools/platform-sdk": "^8.8.0",
+    "@commercetools/sdk-auth": "^5.0.1",
+    "@commercetools/sdk-client-v2": "^3.0.0",
     "antd": "5.24.7",
     "dotenv": "16.5.0",
     "mobx": "6.13.7",

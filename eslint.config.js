@@ -7,6 +7,8 @@ export default antfu({
     overrides: {
       'ts/no-explicit-any': 'error',
       'ts/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
+      'node/prefer-global/process': 'off',
+
     },
   },
   ignores: ['*.config.ts', '*.d.ts'],

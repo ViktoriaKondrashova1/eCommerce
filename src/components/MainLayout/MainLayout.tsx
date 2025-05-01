@@ -1,5 +1,4 @@
 import type { FC } from 'react'
-import { AppButton } from '@/components/AppButton'
 import { Layout } from 'antd'
 import { Outlet } from 'react-router-dom'
 import { AppFooter } from '../AppFooter/AppFooter'
@@ -11,8 +10,12 @@ export const MainLayout: FC = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <AppHeader></AppHeader>
-      <Content>
-        <AppButton>Button</AppButton>
+      <Content style={{
+        margin: '24px 16px',
+        padding: 24,
+        minHeight: 280,
+      }}
+      >
         <Outlet />
       </Content>
       <AppFooter></AppFooter>

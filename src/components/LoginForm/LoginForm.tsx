@@ -4,6 +4,7 @@ import { Form } from 'antd'
 import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppInput } from '../AppInput/AppInput'
+import { emailValidationRules, passwordValidationRules } from './index'
 
 export const LoginForm: FC = () => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
@@ -13,14 +14,14 @@ export const LoginForm: FC = () => {
       <Form.Item
         name="email"
         label="Email"
-        rules={[{ required: true, message: 'Please input your Email!' }, { type: 'email', message: 'Please enter a valid email' }]}
+        rules={emailValidationRules}
       >
         <AppInput prefix={<MailOutlined />} placeholder="Email" />
       </Form.Item>
       <Form.Item
         name="password"
         label="Password"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
+        rules={passwordValidationRules}
       >
         <AppInput
           isPassword

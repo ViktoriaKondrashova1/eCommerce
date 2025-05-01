@@ -5,10 +5,3 @@ npx lint-staged
 echo "🚀 typescript checking starting"
 npm run ts-lint
 
-RESULT=$?
-
-if [ $RESULT -eq 0 ]; then
-    git add -u
-fi
-
-exit $RESULT

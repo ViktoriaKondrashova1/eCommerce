@@ -3,8 +3,29 @@ import type { InputProps } from 'antd'
 import type { FC } from 'react'
 import { Input } from 'antd'
 
-interface Props extends InputProps, BaseComponent {}
+interface PasswordProps {
+  visible?: boolean
+  onVisibleChange?: (visible: boolean) => void
+}
 
-export const AppInput: FC<Props> = ({ testId = 'input', ...rest }) => {
-  return <Input data-testid={testId} {...rest} />
+interface Props extends InputProps, BaseComponent {
+  isPassword?: boolean
+  visibilityToggle?: boolean | PasswordProps
+}
+
+export const AppInput: FC<Props> = ({ testId = 'input', isPassword = false, visibilityToggle = true, ...rest }) => {
+  return isPassword
+    ? (
+        <Input.Password
+          data-testid={testId}
+          visibilityToggle={visibilityToggle}
+          {...rest}
+        />
+      )
+    : (
+        <Input
+          data-testid={testId}
+          {...rest}
+        />
+      )
 }

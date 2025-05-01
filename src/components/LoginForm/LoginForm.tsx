@@ -1,10 +1,13 @@
 import type { FC } from 'react'
 import { LockOutlined, MailOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
+import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppInput } from '../AppInput/AppInput'
 
 export const LoginForm: FC = () => {
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
+
   return (
     <Form name="login" style={{ maxWidth: 360 }} layout="vertical">
       <Form.Item
@@ -19,7 +22,12 @@ export const LoginForm: FC = () => {
         label="Password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
-        <AppInput prefix={<LockOutlined />} type="password" placeholder="Password" />
+        <AppInput
+          isPassword
+          prefix={<LockOutlined />}
+          placeholder="Password"
+          visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
+        />
       </Form.Item>
       <Form.Item>
         <AppButton block type="primary" htmlType="submit">

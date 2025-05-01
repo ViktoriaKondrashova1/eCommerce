@@ -10,7 +10,12 @@ export const MainLayout: FC = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <AppHeader></AppHeader>
-      <Content>
+      <Content style={{
+        margin: '24px 16px',
+        padding: 24,
+        minHeight: 280,
+      }}
+      >
         <Outlet />
       </Content>
       <AppFooter></AppFooter>

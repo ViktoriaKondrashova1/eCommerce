@@ -48,6 +48,7 @@ const mockProducts = [
     ABV: '6%',
     IBU: '25',
     price: '$7.25',
+    discount: '$6.34',
     description: 'Some of the most delicious and plentiful berries from the Pacific Northwest are red raspberries. Imagining the perfect beer to highlight this glorious fruit led to a lighter touch with malt and hops, letting the raspberries shine through. Raspberried at Sea Volume II is even more drinkable than its predecessor and starts with a base beer of clean malty simplicity, then layers on color and flavor with immense amounts of raspberries and carefully selected ale yeast. With a light color topped by pink-hued foam, and an aroma and flavor that layers bright raspberry flavor with light malt flavor, this beer brings to mind a sparkling rosé perfect for the season.',
     images: [
       'https://i.pinimg.com/736x/80/c4/63/80c463d5c9aa0cc14ea0702aecf1b9e1.jpg',
@@ -73,16 +74,16 @@ const mockProducts = [
 
 export const NewProducts: FC = () => {
   return (
-    <>
+    <Flex vertical gap="large">
       <Flex justify="space-between">
         <AppTitle level={3}>NEW</AppTitle>
         <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end">Go To Catalog</AppButton>
       </Flex>
       <Flex wrap="wrap" justify="space-around">
         {mockProducts.map(card =>
-          <AppProductCard key={card.id} title={card.title} imageUrl={card.images[0]} price={card.price} category={card.category} />,
+          <AppProductCard key={card.id} title={card.title} imageUrl={card.images[0]} price={card.price} category={card.category} brewery={card.brewery} discount={card.discount} />,
         )}
       </Flex>
-    </>
+    </Flex>
   )
 }

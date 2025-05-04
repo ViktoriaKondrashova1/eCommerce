@@ -9,7 +9,7 @@ export const PromocodeSection: FC = () => {
   return (
     <Card
       style={{
-        background: '#cfd1c6',
+        background: '#E84B1A',
         textAlign: 'center',
         padding: '15px',
       }}

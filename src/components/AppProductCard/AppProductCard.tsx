@@ -11,9 +11,11 @@ interface Props extends BaseComponent {
   imageUrl: string
   price: string
   category: string
+  brewery: string
+  discount?: string
 }
 
-export const AppProductCard: FC<Props> = ({ testId = 'product-card', title, imageUrl, price, category, ...rest }) => {
+export const AppProductCard: FC<Props> = ({ testId = 'product-card', title, imageUrl, price, category, brewery, discount, ...rest }) => {
   return (
     <Card
       data-testid={testId}
@@ -38,9 +40,20 @@ export const AppProductCard: FC<Props> = ({ testId = 'product-card', title, imag
         title={<AppTitle level={4}>{title}</AppTitle>}
         description={(
           <>
+            <div style={{ fontSize: 16 }}>{brewery}</div>
             <div style={{ fontSize: 16 }}>{category}</div>
             <Flex justify="space-between" align="center">
-              <div style={{ fontWeight: 'bold', marginTop: 8, fontSize: 20 }}>{price}</div>
+              <div style={{ fontWeight: 'bold', marginTop: 8, fontSize: 20 }}>
+                {discount !== undefined && discount !== ''
+                  ? (
+                      <Flex gap="small">
+                        <div style={{ textDecoration: 'line-through' }}>{price}</div>
+                        {' '}
+                        <div style={{ color: '#E84B1A' }}>{discount}</div>
+                      </Flex>
+                    )
+                  : price}
+              </div>
               <Tooltip title="Add to Cart">
                 <AppButton type="primary" shape="circle" icon={<PlusOutlined />} />
               </Tooltip>

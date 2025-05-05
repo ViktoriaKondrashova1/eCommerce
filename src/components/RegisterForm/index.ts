@@ -1,4 +1,6 @@
 import type { Rule } from 'antd/es/form'
+import type { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 export const passwordValidationRules: Rule[] = [
   { required: true, message: 'Please input your Password!' },
@@ -36,10 +38,22 @@ export const nameValidationRules: Rule[] = [
   { pattern: /^[a-z\s]*$/i, message: 'Name must contain only letters!' },
 ]
 
-// TODO implement validateAge function (over 18 age)
 export const dateValidationRules: Rule[] = [
   { required: true, message: 'Please input your date of birth!' },
-  // { validator: validateAge },
+  { validator: async (_, value: Dayjs | null) => {
+    if (value === null) {
+      return Promise.resolve()
+    }
+
+    const isAdult = dayjs().subtract(18, 'year')
+
+    if (value.isBefore(isAdult)) {
+      return Promise.resolve()
+    }
+    else {
+      return Promise.reject(new Error('You must be over 18 years!'))
+    }
+  } },
 ]
 
 export const confirmPasswordValidationRules: Rule[] = [
@@ -54,14 +68,17 @@ export const confirmPasswordValidationRules: Rule[] = [
   }),
 ]
 
+// TODO Must be a valid country from a predefined list or autocomplete field
 export const countryValidationRules: Rule[] = [
   { required: true, message: 'Please input your country!' },
 ]
 
 export const cityValidationRules: Rule[] = [
   { required: true, message: 'Please input your city!' },
+  { pattern: /^[a-z\s]*$/i, message: 'City must contain only letters!' },
 ]
 
+// TODO Must follow the format for the country
 export const postalCodeValidationRules: Rule[] = [
   { required: true, message: 'Please input your postal code!' },
 ]

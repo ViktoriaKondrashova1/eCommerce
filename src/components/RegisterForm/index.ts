@@ -68,7 +68,6 @@ export const confirmPasswordValidationRules: Rule[] = [
   }),
 ]
 
-// TODO Must be a valid country from a predefined list or autocomplete field
 export const countryValidationRules: Rule[] = [
   { required: true, message: 'Please input your country!' },
 ]

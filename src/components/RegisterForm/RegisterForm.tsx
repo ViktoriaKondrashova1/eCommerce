@@ -1,8 +1,9 @@
 import type { FC } from 'react'
-import { DatePicker, Divider, Form, Input } from 'antd'
+import { DatePicker, Divider, Form, Input, Select } from 'antd'
 import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppInput } from '../AppInput/AppInput'
+import { countries } from './countries'
 import { cityValidationRules, confirmPasswordValidationRules, countryValidationRules, dateValidationRules, emailValidationRules, nameValidationRules, passwordValidationRules, postalCodeValidationRules, streetValidationRules } from './index'
 
 export const RegisterForm: FC = () => {
@@ -41,7 +42,13 @@ export const RegisterForm: FC = () => {
           label="Your country"
           rules={countryValidationRules}
         >
-          <AppInput placeholder="Belarus" />
+          <Select placeholder="Belarus">
+            {countries.map(country => (
+              <Select.Option key={country.value} value={country.value}>
+                {country.label}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
         <Form.Item
           name="city"

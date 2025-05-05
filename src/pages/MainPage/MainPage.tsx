@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { HeroSection } from '@/components/HeroSection/HeroSection'
+import { MainPageCarousel } from '@/components/MainPageCarousel/MainPageCarousel'
 import { MainPageGrid } from '@/components/MainPageGrid/MainPageGrid'
 import { NewProducts } from '@/components/NewProducts/NewProducts'
 import { PromocodeSection } from '@/components/PromocodeSection/PromocodeSection'
@@ -12,6 +13,7 @@ export const MainPage: FC = () => {
       <NewProducts />
       <PromocodeSection />
       <MainPageGrid />
+      <MainPageCarousel />
     </Flex>
   )
 }

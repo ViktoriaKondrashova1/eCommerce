@@ -4,10 +4,14 @@ import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppInput } from '../AppInput/AppInput'
 import { countries } from './countries'
-import { cityValidationRules, confirmPasswordValidationRules, countryValidationRules, dateValidationRules, emailValidationRules, nameValidationRules, passwordValidationRules, postalCodeValidationRules, streetValidationRules } from './index'
+import { cityValidationRules, confirmPasswordValidationRules, countryValidationRules, dateValidationRules, emailValidationRules, nameValidationRules, passwordValidationRules, postalCodeValidationRules, streetValidationRules } from './validate'
 
 export const RegisterForm: FC = () => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
+  const [country, setCountry] = useState('')
+  const onCountryChange = (value: string) => {
+    setCountry(value)
+  }
 
   return (
     <>
@@ -42,7 +46,10 @@ export const RegisterForm: FC = () => {
           label="Your country"
           rules={countryValidationRules}
         >
-          <Select placeholder="Belarus">
+          <Select
+            placeholder="Belarus"
+            onChange={onCountryChange}
+          >
             {countries.map(country => (
               <Select.Option key={country.value} value={country.value}>
                 {country.label}
@@ -60,7 +67,7 @@ export const RegisterForm: FC = () => {
         <Form.Item
           name="postalCode"
           label="Postal code"
-          rules={postalCodeValidationRules}
+          rules={postalCodeValidationRules(country)}
         >
           <AppInput placeholder="220004" />
         </Form.Item>

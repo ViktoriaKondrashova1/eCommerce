@@ -1,6 +1,7 @@
 import type { Rule } from 'antd/es/form'
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
+import { countries } from './countries'
 
 export const passwordValidationRules: Rule[] = [
   { required: true, message: 'Please input your Password!' },
@@ -77,10 +78,23 @@ export const cityValidationRules: Rule[] = [
   { pattern: /^[a-z\s]*$/i, message: 'City must contain only letters!' },
 ]
 
-// TODO Must follow the format for the country
-export const postalCodeValidationRules: Rule[] = [
-  { required: true, message: 'Please input your postal code!' },
-]
+export const postalCodeValidationRules: (country: string) => Rule[] = (country) => {
+  const selectedCountry = countries.find(c => c.value === country)
+  if (!selectedCountry) {
+    return [{ required: true, message: 'Select a country' }]
+  }
+
+  const rules: Rule[] = [{ required: true, message: 'Please input your postal code!' }]
+
+  if (selectedCountry.code != null) {
+    rules.push({
+      pattern: new RegExp(selectedCountry.code),
+      message: `Invalid postal code format for ${selectedCountry.label}`,
+    })
+  }
+
+  return rules
+}
 
 export const streetValidationRules: Rule[] = [
   { required: true, message: 'Please input your street!' },

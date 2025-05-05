@@ -22,6 +22,5 @@ export const MainLayout: FC = () => {
         <AppFooter></AppFooter>
       </Layout>
     </AntApp>
-
   )
 }

@@ -25,11 +25,18 @@
         position: relative;
     }
 
-    h1 {
+    h1, h2 {
         color: white;
-        font-size: 5rem;
         text-transform: uppercase;
         margin: 0;
+    }
+
+    h1 {
+        font-size: 5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
     }
 
     span {

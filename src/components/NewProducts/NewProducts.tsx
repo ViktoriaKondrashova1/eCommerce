@@ -79,7 +79,7 @@ export const NewProducts: FC = () => {
         <AppTitle level={3}>NEW</AppTitle>
         <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end">Go To Catalog</AppButton>
       </Flex>
-      <Flex wrap="wrap" justify="space-around">
+      <Flex wrap="wrap" justify="space-around" gap="large">
         {mockProducts.map(card =>
           <AppProductCard key={card.id} title={card.title} imageUrl={card.images[0]} price={card.price} category={card.category} brewery={card.brewery} discount={card.discount} />,
         )}

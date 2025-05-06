@@ -5,6 +5,7 @@ import { Card, Flex, Tooltip } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import { AppButton } from '../AppButton'
 import { AppTitle } from '../AppTitle/AppTitle'
+import './AppProductCard.scss'
 
 interface Props extends BaseComponent {
   title: string
@@ -20,20 +21,10 @@ export const AppProductCard: FC<Props> = ({ testId = 'product-card', title, imag
     <Card
       data-testid={testId}
       hoverable
+      className="product-card"
       cover={(
-        <img
-          alt={title}
-          src={imageUrl}
-          style={{
-            width: '100%',
-            height: 350,
-            objectFit: 'cover',
-          }}
-        />
+        <img alt={title} src={imageUrl} />
       )}
-      style={{
-        width: 300,
-      }}
       {...rest}
     >
       <Meta

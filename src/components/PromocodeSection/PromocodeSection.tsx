@@ -1,3 +1,4 @@
+import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { promocode, promocodeText } from '@/shared/constants'
 import { App as AntApp, Card, Flex, Grid, Space } from 'antd'
@@ -5,9 +6,11 @@ import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
 
+interface Props extends BaseComponent {}
+
 const { useBreakpoint } = Grid
 
-export const PromocodeSection: FC = () => {
+export const PromocodeSection: FC<Props> = ({ testId = 'promocode' }) => {
   const { message } = AntApp.useApp()
   const screens = useBreakpoint()
 
@@ -21,6 +24,7 @@ export const PromocodeSection: FC = () => {
 
   return (
     <Card
+      data-testid={testId}
       style={{
         background: '#E84B1A',
         textAlign: 'center',

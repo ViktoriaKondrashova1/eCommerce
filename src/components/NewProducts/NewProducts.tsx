@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
+import { useNavigate } from 'react-router-dom'
 import { AppButton } from '../AppButton/AppButton'
 import { AppProductCard } from '../AppProductCard/AppProductCard'
 import { AppTitle } from '../AppTitle/AppTitle'
@@ -73,11 +74,13 @@ const mockProducts = [
 ]
 
 export const NewProducts: FC = () => {
+  const navigate = useNavigate()
+
   return (
     <Flex vertical gap="large">
       <Flex justify="space-between">
         <AppTitle level={3}>NEW</AppTitle>
-        <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end">Go To Catalog</AppButton>
+        <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end" onClick={() => navigate('/catalog')}>Go To Catalog</AppButton>
       </Flex>
       <Flex wrap="wrap" justify="space-around" gap="large">
         {mockProducts.map(card =>

@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { DatePicker, Divider, Form, Input, Select } from 'antd'
+import { useForm } from 'antd/es/form/Form'
 import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppInput } from '../AppInput/AppInput'
@@ -7,15 +8,22 @@ import { countries } from './countries'
 import { cityValidationRules, confirmPasswordValidationRules, countryValidationRules, dateValidationRules, emailValidationRules, nameValidationRules, passwordValidationRules, postalCodeValidationRules, streetValidationRules } from './validate'
 
 export const RegisterForm: FC = () => {
+  const [form] = useForm()
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
   const [country, setCountry] = useState('')
   const onCountryChange = (value: string) => {
+    form.setFieldsValue({
+      postalCode: '',
+    })
     setCountry(value)
   }
 
+  const selectedCountry = countries.find(item => item.value === country)
+  const postalCodePlaceholder = selectedCountry ? selectedCountry.example : '220044'
+
   return (
     <>
-      <Form name="register" style={{ maxWidth: 360 }} layout="vertical">
+      <Form form={form} name="register" style={{ maxWidth: 360 }} layout="vertical">
         <Form.Item
           name="firstName"
           label="First name"
@@ -69,7 +77,7 @@ export const RegisterForm: FC = () => {
           label="Postal code"
           rules={postalCodeValidationRules(country)}
         >
-          <AppInput placeholder="220004" />
+          <AppInput placeholder={postalCodePlaceholder} />
         </Form.Item>
         <Form.Item
           name="street"

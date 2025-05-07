@@ -1,8 +1,11 @@
+import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { Card, Col, Row } from 'antd'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './MainPageGrid.scss'
+
+interface Props extends BaseComponent {}
 
 const gridData = [
   {
@@ -73,9 +76,9 @@ const gridData = [
   },
 ]
 
-export const MainPageGrid: FC = () => {
+export const MainPageGrid: FC<Props> = ({ testId = 'main-page-grid' }) => {
   return (
-    <div>
+    <div data-testid={testId}>
       <Row gutter={[0, 0]}>
         {gridData.slice(0, 3).map(item => (
           <Col

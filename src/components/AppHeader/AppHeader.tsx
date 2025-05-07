@@ -57,7 +57,7 @@ export const AppHeader: FC<Props> = ({ testId = 'header', ...rest }) => {
               </>
             )}
       </Flex>
-      <Divider style={{ margin: '10px 0 0 0' }} />
+      <Divider style={{ margin: '0' }} />
     </Header>
   )
 }

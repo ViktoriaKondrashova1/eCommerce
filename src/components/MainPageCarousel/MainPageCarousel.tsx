@@ -1,3 +1,4 @@
+import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { carouselData } from '@/shared/constants'
 import { Carousel, Flex, Grid } from 'antd'
@@ -11,9 +12,11 @@ interface IDataProps {
   image: string
 }
 
+interface Props extends BaseComponent {}
+
 const { useBreakpoint } = Grid
 
-export const MainPageCarousel: FC = () => {
+export const MainPageCarousel: FC<Props> = ({ testId = 'main-page-carousel' }) => {
   const screens = useBreakpoint()
 
   const getCardsPerSlide = (): number => {
@@ -32,7 +35,7 @@ export const MainPageCarousel: FC = () => {
   const slides = chunkArray(carouselData, getCardsPerSlide())
 
   return (
-    <Flex vertical gap="large">
+    <Flex vertical gap="large" data-testid={testId}>
       <AppTitle level={3}>CHOOSE YOUR STYLE</AppTitle>
       <Carousel autoplay draggable>
         {slides.map(slide => (

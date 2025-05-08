@@ -1,6 +1,8 @@
+import type { Dayjs } from 'dayjs'
 import type { FC } from 'react'
 import { DatePicker, Divider, Form, Input, Select } from 'antd'
 import { useForm } from 'antd/es/form/Form'
+import dayjs from 'dayjs'
 import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppInput } from '../AppInput/AppInput'
@@ -20,6 +22,13 @@ export const RegisterForm: FC = () => {
 
   const selectedCountry = countries.find(item => item.value === country)
   const postalCodePlaceholder = selectedCountry ? selectedCountry.example : '220044'
+  const disabledDate = (current: Dayjs | null): boolean => {
+    if (!current) {
+      return false
+    }
+    const today = dayjs().startOf('day')
+    return current.isAfter(today)
+  }
 
   return (
     <>
@@ -45,6 +54,7 @@ export const RegisterForm: FC = () => {
         >
           <DatePicker
             style={{ width: '100%' }}
+            disabledDate={disabledDate}
             placeholder="1964-04-01"
           />
         </Form.Item>

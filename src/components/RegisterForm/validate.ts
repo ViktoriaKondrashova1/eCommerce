@@ -98,4 +98,5 @@ export const postalCodeValidationRules: (country: string) => Rule[] = (country) 
 
 export const streetValidationRules: Rule[] = [
   { required: true, message: 'Please input your street!' },
+  { min: 1, message: 'Street must contain at least one character!' },
 ]

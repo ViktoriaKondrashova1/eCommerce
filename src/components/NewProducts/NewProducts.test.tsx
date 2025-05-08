@@ -1,3 +1,4 @@
+import { mockProducts } from '@/shared/constants'
 import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 import { NewProducts } from './NewProducts'
@@ -11,7 +12,7 @@ vi.mock('react-router-dom', () => ({
 
 describe('newProducts', () => {
   it('should render the component container', () => {
-    render(<NewProducts />)
+    render(<NewProducts products={mockProducts} />)
 
     const container = screen.getByTestId('new-products')
 
@@ -19,13 +20,13 @@ describe('newProducts', () => {
   })
 
   it('should display the title', () => {
-    render(<NewProducts />)
+    render(<NewProducts products={mockProducts} />)
 
     expect(screen.getByText('NEW')).toBeInTheDocument()
   })
 
   it('should render all product cards', () => {
-    render(<NewProducts />)
+    render(<NewProducts products={mockProducts} />)
 
     const productCards = screen.getAllByTestId('product-card')
 
@@ -33,7 +34,7 @@ describe('newProducts', () => {
   })
 
   it('should have a "Go To Catalog" button', () => {
-    render(<NewProducts />)
+    render(<NewProducts products={mockProducts} />)
 
     const button = screen.getByText('Go To Catalog')
 
@@ -41,7 +42,7 @@ describe('newProducts', () => {
   })
 
   it('should navigate to /catalog when the button is clicked', () => {
-    render(<NewProducts />)
+    render(<NewProducts products={mockProducts} />)
 
     const button = screen.getByText('Go To Catalog')
     button.click()

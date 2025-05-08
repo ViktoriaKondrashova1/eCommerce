@@ -12,6 +12,7 @@ vi.mock('antd', async (importOriginal) => {
   return {
     ...actual,
     App: {
+      // Todo refactor
       // eslint-disable-next-line react-hooks-extra/no-unnecessary-use-prefix
       useApp: () => ({ message }),
     },

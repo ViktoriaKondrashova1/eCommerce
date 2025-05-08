@@ -15,6 +15,7 @@ vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom')
   return {
     ...actual,
+    // Todo refactor
     // eslint-disable-next-line react-hooks-extra/no-unnecessary-use-prefix
     useNavigate: () => mockNavigate,
   }

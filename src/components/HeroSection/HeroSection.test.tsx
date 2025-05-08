@@ -1,4 +1,4 @@
-import { appMoto, appName } from '@/shared/constants'
+import { appName } from '@/shared/constants'
 import { render, screen } from '@testing-library/react'
 import { Grid } from 'antd'
 import { vi } from 'vitest'
@@ -21,7 +21,7 @@ vi.mock('antd', async (importOriginal) => {
 
 describe('heroSection', () => {
   it('should render the hero section container', () => {
-    render(<HeroSection />)
+    render(<HeroSection appName={appName} />)
 
     const container = screen.getByTestId('hero-section')
 
@@ -30,21 +30,21 @@ describe('heroSection', () => {
   })
 
   it('should display the app name as title', () => {
-    render(<HeroSection />)
+    render(<HeroSection appName={appName} />)
 
     expect(screen.getByText(appName)).toBeInTheDocument()
   })
 
   it('should display the app moto as text', () => {
-    render(<HeroSection />)
+    render(<HeroSection appName={appName} />)
 
-    expect(screen.getByText(appMoto)).toBeInTheDocument()
+    expect(screen.getByText('Beer You Should Drink')).toBeInTheDocument()
   })
 
   it('should render title with level 2 on small screens', () => {
     vi.mocked(Grid.useBreakpoint).mockReturnValue({ xs: true, sm: false, md: false, lg: false })
 
-    render(<HeroSection />)
+    render(<HeroSection appName={appName} />)
 
     const title = screen.getByText(appName)
     expect(title.tagName).toBe('H2')
@@ -53,7 +53,7 @@ describe('heroSection', () => {
   it('should render title with level 1 on larger screens', () => {
     vi.mocked(Grid.useBreakpoint).mockReturnValue({ xs: false, sm: true, md: true, lg: true })
 
-    render(<HeroSection />)
+    render(<HeroSection appName={appName} />)
 
     const title = screen.getByText(appName)
     expect(title.tagName).toBe('H1')

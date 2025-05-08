@@ -30,4 +30,13 @@ describe('appInput positive', () => {
     expect(icon).toBeInTheDocument()
     expect(icon).toHaveTextContent('Icon')
   })
+
+  it('should render the input of password type', () => {
+    render(<AppInput isPassword />)
+
+    const input = screen.getByTestId('input')
+
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveAttribute('type', 'password')
+  })
 })

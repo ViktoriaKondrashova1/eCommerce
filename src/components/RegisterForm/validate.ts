@@ -34,7 +34,7 @@ export const emailValidationRules: Rule[] = [
 ]
 
 export const nameValidationRules: Rule[] = [
-  { required: true, message: 'Please input your first name!' },
+  { required: true, message: 'Please input your name!' },
   { min: 1, message: 'Name must contain at least one character!' },
   { pattern: /^[a-z\s]*$/i, message: 'Name must contain only letters!' },
 ]

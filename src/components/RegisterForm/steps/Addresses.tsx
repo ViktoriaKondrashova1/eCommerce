@@ -1,0 +1,150 @@
+import type { Address } from '../model/formStore'
+import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
+import { Button, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
+import { countries } from '../countries'
+import {
+  cityValidationRules,
+  countryValidationRules,
+  postalCodeValidationRules,
+  streetValidationRules,
+} from '../validate'
+
+export const AddressFields = observer(
+  ({
+    address,
+    onUpdate,
+    onSetPrimary,
+    onDelete,
+    isPrimary,
+    index,
+  }: {
+    address: Address
+    onUpdate: (field: string, value: string) => void
+    onSetPrimary: () => void
+    onDelete: () => void
+    isPrimary: boolean
+    index: number
+  }) => {
+    const [form] = useForm()
+    const [country, setCountry] = useState('')
+    const onCountryChange = (value: string) => {
+      form.setFieldsValue({ [`postalCode-${address.id}`]: '' })
+      setCountry(value)
+    }
+    const selectedCountry = countries.find(item => item.value === country)
+    const postalCodePlaceholder = selectedCountry ? selectedCountry.example : '220044'
+
+    return (
+      <Card
+        className="shadow-sm mb-4"
+        style={{ maxWidth: '600px', width: '100%', marginBottom: '15px' }}
+      >
+        <Typography.Title level={5} className="mb-4">
+          Address
+          {' '}
+          {index + 1}
+        </Typography.Title>
+        <Row gutter={[16, 16]}>
+          <Col span={12}>
+            <Form.Item
+              name={`country-${address.id}`}
+              label="Country"
+              rules={countryValidationRules}
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              required
+            >
+              <Select
+                placeholder="Belarus"
+                onChange={onCountryChange}
+                value={address.country}
+              >
+                {countries.map(country => (
+                  <Select.Option key={country.value} value={country.value}>
+                    {country.label}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Form.Item
+              name={`city-${address.id}`}
+              label="City"
+              rules={cityValidationRules}
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              required
+            >
+              <Input
+                placeholder="Minsk"
+                onChange={e => onUpdate('city', e.target.value)}
+                value={address.city}
+              />
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Form.Item
+              name={`postalCode-${address.id}`}
+              label="Postal code"
+              rules={postalCodeValidationRules(country)}
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              required
+            >
+              <Input
+                placeholder={postalCodePlaceholder}
+                onChange={e => onUpdate('postalCode', e.target.value)}
+                value={address.postalCode}
+              />
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Form.Item
+              name={`street-${address.id}`}
+              label="Street"
+              rules={streetValidationRules}
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              required
+            >
+              <Input
+                placeholder="Niamiha"
+                onChange={e => onUpdate('street', e.target.value)}
+                value={address.street}
+              />
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Button
+              type={isPrimary ? 'primary' : 'default'}
+              icon={<PushpinOutlined size={16} />}
+              onClick={onSetPrimary}
+            >
+              Set as default
+            </Button>
+          </Col>
+
+          <Col span={12} className="flex justify-between items-center">
+            <Button
+              danger
+              disabled={!!isPrimary}
+              icon={<DeleteOutlined />}
+              onClick={onDelete}
+              className="mb-4"
+            >
+              Delete
+            </Button>
+          </Col>
+        </Row>
+      </Card>
+    )
+  },
+)

@@ -1,4 +1,6 @@
+import type { BaseAddress, CustomerDraft } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
+import { registerCustomer } from '@/entities/customer/api/sign-up'
 import { makeAutoObservable } from 'mobx'
 
 export interface Address {
@@ -23,10 +25,6 @@ interface FormData {
 }
 
 export class FormStore {
-  submitForm() {
-    throw new Error('Method not implemented.')
-  }
-
   formData: FormData = {
     firstName: '',
     lastName: '',
@@ -44,7 +42,7 @@ export class FormStore {
     ],
     billingAddresses: [
       {
-        id: '1',
+        id: '999',
         country: '',
         city: '',
         postalCode: '',
@@ -183,10 +181,56 @@ export class FormStore {
     }
   }
 
-  // submitForm = () => {
-  //   console.log('Form submitted:', this.formData);
-  //   // запрос на бекенд
-  // };
+  async submitForm() {
+    try {
+      const {
+        firstName,
+        lastName,
+        email,
+        password,
+        dateOfBirth,
+        shippingAddresses,
+        billingAddresses,
+      } = this.formData
+
+      const dateOfBirthStr = dateOfBirth ? dateOfBirth.toISOString().split('T')[0] : undefined
+
+      const addresses: BaseAddress[] = [
+        ...shippingAddresses.map(addr => ({
+          key: addr.id,
+          country: addr.country,
+          city: addr.city,
+          postalCode: addr.postalCode,
+          street: addr.street,
+        })),
+        ...billingAddresses.map(addr => ({
+          key: addr.id,
+          country: addr.country,
+          city: addr.city,
+          postalCode: addr.postalCode,
+          street: addr.street,
+        })),
+      ]
+
+      const customerDraft: CustomerDraft = {
+        email,
+        password,
+        firstName,
+        lastName,
+        dateOfBirth: dateOfBirthStr,
+        addresses,
+      }
+
+      // eslint-disable-next-line no-console
+      console.log(customerDraft)
+      const response = await registerCustomer(customerDraft)
+      // eslint-disable-next-line no-console
+      console.log('Registration successful:', response)
+    }
+    catch {
+      throw new Error('Registration failed:')
+    }
+  }
 }
 
 export const formStore = new FormStore()

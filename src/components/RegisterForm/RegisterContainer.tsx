@@ -80,8 +80,8 @@ const StepControls = observer(
     const handleFinish = async () => {
       try {
         await form.validateFields()
+        void formStore.submitForm()
         successRegister()
-        formStore.submitForm()
       }
       catch {
         error()

@@ -1,7 +1,6 @@
 import type { Address } from '../model/formStore'
 import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
-import { useForm } from 'antd/es/form/Form'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { countries } from '../countries'
@@ -28,11 +27,12 @@ export const AddressFields = observer(
     isPrimary: boolean
     index: number
   }) => {
-    const [form] = useForm()
+    // const [form] = useForm()
     const [country, setCountry] = useState('')
     const onCountryChange = (value: string) => {
-      form.setFieldsValue({ [`postalCode-${address.id}`]: '' })
+      // form.setFieldsValue({ [`postalCode-${address.id}`]: '' })
       setCountry(value)
+      onUpdate('country', value)
     }
     const selectedCountry = countries.find(item => item.value === country)
     const postalCodePlaceholder = selectedCountry ? selectedCountry.example : '220044'

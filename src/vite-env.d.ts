@@ -7,13 +7,11 @@ interface ImportMetaEnv {
   readonly VITE_CTP_ADMIN_CLIENT_ID: string
   readonly VITE_CTP_ADMIN_SECRET: string
   readonly VITE_CTP_ADMIN_SCOPES: string
-  readonly VITE_CTP_B2B_CLIENT_ID: string
-  readonly VITE_CTP_B2B_SECRET: string
-  readonly VITE_CTP_B2B_SCOPES: string
-  readonly VITE_CTP_B2C_CLIENT_ID: string
-  readonly VITE_CTP_B2C_SECRET: string
-  readonly VITE_CTP_B2C_SCOPES: string
-  readonly VITE_CTP_API_PROVIDER: 'ADMIN' | 'B2B' | 'B2C'
+  readonly VITE_CTP_FRONTEND_CLIENT_CLIENT_ID: string
+  readonly VITE_CTP_FRONTEND_CLIENT_SECRET: string
+
+  readonly VITE_CTP_FRONTEND_CLIENT_SCOPES: string
+  readonly VITE_CTP_API_PROVIDER: 'ADMIN' | 'FRONTEND_CLIENT'
 
 }
 

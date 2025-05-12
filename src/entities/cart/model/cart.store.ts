@@ -1,6 +1,14 @@
 import type { Cart } from '@commercetools/platform-sdk'
 import { makeAutoObservable } from 'mobx'
 
+/**
+ * стор корзины:
+ * 1. храним корзину, по дефолту null
+ * 2. используем makeAutoObservable для обновления корзины
+ * 3. setCart - устанавливаем данные корзины
+ * 4. getCartId - возвращаем айди корзины, если она есть, а иначе null
+ * 5. updateCart - обновляем данные, объединяя старую корзину с новыми изменениями
+ */
 class CartStore {
   cart: Cart | null
   constructor() {

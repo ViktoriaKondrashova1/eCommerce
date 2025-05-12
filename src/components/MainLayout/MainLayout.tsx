@@ -9,7 +9,7 @@ const { Content } = Layout
 export const MainLayout: FC = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <AppHeader></AppHeader>
+      <AppHeader />
       <Content style={{
         margin: '24px 16px',
         padding: 24,
@@ -18,7 +18,7 @@ export const MainLayout: FC = () => {
       >
         <Outlet />
       </Content>
-      <AppFooter></AppFooter>
+      <AppFooter />
     </Layout>
   )
 }

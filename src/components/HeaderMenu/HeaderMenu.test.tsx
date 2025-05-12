@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
-import { AppHeaderMenu } from './AppHeaderMenu'
+import { HeaderMenu } from './HeaderMenu'
 
 const mockItems = [
   { key: '/', label: 'Home' },
@@ -15,12 +15,13 @@ vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom')
   return {
     ...actual,
+    // Todo refactor
     // eslint-disable-next-line react-hooks-extra/no-unnecessary-use-prefix
     useNavigate: () => mockNavigate,
   }
 })
 
-describe('appHeaderMenu positive', () => {
+describe('headerMenu positive', () => {
   beforeEach(() => {
     mockNavigate.mockClear()
   })
@@ -28,7 +29,7 @@ describe('appHeaderMenu positive', () => {
   it('should render the menu and all menu items correctly', () => {
     render(
       <MemoryRouter>
-        <AppHeaderMenu items={mockItems} />
+        <HeaderMenu items={mockItems} />
       </MemoryRouter>,
     )
 
@@ -43,7 +44,7 @@ describe('appHeaderMenu positive', () => {
   it('should apply correct styles to the menu', () => {
     render(
       <MemoryRouter>
-        <AppHeaderMenu items={mockItems} />
+        <HeaderMenu items={mockItems} />
       </MemoryRouter>,
     )
 
@@ -58,7 +59,7 @@ describe('appHeaderMenu positive', () => {
   it('should call navigate with correct path when menu item clicked', () => {
     render(
       <MemoryRouter>
-        <AppHeaderMenu items={mockItems} />
+        <HeaderMenu items={mockItems} />
       </MemoryRouter>,
     )
 

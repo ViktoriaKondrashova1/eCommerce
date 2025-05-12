@@ -1,0 +1,13 @@
+.ant-carousel .slick-dots {
+    bottom: -10px;
+
+    li {
+        background: #001529;
+        height: 5px;
+
+    }
+
+    li::after {
+        background: #001529;
+    }
+  }

@@ -4,8 +4,8 @@ import type { FC } from 'react'
 import { appName } from '@/shared/constants'
 import { LogoutOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import { Divider, Flex, Grid, Layout } from 'antd'
-import { AppHeaderMenu } from '../AppHeaderMenu/AppHeaderMenu'
 import { AppTitle } from '../AppTitle/AppTitle'
+import { HeaderMenu } from '../HeaderMenu/HeaderMenu'
 import './AppHeader.scss'
 
 interface Props extends BaseComponent {}
@@ -44,16 +44,16 @@ export const AppHeader: FC<Props> = ({ testId = 'header', ...rest }) => {
         {!screens.md
           ? (
               <>
-                <AppHeaderMenu items={mobMenuItems} />
+                <HeaderMenu items={mobMenuItems} />
                 <AppTitle style={{ margin: 0 }}>{appName}</AppTitle>
               </>
             )
 
           : (
               <>
-                <AppHeaderMenu items={menuItems} />
+                <HeaderMenu items={menuItems} />
                 <AppTitle style={{ margin: 0 }}>{appName}</AppTitle>
-                <AppHeaderMenu items={isAuthenticated ? authMenuItems : unauthMenuItems} />
+                <HeaderMenu items={isAuthenticated ? authMenuItems : unauthMenuItems} />
               </>
             )}
       </Flex>

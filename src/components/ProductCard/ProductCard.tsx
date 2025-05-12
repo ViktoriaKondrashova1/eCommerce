@@ -5,7 +5,7 @@ import { Card, Flex, Tooltip } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import { AppButton } from '../AppButton'
 import { AppTitle } from '../AppTitle/AppTitle'
-import './AppProductCard.scss'
+import './ProductCard.scss'
 
 interface Props extends BaseComponent {
   title: string
@@ -16,7 +16,7 @@ interface Props extends BaseComponent {
   discount?: string
 }
 
-export const AppProductCard: FC<Props> = ({ testId = 'product-card', title, imageUrl, price, category, brewery, discount, ...rest }) => {
+export const ProductCard: FC<Props> = ({ testId = 'product-card', title, imageUrl, price, category, brewery, discount, ...rest }) => {
   return (
     <Card
       data-testid={testId}

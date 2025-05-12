@@ -12,7 +12,7 @@ interface Props extends MenuProps, BaseComponent {
 
 const { useBreakpoint } = Grid
 
-export const AppHeaderMenu: FC<Props> = ({ testId = 'header-menu', items, ...rest }) => {
+export const HeaderMenu: FC<Props> = ({ testId = 'header-menu', items, ...rest }) => {
   const navigate = useNavigate()
   const location = useLocation()
   const screens = useBreakpoint()

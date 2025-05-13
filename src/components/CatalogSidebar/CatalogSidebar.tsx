@@ -2,7 +2,9 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import type { MenuProps } from 'antd'
 import type { FC } from 'react'
 import { Flex } from 'antd'
+import { AbvFilter } from '../AbvFilter/AbvFilter'
 import { Backdrop } from '../Backdrop/Backdrop'
+import { PriceRangeFilter } from '../PriceRangeFilter/PriceRangeFilter'
 import { SortingMenu } from '../SortingMenu/SortingMenu'
 
 type MenuItem = Required<MenuProps>['items'][number]
@@ -54,6 +56,8 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
         <SortingMenu items={sortByStyleItems} />
         <SortingMenu items={sortByBreweryItems} />
         <SortingMenu items={sortByCountryItems} />
+        <PriceRangeFilter />
+        <AbvFilter />
       </Flex>
     </Backdrop>
   )

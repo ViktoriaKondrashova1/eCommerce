@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
+import { CatalogSearch } from '@/components/CatalogSearch/CatalogSearch'
 import { CatalogSidebar } from '@/components/CatalogSidebar/CatalogSidebar'
 import { ProductList } from '@/components/ProductList/ProductList'
 import { mockProducts } from '@/shared/constants'
@@ -20,8 +21,12 @@ const breadcrumbItems = [
 export const CatalogPage: FC = () => {
   return (
     <>
-      <AppBreadcrumb items={breadcrumbItems} />
-      <Flex gap="small" style={{ marginTop: 40 }}>
+      <Flex justify="space-between">
+        <AppBreadcrumb items={breadcrumbItems} />
+        <CatalogSearch />
+      </Flex>
+
+      <Flex gap="large" style={{ marginTop: 40 }}>
         <CatalogSidebar />
         <ProductList products={mockProducts} />
       </Flex>

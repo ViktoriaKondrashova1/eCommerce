@@ -5,9 +5,15 @@ import { Flex } from 'antd'
 import { Backdrop } from '../Backdrop/Backdrop'
 import { SortingMenu } from '../SortingMenu/SortingMenu'
 
-const sortByPriceItems: MenuProps['items'] = [
+type MenuItem = Required<MenuProps>['items'][number]
+
+const styles = ['Lager', 'IPA', 'Gose', 'Pale Ale', 'Stout', 'Pilsner', 'Red Ale', 'Sour'] // взять данные из коммерс тулз
+const breweries = ['Lager', 'IPA', 'Gose', 'Pale Ale', 'Stout', 'Pilsner', 'Red Ale', 'Sour'] // взять данные из коммерс тулз
+const countries = ['United States', 'Belgium', 'Germany', 'Italy', 'Spain'] // взять данные из коммерс тулз
+
+const sortByPriceItems: MenuItem[] = [
   {
-    type: 'group',
+    key: 'sub1',
     label: 'Sorting',
     children: [
       { key: '1', label: 'Price: high - low' },
@@ -16,11 +22,38 @@ const sortByPriceItems: MenuProps['items'] = [
   },
 ]
 
+const sortByStyleItems: MenuItem[] = [
+  {
+    key: 'sub2',
+    label: 'Style',
+    children: styles.map((style, idx) => ({ key: idx.toString(), label: style })),
+  },
+]
+
+const sortByBreweryItems: MenuItem[] = [
+  {
+    key: 'sub3',
+    label: 'Brewery',
+    children: breweries.map((brewery, idx) => ({ key: idx.toString(), label: brewery })),
+  },
+]
+
+const sortByCountryItems: MenuItem[] = [
+  {
+    key: 'sub4',
+    label: 'Country',
+    children: countries.map((country, idx) => ({ key: idx.toString(), label: country })),
+  },
+]
+
 export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }) => {
   return (
     <Backdrop>
       <Flex vertical data-testid={testId} style={{ width: 200 }}>
         <SortingMenu items={sortByPriceItems} />
+        <SortingMenu items={sortByStyleItems} />
+        <SortingMenu items={sortByBreweryItems} />
+        <SortingMenu items={sortByCountryItems} />
       </Flex>
     </Backdrop>
   )

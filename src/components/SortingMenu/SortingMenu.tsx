@@ -2,6 +2,7 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import type { MenuProps } from 'antd'
 import type { FC } from 'react'
 import { Menu } from 'antd'
+import './SortingMenu.scss'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -16,6 +17,7 @@ export const SortingMenu: FC<Props> = ({ testId = 'sorting-menu', items }) => {
       // onClick={onClick}
       mode="inline"
       items={items}
+      style={{ border: 'none' }}
     />
   )
 }

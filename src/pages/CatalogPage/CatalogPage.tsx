@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
+import { CatalogPagination } from '@/components/CatalogPagination/CatalogPagination'
 import { CatalogSearch } from '@/components/CatalogSearch/CatalogSearch'
 import { CatalogSidebar } from '@/components/CatalogSidebar/CatalogSidebar'
 import { ProductList } from '@/components/ProductList/ProductList'
@@ -25,12 +26,13 @@ export const CatalogPage: FC = () => {
         <AppBreadcrumb items={breadcrumbItems} />
         <CatalogSearch />
       </Flex>
-
       <Flex gap="large" style={{ marginTop: 40 }}>
         <CatalogSidebar />
-        <ProductList products={mockProducts} />
+        <Flex vertical gap="large">
+          <ProductList products={mockProducts} />
+          <CatalogPagination />
+        </Flex>
       </Flex>
-
     </>
   )
 }

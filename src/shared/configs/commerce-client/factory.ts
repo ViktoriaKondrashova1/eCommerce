@@ -2,6 +2,15 @@ import type { AuthMiddlewareOptions } from '@commercetools/sdk-client-v2'
 import type { ApiProvider } from './types'
 import { requestProvider } from './request-provider'
 
+/**
+ * фабрика для настройки доступа к API Commercetools, чтобы собрать нуджные данные и перпедвать их для работы с апи
+ *
+ * в зависимости от того, какой провайдер используется
+ * она возвращает соответствующий объект с данными:
+ * адрес сервера, клоюч проекта, данные длля входа,
+ * скоупы(права доступа,которые определяют, что можно делать)
+ * и ф-ию requestProvider (отправка запросов)
+ */
 function getEnvs(provider: ApiProvider): {
   host: string
   projectKey: string
@@ -15,11 +24,8 @@ function getEnvs(provider: ApiProvider): {
     if (provider === 'ADMIN') {
       return import.meta.env.VITE_CTP_ADMIN_CLIENT_ID
     }
-    if (provider === 'B2B') {
-      return import.meta.env.VITE_CTP_B2B_CLIENT_ID
-    }
-    if (provider === 'B2C') {
-      return import.meta.env.VITE_CTP_B2C_CLIENT_ID
+    if (provider === 'FRONTEND_CLIENT') {
+      return import.meta.env.VITE_CTP_FRONTEND_CLIENT_CLIENT_ID
     }
   })()
 
@@ -27,11 +33,8 @@ function getEnvs(provider: ApiProvider): {
     if (provider === 'ADMIN') {
       return import.meta.env.VITE_CTP_ADMIN_SECRET
     }
-    if (provider === 'B2B') {
-      return import.meta.env.VITE_CTP_B2B_SECRET
-    }
-    if (provider === 'B2C') {
-      return import.meta.env.VITE_CTP_B2C_SECRET
+    if (provider === 'FRONTEND_CLIENT') {
+      return import.meta.env.VITE_CTP_FRONTEND_CLIENT_SECRET
     }
   })()
 
@@ -39,11 +42,8 @@ function getEnvs(provider: ApiProvider): {
     if (provider === 'ADMIN') {
       return import.meta.env.VITE_CTP_ADMIN_SCOPES
     }
-    if (provider === 'B2B') {
-      return import.meta.env.VITE_CTP_B2B_SCOPES
-    }
-    if (provider === 'B2C') {
-      return import.meta.env.VITE_CTP_B2C_SCOPES
+    if (provider === 'FRONTEND_CLIENT') {
+      return import.meta.env.VITE_CTP_FRONTEND_CLIENT_SCOPES
     }
   })()
 

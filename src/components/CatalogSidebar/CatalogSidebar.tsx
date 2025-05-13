@@ -3,6 +3,7 @@ import type { MenuProps } from 'antd'
 import type { FC } from 'react'
 import { Flex } from 'antd'
 import { AbvFilter } from '../AbvFilter/AbvFilter'
+import { AppButton } from '../AppButton'
 import { Backdrop } from '../Backdrop/Backdrop'
 import { PriceRangeFilter } from '../PriceRangeFilter/PriceRangeFilter'
 import { SortingMenu } from '../SortingMenu/SortingMenu'
@@ -58,6 +59,10 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
         <SortingMenu items={sortByCountryItems} />
         <PriceRangeFilter />
         <AbvFilter />
+        <Flex vertical gap="small">
+          <AppButton type="primary">Accept</AppButton>
+          <AppButton type="primary">Reset</AppButton>
+        </Flex>
       </Flex>
     </Backdrop>
   )

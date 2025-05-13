@@ -1,5 +1,6 @@
 import type { Rule } from 'antd/es/form'
 import type { Dayjs } from 'dayjs'
+import { commerceApi } from '@/shared/configs/commerce-client'
 import dayjs from 'dayjs'
 import { countries } from './countries'
 
@@ -26,11 +27,35 @@ export const passwordValidationRules: Rule[] = [
 
 export const emailValidationRules: Rule[] = [
   { required: true, message: 'Please input your Email!' },
-  { type: 'email', message: 'Please enter a valid Email (e.g., user@example.com)' },
+  // { type: 'email', message: 'Please enter a valid Email (e.g., user@example.com)' },
+  { pattern: /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i, message: 'Please enter a valid Email (e.g., user@example.com)' },
   {
     pattern: /^\S.*\S$/,
     message: 'Email must not contain leading or trailing whitespace',
   },
+  { validator: async (_, value) => {
+    if (value === null) {
+      return Promise.resolve()
+    }
+
+    try {
+      const response = await commerceApi.customers().get().execute()
+      // eslint-disable-next-line no-console
+      console.log(response)
+      // const customers = response.data;
+      // const emailExists = customers.some(customer =>
+      //   customer.email.toLowerCase() === value.toLowerCase().trim()
+      // );
+
+      // if (emailExists) {
+      //   throw new Error('This email is already registered');
+      // }
+      // return Promise.resolve();
+    }
+    catch {
+      throw new Error('Unable to verify email. Please try again.')
+    }
+  } },
 ]
 
 export const nameValidationRules: Rule[] = [

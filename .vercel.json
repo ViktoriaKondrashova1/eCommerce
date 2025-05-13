@@ -7,5 +7,11 @@
   ],
   "git": {
     "ignoredBranches": ["!develop"]
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }

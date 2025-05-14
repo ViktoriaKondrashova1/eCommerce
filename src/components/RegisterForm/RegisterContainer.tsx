@@ -1,7 +1,8 @@
 import type { FormInstance } from 'antd'
-import { Button, Form, message, Steps } from 'antd'
+import { Flex, Form, message, Steps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
+import { AppButton } from '../AppButton'
 import { formStore } from './model/formStore'
 import { Billing } from './steps/Billing'
 import { PersonalInfo } from './steps/Info'
@@ -45,21 +46,21 @@ const StepControls = observer(
   }) => {
     const [messageApi, contextHolder] = message.useMessage()
 
-    const successRegister = () => {
+    const showRegistrationSucces = () => {
       messageApi.open({
         type: 'success',
-        content: 'You registereted successfully!',
+        content: 'You registered successfully!',
       })
     }
 
-    const successStep = () => {
+    const showStepSuccess = () => {
       messageApi.open({
         type: 'success',
-        content: 'You step date correct!',
+        content: 'You step data is correct!',
       })
     }
 
-    const error = () => {
+    const showErrorMessage = () => {
       messageApi.open({
         type: 'error',
         content: 'Please fill in all required fields correctly',
@@ -69,11 +70,11 @@ const StepControls = observer(
     const handleNext = async () => {
       try {
         await form.validateFields()
-        successStep()
+        showStepSuccess()
         onNext()
       }
       catch {
-        error()
+        showErrorMessage()
       }
     }
 
@@ -81,10 +82,10 @@ const StepControls = observer(
       try {
         await form.validateFields()
         void formStore.submitForm()
-        successRegister()
+        showRegistrationSucces()
       }
       catch {
-        error()
+        showErrorMessage()
       }
     }
 
@@ -92,31 +93,29 @@ const StepControls = observer(
       <div style={{ margin: '24px 0 24px 0' }}>
         {contextHolder}
         {currentStep > 0 && (
-          <Button
+          <AppButton
             style={{ margin: '0 8px' }}
             onClick={() => onPrev()}
           >
             Back
-          </Button>
+          </AppButton>
         )}
 
         {currentStep < steps.length - 1 && (
-          <Button
+          <AppButton
             type="primary"
-            // eslint-disable-next-line ts/no-misused-promises
-            onClick={async () => handleNext()}
+            onClick={() => void handleNext()}
           >
             Next
-          </Button>
+          </AppButton>
         )}
         {currentStep === steps.length - 1 && (
-          <Button
+          <AppButton
             type="primary"
-            // eslint-disable-next-line ts/no-misused-promises
-            onClick={async () => handleFinish()}
+            onClick={() => void handleFinish()}
           >
             Register
-          </Button>
+          </AppButton>
         )}
       </div>
     )
@@ -151,11 +150,17 @@ export const RegisterContainer = observer(() => {
       />
       <Form
         form={form}
-        style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}
         layout="vertical"
         className="mb-8"
       >
-        {steps[currentStep].content}
+        <Flex
+          justify="center"
+          align="center"
+          vertical
+          style={{ width: '100%' }}
+        >
+          {steps[currentStep].content}
+        </Flex>
       </Form>
 
       <StepControls

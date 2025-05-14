@@ -25,37 +25,25 @@ export const passwordValidationRules: Rule[] = [
   },
 ]
 
+export const confirmPasswordValidationRules: Rule[] = [
+  { required: true, message: 'Please input your Password!' },
+  ({ getFieldValue }) => ({
+    async validator(_, value) {
+      if (getFieldValue('password') === value) {
+        return Promise.resolve()
+      }
+      return Promise.reject(new Error('Your passwords do not match!'))
+    },
+  }),
+]
+
 export const emailValidationRules: Rule[] = [
   { required: true, message: 'Please input your Email!' },
-  // { type: 'email', message: 'Please enter a valid Email (e.g., user@example.com)' },
   { pattern: /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i, message: 'Please enter a valid Email (e.g., user@example.com)' },
   {
     pattern: /^\S.*\S$/,
     message: 'Email must not contain leading or trailing whitespace',
   },
-  { validator: async (_, value) => {
-    if (value === null) {
-      return Promise.resolve()
-    }
-
-    try {
-      const response = await commerceApi.customers().get().execute()
-      // eslint-disable-next-line no-console
-      console.log(response)
-      // const customers = response.data;
-      // const emailExists = customers.some(customer =>
-      //   customer.email.toLowerCase() === value.toLowerCase().trim()
-      // );
-
-      // if (emailExists) {
-      //   throw new Error('This email is already registered');
-      // }
-      // return Promise.resolve();
-    }
-    catch {
-      throw new Error('Unable to verify email. Please try again.')
-    }
-  } },
 ]
 
 export const nameValidationRules: Rule[] = [
@@ -80,18 +68,6 @@ export const dateValidationRules: Rule[] = [
       return Promise.reject(new Error('You must be over 18 years!'))
     }
   } },
-]
-
-export const confirmPasswordValidationRules: Rule[] = [
-  { required: true, message: 'Please input your Password!' },
-  ({ getFieldValue }) => ({
-    async validator(_, value) {
-      if (getFieldValue('password') === value) {
-        return Promise.resolve()
-      }
-      return Promise.reject(new Error('Your passwords do not match!'))
-    },
-  }),
 ]
 
 export const countryValidationRules: Rule[] = [
@@ -125,3 +101,19 @@ export const streetValidationRules: Rule[] = [
   { required: true, message: 'Please input your street!' },
   { min: 1, message: 'Street must contain at least one character!' },
 ]
+
+// Прототип функции для проверки совпадения email (пока ни где не используется)
+export async function checkEmailExistence(email: string) {
+  if (!email)
+    return
+
+  const response = await commerceApi.customers().get().execute()
+  const customers = response.body.results
+  const emailExists = customers.some(customer =>
+    customer.email?.toLowerCase() === email.toLowerCase().trim(),
+  )
+
+  if (emailExists) {
+    throw new Error('This email is already registered!')
+  }
+}

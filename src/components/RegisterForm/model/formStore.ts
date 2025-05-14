@@ -1,24 +1,23 @@
-import type { BaseAddress, CustomerDraft } from '@commercetools/platform-sdk'
+import type { AddressDraft, BaseAddress, CustomerDraft } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
 import { registerCustomer } from '@/entities/customer/api/sign-up'
 import { makeAutoObservable } from 'mobx'
 
-export interface Address {
-  id: string
-  country: string
-  city: string
-  postalCode: string
-  street: string
-  isPrimary: boolean
+export interface AddressWithCustomFileds extends Omit<AddressDraft, 'custom'> {
+  custom: {
+    fields: {
+      isPrimary: boolean
+    }
+  }
 }
 
-interface FormData {
+export interface FormData {
   firstName: string
   lastName: string
   email: string
   dateOfBirth: Dayjs | null
-  shippingAddresses: Address[]
-  billingAddresses: Address[]
+  shippingAddresses: AddressWithCustomFileds[]
+  billingAddresses: AddressWithCustomFileds[]
   useShippingForBilling: boolean
   password: string
   confirmPassword: string
@@ -36,8 +35,12 @@ export class FormStore {
         country: '',
         city: '',
         postalCode: '',
-        street: '',
-        isPrimary: true,
+        streetName: '',
+        custom: {
+          fields: {
+            isPrimary: true,
+          },
+        },
       },
     ],
     billingAddresses: [
@@ -46,8 +49,12 @@ export class FormStore {
         country: '',
         city: '',
         postalCode: '',
-        street: '',
-        isPrimary: true,
+        streetName: '',
+        custom: {
+          fields: {
+            isPrimary: true,
+          },
+        },
       },
     ],
     useShippingForBilling: false,
@@ -70,7 +77,11 @@ export class FormStore {
       city: '',
       postalCode: '',
       street: '',
-      isPrimary: false,
+      custom: {
+        fields: {
+          isPrimary: false,
+        },
+      },
     }
     this.formData.shippingAddresses.push(newAddress)
   }
@@ -82,42 +93,46 @@ export class FormStore {
       city: '',
       postalCode: '',
       street: '',
-      isPrimary: false,
+      custom: {
+        fields: {
+          isPrimary: false,
+        },
+      },
     }
     this.formData.billingAddresses.push(newAddress)
   }
 
-  removeShippingAddress = (id: string) => {
+  removeShippingAddress = (id: string | undefined) => {
     const addressToRemove = this.formData.shippingAddresses.find(
       a => a.id === id,
     )
     if (
-      addressToRemove?.isPrimary
+      addressToRemove?.custom.fields.isPrimary
       && this.formData.shippingAddresses.length > 1
     ) {
-      this.formData.shippingAddresses[0].isPrimary = true
+      this.formData.shippingAddresses[0].custom.fields.isPrimary = true
     }
     this.formData.shippingAddresses = this.formData.shippingAddresses.filter(
       address => address.id !== id,
     )
   }
 
-  removeBillingAddress = (id: string) => {
+  removeBillingAddress = (id: string | undefined) => {
     const addressToRemove = this.formData.billingAddresses.find(
       a => a.id === id,
     )
     if (
-      addressToRemove?.isPrimary
+      addressToRemove?.custom.fields.isPrimary
       && this.formData.billingAddresses.length > 1
     ) {
-      this.formData.billingAddresses[0].isPrimary = true
+      this.formData.billingAddresses[0].custom.fields.isPrimary = true
     }
     this.formData.billingAddresses = this.formData.billingAddresses.filter(
       address => address.id !== id,
     )
   }
 
-  setPrimaryShippingAddress = (id: string) => {
+  setPrimaryShippingAddress = (id: string | undefined) => {
     this.formData.shippingAddresses = this.formData.shippingAddresses.map(
       address => ({
         ...address,
@@ -126,7 +141,7 @@ export class FormStore {
     )
   }
 
-  setPrimaryBillingAddress = (id: string) => {
+  setPrimaryBillingAddress = (id: string | undefined) => {
     this.formData.billingAddresses = this.formData.billingAddresses.map(
       address => ({
         ...address,
@@ -136,8 +151,8 @@ export class FormStore {
   }
 
   updateShippingAddress = (
-    id: string,
-    field: string, // field: keyof Omit<Address, 'id' | 'isPrimary'>,
+    id: string | undefined,
+    field: string,
     value: string,
   ) => {
     this.formData.shippingAddresses = this.formData.shippingAddresses.map(
@@ -147,8 +162,8 @@ export class FormStore {
   }
 
   updateBillingAddress = (
-    id: string,
-    field: string, // field: keyof Omit<Address, 'id' | 'isPrimary'>,
+    id: string | undefined,
+    field: string,
     value: string,
   ) => {
     this.formData.billingAddresses = this.formData.billingAddresses.map(
@@ -174,8 +189,12 @@ export class FormStore {
           country: '',
           city: '',
           postalCode: '',
-          street: '',
-          isPrimary: true,
+          streetName: '',
+          custom: {
+            fields: {
+              isPrimary: true,
+            },
+          },
         },
       ]
     }
@@ -201,14 +220,14 @@ export class FormStore {
           country: addr.country,
           city: addr.city,
           postalCode: addr.postalCode,
-          street: addr.street,
+          streetName: addr.streetName,
         })),
         ...billingAddresses.map(addr => ({
           key: addr.id,
           country: addr.country,
           city: addr.city,
           postalCode: addr.postalCode,
-          street: addr.street,
+          streetName: addr.streetName,
         })),
       ]
 
@@ -221,11 +240,9 @@ export class FormStore {
         addresses,
       }
 
-      // eslint-disable-next-line no-console
-      console.log(customerDraft)
       const response = await registerCustomer(customerDraft)
-      // eslint-disable-next-line no-console
-      console.log('Registration successful:', response)
+
+      return response
     }
     catch {
       throw new Error('Registration failed:')

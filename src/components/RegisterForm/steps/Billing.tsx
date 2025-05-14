@@ -1,5 +1,6 @@
+import { AppButton } from '@/components/AppButton'
 import { CheckOutlined, CloseOutlined, PlusSquareOutlined } from '@ant-design/icons'
-import { Button, Flex, Form, Switch, Typography } from 'antd'
+import { Flex, Form, Switch, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { formStore } from '../model/formStore'
 import { AddressFields } from './Addresses'
@@ -20,7 +21,7 @@ export const Billing = observer(() => {
           <Typography.Text>Use shipping address for billing</Typography.Text>
         </Form.Item>
         <Form.Item style={{ maxWidth: '250px', width: '100%', margin: '20px 10px' }}>
-          <Button
+          <AppButton
             color="cyan"
             variant="outlined"
             disabled={formStore.formData.useShippingForBilling}
@@ -30,7 +31,7 @@ export const Billing = observer(() => {
             className="w-full mb-8"
           >
             Add Address
-          </Button>
+          </AppButton>
         </Form.Item>
       </Flex>
       {!formStore.formData.useShippingForBilling && (
@@ -43,7 +44,7 @@ export const Billing = observer(() => {
                   formStore.updateBillingAddress(address.id, field, value)}
                 onSetPrimary={() => formStore.setPrimaryBillingAddress(address.id)}
                 onDelete={() => formStore.removeBillingAddress(address.id)}
-                isPrimary={address.isPrimary}
+                isPrimary={address.custom.fields.isPrimary}
                 index={index}
               />
             </div>

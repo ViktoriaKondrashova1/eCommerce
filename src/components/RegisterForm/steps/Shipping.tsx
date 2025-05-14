@@ -1,4 +1,6 @@
-import { Button, Form } from 'antd'
+import { AppButton } from '@/components/AppButton'
+import { PlusSquareOutlined } from '@ant-design/icons'
+import { Form } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { formStore } from '../model/formStore'
 import { AddressFields } from './Addresses'
@@ -7,15 +9,16 @@ export const Shipping = observer(() => {
   return (
     <>
       <Form.Item style={{ maxWidth: '250px', width: '100%', margin: '20px 10px' }}>
-        <Button
+        <AppButton
           color="cyan"
           variant="outlined"
+          icon={<PlusSquareOutlined />}
           style={{ maxWidth: '300px', width: '100%' }}
           onClick={() => formStore.addShippingAddress()}
           className="w-full mb-8"
         >
           Add Address
-        </Button>
+        </AppButton>
       </Form.Item>
 
       {formStore.formData.shippingAddresses.map((address, index) => (
@@ -26,7 +29,7 @@ export const Shipping = observer(() => {
               formStore.updateShippingAddress(address.id, field, value)}
             onSetPrimary={() => formStore.setPrimaryShippingAddress(address.id)}
             onDelete={() => formStore.removeShippingAddress(address.id)}
-            isPrimary={address.isPrimary}
+            isPrimary={address.custom.fields.isPrimary}
             index={index}
           />
         </div>

@@ -1,4 +1,5 @@
-import type { Address } from '../model/formStore'
+import type { AddressWithCustomFileds } from '../model/formStore'
+import { AppButton } from '@/components/AppButton'
 import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -20,17 +21,15 @@ export const AddressFields = observer(
     isPrimary,
     index,
   }: {
-    address: Address
+    address: AddressWithCustomFileds
     onUpdate: (field: string, value: string) => void
     onSetPrimary: () => void
     onDelete: () => void
     isPrimary: boolean
     index: number
   }) => {
-    // const [form] = useForm()
     const [country, setCountry] = useState('')
     const onCountryChange = (value: string) => {
-      // form.setFieldsValue({ [`postalCode-${address.id}`]: '' })
       setCountry(value)
       onUpdate('country', value)
     }
@@ -117,7 +116,7 @@ export const AddressFields = observer(
               <Input
                 placeholder="Niamiha"
                 onChange={e => onUpdate('street', e.target.value)}
-                value={address.street}
+                value={address.streetName}
               />
             </Form.Item>
           </Col>
@@ -133,7 +132,7 @@ export const AddressFields = observer(
           </Col>
 
           <Col span={12} className="flex justify-between items-center">
-            <Button
+            <AppButton
               danger
               disabled={!!isPrimary}
               icon={<DeleteOutlined />}
@@ -141,7 +140,7 @@ export const AddressFields = observer(
               className="mb-4"
             >
               Delete
-            </Button>
+            </AppButton>
           </Col>
         </Row>
       </Card>

@@ -2,10 +2,9 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import type { MenuProps } from 'antd'
 import type { FC } from 'react'
 import { Flex } from 'antd'
-import { AbvFilter } from '../AbvFilter/AbvFilter'
 import { AppButton } from '../AppButton'
 import { Backdrop } from '../Backdrop/Backdrop'
-import { PriceRangeFilter } from '../PriceRangeFilter/PriceRangeFilter'
+import { RangeFilter } from '../RangeFilter/RangeFilter'
 import { SortingMenu } from '../SortingMenu/SortingMenu'
 
 type MenuItem = Required<MenuProps>['items'][number]
@@ -49,6 +48,12 @@ const sortByCountryItems: MenuItem[] = [
   },
 ]
 
+const minBeerPrice = 4.56 // пофетчить данные
+const maxBeerPrice = 8.76 // пофетчить данные
+
+const minBeerAbv = 3 // пофетчить данные
+const maxBeerAbv = 10 // пофетчить данные
+
 export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }) => {
   return (
     <Backdrop>
@@ -57,8 +62,8 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
         <SortingMenu items={sortByStyleItems} />
         <SortingMenu items={sortByBreweryItems} />
         <SortingMenu items={sortByCountryItems} />
-        <PriceRangeFilter />
-        <AbvFilter />
+        <RangeFilter isPrice minValue={minBeerPrice} maxValue={maxBeerPrice} />
+        <RangeFilter isPrice={false} minValue={minBeerAbv} maxValue={maxBeerAbv} />
         <Flex vertical gap="small">
           <AppButton type="primary">Accept</AppButton>
           <AppButton type="primary">Reset</AppButton>

@@ -2,7 +2,7 @@ import type { Rule } from 'antd/es/form'
 import type { Dayjs } from 'dayjs'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import dayjs from 'dayjs'
-import { countries } from './countries'
+import { countries } from './model/countries'
 
 export const passwordValidationRules: Rule[] = [
   { required: true, message: 'Please input your Password!' },

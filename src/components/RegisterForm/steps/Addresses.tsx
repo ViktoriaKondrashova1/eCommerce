@@ -4,7 +4,7 @@ import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
-import { countries } from '../countries'
+import { countries } from '../model/countries'
 import {
   cityValidationRules,
   countryValidationRules,

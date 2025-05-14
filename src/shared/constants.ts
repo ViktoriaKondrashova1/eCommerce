@@ -46,3 +46,5 @@ export const carouselData = [
     image: 'https://craft-beer.bold-themes.com/main-demo/wp-content/uploads/sites/3/2017/05/ingredients_03.jpg',
   },
 ]
+
+export const catalogPageLimit = 20

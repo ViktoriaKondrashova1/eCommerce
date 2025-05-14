@@ -1,5 +1,6 @@
-import type { ClientResponse, ProductProjection, ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk'
+import type { ClientResponse, ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk'
 import { commerceApi } from '@/shared/configs/commerce-client'
+import { catalogPageLimit } from '@/shared/constants'
 
 /**
  fetchProducts:
@@ -11,46 +12,69 @@ import { commerceApi } from '@/shared/configs/commerce-client'
  * 6. в .get() прописываем limit, offset и статус опубликованных продуктов, которые хотим получить
  * 4. если все ок - вернем товары в формате, который соответствует типу ProductProjectionPagedQueryResponse, если нет - выбросим ошибку
  */
-export async function fetchProducts(): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
-  const allProducts: ProductProjection[] = []
-  let offset = 0
-  const limit = 20
+// export async function fetchProducts(): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
+//   const allProducts: ProductProjection[] = []
+//   let offset = 0
+//   const limit = 20
+
+//   try {
+//     let hasMore = true
+
+//     while (hasMore) {
+//       const response = await commerceApi
+//         .productProjections()
+//         .get({
+//           queryArgs: {
+//             limit,
+//             offset,
+//             where: 'published=true',
+//           },
+//         })
+//         .execute()
+
+//       if (typeof response.body.results === 'object' && response.body.results.length > 0) {
+//         allProducts.push(...response.body.results)
+
+//         hasMore = allProducts.length < (response.body.total ?? 0)
+//         offset += limit
+//       }
+//       else {
+//         hasMore = false
+//       }
+//     }
+
+//     return {
+//       body: {
+//         count: allProducts.length,
+//         total: allProducts.length,
+//         offset: 0,
+//         limit: allProducts.length,
+//         results: allProducts,
+//       },
+//     }
+//   }
+//   catch {
+//     throw new Error('Failed to fetch products')
+//   }
+// }
+
+export async function fetchProducts(page: number = 1): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
+  const limit = catalogPageLimit
+  const offset = (page - 1) * limit
 
   try {
-    let hasMore = true
+    const response = await commerceApi
+      .productProjections()
+      .get({
+        queryArgs: {
+          limit,
+          offset,
+          where: 'published=true',
+        },
+      })
+      .execute()
 
-    while (hasMore) {
-      const response = await commerceApi
-        .productProjections()
-        .get({
-          queryArgs: {
-            limit,
-            offset,
-            where: 'published=true',
-          },
-        })
-        .execute()
-
-      if (typeof response.body.results === 'object' && response.body.results.length > 0) {
-        allProducts.push(...response.body.results)
-
-        hasMore = allProducts.length < (response.body.total ?? 0)
-        offset += limit
-      }
-      else {
-        hasMore = false
-      }
-    }
-
-    return {
-      body: {
-        count: allProducts.length,
-        total: allProducts.length,
-        offset: 0,
-        limit: allProducts.length,
-        results: allProducts,
-      },
-    }
+    return response
   }
   catch {
     throw new Error('Failed to fetch products')

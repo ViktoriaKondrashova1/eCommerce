@@ -1,11 +1,15 @@
 import type { FC } from 'react'
 import { Pagination } from 'antd'
 
-export const CatalogPagination: FC = () => {
-  const totalProducts = 38 // фетчить данные
-  const pageLimit = 20 // фетчить данные
+interface Props {
+  total: number | undefined
+  pageLimit: number
+  current: number
+  onChange: (page: number) => void
+}
 
+export const CatalogPagination: FC<Props> = ({ total, pageLimit, current, onChange }) => {
   return (
-    <Pagination defaultCurrent={1} total={totalProducts} hideOnSinglePage pageSize={pageLimit} />
+    <Pagination current={current} total={total} hideOnSinglePage pageSize={pageLimit} onChange={onChange} />
   )
 }

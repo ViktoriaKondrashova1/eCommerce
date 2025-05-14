@@ -1,4 +1,4 @@
-import type { IProduct } from '@/entities/product/model/product.types'
+import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { ArrowRightOutlined } from '@ant-design/icons'
@@ -9,7 +9,8 @@ import { AppTitle } from '../AppTitle/AppTitle'
 import { ProductCard } from '../ProductCard/ProductCard'
 
 interface Props extends BaseComponent {
-  products: IProduct[]
+  products: ICleanProduct[]
+
 }
 
 export const NewProducts: FC<Props> = ({ testId = 'new-products', products }) => {
@@ -23,7 +24,7 @@ export const NewProducts: FC<Props> = ({ testId = 'new-products', products }) =>
       </Flex>
       <Flex wrap="wrap" justify="space-around" gap="large">
         {products.map(card =>
-          <ProductCard key={card.id} title={card.title} imageUrl={card.images[0]} price={card.price} category={card.category} brewery={card.brewery} discount={card.discount} />,
+          <ProductCard key={card.id} product={card} />,
         )}
       </Flex>
     </Flex>

@@ -1,3 +1,4 @@
+import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { PlusOutlined } from '@ant-design/icons'
@@ -8,42 +9,37 @@ import { AppTitle } from '../AppTitle/AppTitle'
 import './ProductCard.scss'
 
 interface Props extends BaseComponent {
-  title: string
-  imageUrl: string
-  price: string
-  category: string
-  brewery: string
-  discount?: string
+  product: ICleanProduct
 }
 
-export const ProductCard: FC<Props> = ({ testId = 'product-card', title, imageUrl, price, category, brewery, discount, ...rest }) => {
+export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => {
   return (
     <Card
       data-testid={testId}
       hoverable
       className="product-card"
       cover={(
-        <img alt={title} src={imageUrl} />
+        product.images
+        && <img alt={product.title} src={product.images[0].url} />
       )}
-      {...rest}
     >
       <Meta
-        title={<AppTitle level={4}>{title}</AppTitle>}
+        title={<AppTitle level={4}>{product.title}</AppTitle>}
         description={(
           <>
-            <div style={{ fontSize: 16 }}>{brewery}</div>
-            <div style={{ fontSize: 16 }}>{category}</div>
+            <div style={{ fontSize: 16 }}>{product.brewery}</div>
+            <div style={{ fontSize: 16 }}>{product.category}</div>
             <Flex justify="space-between" align="center">
               <div style={{ fontWeight: 'bold', marginTop: 8, fontSize: 20 }}>
-                {discount !== undefined && discount !== ''
+                {product.price.discount !== null && product.price.discount !== ''
                   ? (
                       <Flex gap="small">
-                        <div style={{ textDecoration: 'line-through' }}>{price}</div>
+                        <div style={{ textDecoration: 'line-through' }}>{product.price.amount}</div>
                         {' '}
-                        <div style={{ color: '#E84B1A' }}>{discount}</div>
+                        <div style={{ color: '#E84B1A' }}>{product.price.discount}</div>
                       </Flex>
                     )
-                  : price}
+                  : product.price.amount}
               </div>
               <Tooltip title="Add to Cart">
                 <AppButton type="primary" shape="circle" icon={<PlusOutlined />} />

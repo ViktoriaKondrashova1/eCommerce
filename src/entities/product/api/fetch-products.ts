@@ -58,23 +58,37 @@ import { catalogPageLimit } from '@/shared/constants'
 //   }
 // }
 
-export async function fetchProducts(page: number = 1): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
-  const limit = catalogPageLimit
-  const offset = (page - 1) * limit
-
+export async function fetchProducts(page?: number): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   try {
-    const response = await commerceApi
-      .productProjections()
-      .get({
-        queryArgs: {
-          limit,
-          offset,
-          where: 'published=true',
-        },
-      })
-      .execute()
+    if (page !== undefined) {
+      const limit = catalogPageLimit
+      const offset = (page - 1) * limit
 
-    return response
+      const response = await commerceApi
+        .productProjections()
+        .get({
+          queryArgs: {
+            limit,
+            offset,
+            where: 'published=true',
+          },
+        })
+        .execute()
+
+      return response
+    }
+    else {
+      const response = await commerceApi
+        .productProjections()
+        .get({
+          queryArgs: {
+            where: 'published=true',
+          },
+        })
+        .execute()
+
+      return response
+    }
   }
   catch {
     throw new Error('Failed to fetch products')

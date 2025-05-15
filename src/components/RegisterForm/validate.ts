@@ -104,7 +104,7 @@ export const streetValidationRules: Rule[] = [
   { min: 1, message: 'Street must contain at least one character!' },
 ]
 
-// Прототип функции для проверки совпадения email (пока ни где не используется)
+// Прототип функции для проверки совпадения email
 export async function checkEmailExistence(email: string) {
   if (!email)
     return

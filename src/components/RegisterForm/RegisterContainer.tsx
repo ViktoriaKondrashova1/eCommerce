@@ -8,6 +8,7 @@ import { Billing } from './steps/Billing'
 import { PersonalInfo } from './steps/Info'
 import { Passwords } from './steps/Password'
 import { Shipping } from './steps/Shipping'
+import { checkEmailExistence } from './validate'
 
 const steps = [
   {
@@ -81,11 +82,18 @@ const StepControls = observer(
     const handleFinish = async () => {
       try {
         await form.validateFields()
-        void formStore.submitForm()
+        const email = formStore.formData.email
+        await checkEmailExistence(email)
+        await formStore.submitForm()
         showRegistrationSucces()
       }
-      catch {
-        showErrorMessage()
+      catch (error) {
+        if (error instanceof Error) {
+          messageApi.error(error.message)
+        }
+        else {
+          messageApi.error('Registration failed')
+        }
       }
     }
 

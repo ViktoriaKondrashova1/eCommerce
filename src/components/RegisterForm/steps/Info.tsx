@@ -1,4 +1,6 @@
+import type { BaseComponent } from '@/shared/types/common.types'
 import type { Dayjs } from 'dayjs'
+import type { FC } from 'react'
 import { Card, DatePicker, Form, Input } from 'antd'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
@@ -9,7 +11,9 @@ import {
   nameValidationRules,
 } from '../validate'
 
-export const PersonalInfo = observer(() => {
+interface Props extends BaseComponent {}
+
+export const PersonalInfo: FC<Props> = observer(({ testId = 'cardInfo', ...rest }) => {
   const disabledDate = (current: Dayjs | null): boolean => {
     if (!current) {
       return false
@@ -19,7 +23,12 @@ export const PersonalInfo = observer(() => {
   }
 
   return (
-    <Card style={{ maxWidth: '300px', width: '100%' }}>
+    <Card
+      data-testid={testId}
+      {...rest}
+      className="cardInfo"
+      style={{ maxWidth: '300px', width: '100%' }}
+    >
       <Form.Item
         name="firstName"
         label="First name"

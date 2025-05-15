@@ -1,6 +1,7 @@
+import type { BaseComponent } from '@/shared/types/common.types'
+import type { FC } from 'react'
 import { Card, Form, Input } from 'antd'
 import { observer } from 'mobx-react-lite'
-
 import { useState } from 'react'
 import { formStore } from '../model/formStore'
 import {
@@ -8,12 +9,14 @@ import {
   passwordValidationRules,
 } from '../validate'
 
-export const Passwords = observer(() => {
+interface Props extends BaseComponent {}
+
+export const Passwords: FC<Props> = observer(({ testId = 'cardPassword', ...rest }) => {
   const [passwordVisible, setPV] = useState<boolean>(false)
   const [confirmPasswordVisible, setCPV] = useState<boolean>(false)
 
   return (
-    <Card style={{ maxWidth: '300px', width: '100%' }}>
+    <Card data-testid={testId} {...rest} className="cardPassword" style={{ maxWidth: '300px', width: '100%' }}>
       <Form.Item
         name="password"
         label="Password"

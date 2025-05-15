@@ -5,32 +5,53 @@ import { useState } from 'react'
 import { AppTitle } from '../AppTitle/AppTitle'
 
 interface Props extends BaseComponent {
-  isPrice: boolean
+  title: string
+  icon: string
   minValue: number
   maxValue: number
 }
 
-export const RangeFilter: FC<Props> = ({ testId = 'range-filter', isPrice, minValue, maxValue }) => {
-  const icon = isPrice ? '$' : '%'
-  const title = isPrice ? 'Price, $' : 'ABV, %'
+type Tuple = [number, number]
 
-  const [valueRange, setValueRange] = useState<number[]>([minValue, maxValue])
+function useRange({ defaultMin, defaultMax }: { defaultMin: number, defaultMax: number }): {
+  valueRange: Tuple
+  handleChangeRange: (index: 0 | 1, value: number | null) => void
+  handleSliderChange: (value: number[]) => void
+} {
+  const [valueRange, setValueRange] = useState<Tuple>([defaultMin, defaultMax])
 
-  const handleMinChange = (value: number | null): void => {
+  const handleChangeRange = (index: 0 | 1, value: number | null): void => {
     if (value !== null) {
-      setValueRange([value, valueRange[1]])
-    }
-  }
-
-  const handleMaxChange = (value: number | null): void => {
-    if (value !== null) {
-      setValueRange([valueRange[0], value])
+      const newRange: Tuple = [...valueRange]
+      newRange[index] = value
+      setValueRange(() => newRange)
     }
   }
 
   const handleSliderChange = (value: number[]): void => {
-    setValueRange(value)
+    if (value.length === 2) {
+      setValueRange([value[0], value[1]])
+    }
   }
+
+  return {
+    valueRange,
+    handleChangeRange,
+    handleSliderChange,
+  }
+}
+
+export const RangeFilter: FC<Props> = ({ testId = 'range-filter', title, icon, minValue, maxValue }) => {
+  const isPrice = icon === '$'
+
+  const {
+    valueRange,
+    handleChangeRange,
+    handleSliderChange,
+  } = useRange({
+    defaultMin: minValue,
+    defaultMax: maxValue,
+  })
 
   return (
     <div style={{ padding: '16px 0' }} data-testid={testId}>
@@ -44,7 +65,7 @@ export const RangeFilter: FC<Props> = ({ testId = 'range-filter', isPrice, minVa
             min={minValue}
             max={valueRange[1]}
             value={valueRange[0]}
-            onChange={handleMinChange}
+            onChange={value => handleChangeRange(0, value)}
           />
           <InputNumber
             style={{ width: '100%' }}
@@ -53,7 +74,7 @@ export const RangeFilter: FC<Props> = ({ testId = 'range-filter', isPrice, minVa
             max={maxValue}
             min={valueRange[0]}
             value={valueRange[1]}
-            onChange={handleMaxChange}
+            onChange={value => handleChangeRange(1, value)}
           />
         </Flex>
         <Slider

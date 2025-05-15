@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 export const LoginPage: FC = () => {
   return (
     <>
-      <Backdrop>
+      <Backdrop style={{ width: 400 }}>
         <AppTitle level={2} style={{ textAlign: 'center' }}>Login</AppTitle>
         <LoginForm />
         <div style={{ textAlign: 'center' }}>

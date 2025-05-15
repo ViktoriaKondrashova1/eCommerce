@@ -6,11 +6,12 @@ import './Backdrop.scss'
 interface Props extends BaseComponent {
   children: ReactNode
   className?: string
+  style?: React.CSSProperties
 }
 
-export const Backdrop: FC<Props> = ({ testId = 'backdrop', className = 'backdrop', children }) => {
+export const Backdrop: FC<Props> = ({ testId = 'backdrop', className = 'backdrop', children, ...rest }) => {
   return (
-    <div data-testid={testId} className={className}>
+    <div data-testid={testId} className={className} {...rest}>
       {children}
     </div>
   )

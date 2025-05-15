@@ -6,9 +6,10 @@ import { getAbvRange } from '@/entities/product/api/get-abv-range'
 import { getAllBreweries } from '@/entities/product/api/get-breweries-list'
 import { getCountriesList } from '@/entities/product/api/get-countries-list'
 import { getPriceRange } from '@/entities/product/api/get-price-range'
-import { Flex, Skeleton } from 'antd'
+import { Flex } from 'antd'
 import { useEffect, useState } from 'react'
 import { AppButton } from '../AppButton'
+import { AppSkeleton } from '../AppSkeleton/AppSkeleton'
 import { Backdrop } from '../Backdrop/Backdrop'
 import { RangeFilter } from '../RangeFilter/RangeFilter'
 import { SortingMenu } from '../SortingMenu/SortingMenu'
@@ -89,11 +90,7 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
 
   if (isLoading) {
     return (
-      <div style={{ padding: '16px 0' }}>
-        <Skeleton.Input active size="small" style={{ width: '100%', marginBottom: 8 }} />
-        <Skeleton.Input active size="small" style={{ width: '100%' }} />
-        <Skeleton active paragraph={{ rows: 0 }} style={{ marginTop: 16 }} />
-      </div>
+      <AppSkeleton />
     )
   }
 

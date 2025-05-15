@@ -60,6 +60,8 @@ import { catalogPageLimit } from '@/shared/constants'
 
 export async function fetchProducts(page?: number): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   try {
+    const MAX_LIMIT = 500
+
     if (page !== undefined) {
       const limit = catalogPageLimit
       const offset = (page - 1) * limit
@@ -82,6 +84,7 @@ export async function fetchProducts(page?: number): Promise<ClientResponse<Produ
         .productProjections()
         .get({
           queryArgs: {
+            limit: MAX_LIMIT,
             where: 'published=true',
           },
         })

@@ -7,16 +7,16 @@ export async function getAbvRange(): Promise<{ min: number, max: number }> {
     const products = importProductAdapter(allProductsResponse.body.results)
 
     const abv = products.map((product) => {
-      const abvStr = product.ABV
-      return Number.parseFloat(abvStr.replace('%', ''))
+      return Number.parseFloat(product.ABV.replace('%', ''))
     })
 
-    const minAbv = Math.min(...abv)
-    const maxAbv = Math.max(...abv)
+    if (abv.length === 0) {
+      return { min: 0, max: 0 }
+    }
 
     return {
-      min: minAbv,
-      max: maxAbv,
+      min: Math.min(...abv),
+      max: Math.max(...abv),
     }
   }
   catch {

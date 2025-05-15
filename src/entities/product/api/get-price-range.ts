@@ -7,16 +7,24 @@ export async function getPriceRange(): Promise<{ min: number, max: number }> {
     const products = importProductAdapter(allProductsResponse.body.results)
 
     const prices = products.map((product) => {
-      const priceStr = product.price.discount ?? product.price.amount
-      return Number.parseFloat(priceStr.replace('$', ''))
+      return Number.parseFloat(product.price.amount.replace('$', ''))
     })
 
-    const minPrice = Math.min(...prices)
-    const maxPrice = Math.max(...prices)
+    const discounts = products
+      .filter(product => product.price.discount != null)
+      .map((product) => {
+        return Number.parseFloat(product.price.discount!.replace('$', ''))
+      })
+
+    const allPrices = [...prices, ...discounts]
+
+    if (allPrices.length === 0) {
+      return { min: 0, max: 0 }
+    }
 
     return {
-      min: minPrice,
-      max: maxPrice,
+      min: Math.min(...allPrices),
+      max: Math.max(...allPrices),
     }
   }
   catch {

@@ -44,11 +44,7 @@ function useRange({ defaultMin, defaultMax }: { defaultMin: number, defaultMax: 
 export const RangeFilter: FC<Props> = ({ testId = 'range-filter', title, icon, minValue, maxValue }) => {
   const isPrice = icon === '$'
 
-  const {
-    valueRange,
-    handleChangeRange,
-    handleSliderChange,
-  } = useRange({
+  const { valueRange, handleChangeRange, handleSliderChange } = useRange({
     defaultMin: minValue,
     defaultMax: maxValue,
   })

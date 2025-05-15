@@ -136,7 +136,13 @@ export class FormStore {
     this.formData.shippingAddresses = this.formData.shippingAddresses.map(
       address => ({
         ...address,
-        isPrimary: address.id === id,
+        custom: {
+          ...address.custom,
+          fields: {
+            ...address.custom.fields,
+            isPrimary: address.id === id,
+          },
+        },
       }),
     )
   }
@@ -145,7 +151,13 @@ export class FormStore {
     this.formData.billingAddresses = this.formData.billingAddresses.map(
       address => ({
         ...address,
-        isPrimary: address.id === id,
+        custom: {
+          ...address.custom,
+          fields: {
+            ...address.custom.fields,
+            isPrimary: address.id === id,
+          },
+        },
       }),
     )
   }

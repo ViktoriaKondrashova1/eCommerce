@@ -39,7 +39,7 @@ export const confirmPasswordValidationRules: Rule[] = [
 
 export const emailValidationRules: Rule[] = [
   { required: true, message: 'Please input your Email!' },
-  { pattern: /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i, message: 'Please enter a valid Email (e.g., user@example.com)' },
+  { pattern: /^[^\s.][\w.%+-]*[^\s.]@[^\s.][a-z0-9-]*[^\s.]\.[a-z]{2,}$/i, message: 'Please enter a valid Email (e.g., user@example.com)' },
   {
     pattern: /^\S.*\S$/,
     message: 'Email must not contain leading or trailing whitespace',
@@ -54,21 +54,23 @@ export const nameValidationRules: Rule[] = [
 
 export const dateValidationRules: Rule[] = [
   { required: true, message: 'Please input your date of birth!' },
-  { validator: async (_, value: Dayjs | null) => {
-    if (value === null) {
-      return Promise.resolve()
-    }
-
-    const isAdult = dayjs().subtract(18, 'year')
-
-    if (value.isBefore(isAdult)) {
-      return Promise.resolve()
-    }
-    else {
-      return Promise.reject(new Error('You must be over 18 years!'))
-    }
-  } },
+  { validator: async (_, value: Dayjs | null) => isOver18(value) },
 ]
+
+export async function isOver18(date: Dayjs | null): Promise<void> {
+  if (date === null) {
+    return Promise.resolve()
+  }
+
+  const eighteenYearsAgo = dayjs().subtract(18, 'year')
+
+  if (date.isBefore(eighteenYearsAgo)) {
+    return Promise.resolve()
+  }
+  else {
+    return Promise.reject(new Error('You must be over 18 years!'))
+  }
+}
 
 export const countryValidationRules: Rule[] = [
   { required: true, message: 'Please input your country!' },

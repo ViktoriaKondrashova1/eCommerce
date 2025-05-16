@@ -1,5 +1,5 @@
 import type { CustomerSignInResult } from '@commercetools/platform-sdk'
-import { storage } from '@/shared/lib/storage'
+import { local } from '@/shared/lib/storage'
 import { makeAutoObservable } from 'mobx'
 
 /**
@@ -34,11 +34,11 @@ class CustomerStore {
   logout(): void {
     this.customer = null
     this.isAuth = false
-    storage.remove('customer')
+    local.remove('customer')
   }
 
   private loadCustomer(): void {
-    const savedCustomer = storage.get<CustomerSignInResult>('customer')
+    const savedCustomer = local.get<CustomerSignInResult>('customer')
     if (savedCustomer instanceof Object && Object.keys(savedCustomer).length > 0) {
       this.customer = savedCustomer
       this.isAuth = true

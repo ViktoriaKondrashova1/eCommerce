@@ -4,59 +4,12 @@ import { catalogPageLimit } from '@/shared/constants'
 
 /**
  fetchProducts:
- * 1. получаем все продукты
-   2. создаем массив для всех продуктов, по дефолту пустой
-   3. флаг hasMore для того, чтобы проверить закинулись ли 20 продуктов по лимиту, если да - то накопим в массив остальные
+ * 1. если передан аргумент page - получаем продукты на конкретную страницу, если не передан - получаем все 38 продуктов
  * 4. productProjections - вызывает апи комерстулза и получает список всех товаров
  * 5. .get().execute() - отправляем запрос и получаем данные
  * 6. в .get() прописываем limit, offset и статус опубликованных продуктов, которые хотим получить
  * 4. если все ок - вернем товары в формате, который соответствует типу ProductProjectionPagedQueryResponse, если нет - выбросим ошибку
  */
-// export async function fetchProducts(): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
-//   const allProducts: ProductProjection[] = []
-//   let offset = 0
-//   const limit = 20
-
-//   try {
-//     let hasMore = true
-
-//     while (hasMore) {
-//       const response = await commerceApi
-//         .productProjections()
-//         .get({
-//           queryArgs: {
-//             limit,
-//             offset,
-//             where: 'published=true',
-//           },
-//         })
-//         .execute()
-
-//       if (typeof response.body.results === 'object' && response.body.results.length > 0) {
-//         allProducts.push(...response.body.results)
-
-//         hasMore = allProducts.length < (response.body.total ?? 0)
-//         offset += limit
-//       }
-//       else {
-//         hasMore = false
-//       }
-//     }
-
-//     return {
-//       body: {
-//         count: allProducts.length,
-//         total: allProducts.length,
-//         offset: 0,
-//         limit: allProducts.length,
-//         results: allProducts,
-//       },
-//     }
-//   }
-//   catch {
-//     throw new Error('Failed to fetch products')
-//   }
-// }
 
 export async function fetchProducts(page?: number): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   try {

@@ -9,7 +9,7 @@ import { makeAutoObservable } from 'mobx'
 class GlobalStore {
   isLoading: boolean
   constructor() {
-    this.isLoading = false
+    this.isLoading = true
 
     makeAutoObservable(this)
   }

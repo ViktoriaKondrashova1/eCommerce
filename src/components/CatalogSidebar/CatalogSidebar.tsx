@@ -2,6 +2,7 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import type { Category } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
 import { getAllCategories } from '@/entities/category/api/get-all-categories'
+import { globalStore } from '@/entities/global/model/global.store'
 import { getAbvRange } from '@/entities/product/api/get-abv-range'
 import { getAllBreweries } from '@/entities/product/api/get-breweries-list'
 import { getCountriesList } from '@/entities/product/api/get-countries-list'
@@ -20,12 +21,11 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
   const [countries, setCountries] = useState<string[]>()
   const [priceRange, setPriceRange] = useState<{ min: number, max: number }>({ min: 0, max: 0 })
   const [abvRange, setAbvRange] = useState<{ min: number, max: number }>({ min: 0, max: 0 })
-  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true)
+        globalStore.setLoading(true)
 
         const [categoriesRes, breweriesRes, countriesRes, priceRes, abvRes] = await Promise.all([
           getAllCategories(),
@@ -45,7 +45,7 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
         console.error('Error fetching data:', error)
       }
       finally {
-        setIsLoading(false)
+        globalStore.setLoading(false)
       }
     }
 
@@ -88,7 +88,7 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
     },
   ]
 
-  if (isLoading) {
+  if (globalStore.isLoading) {
     return (
       <AppSkeleton />
     )

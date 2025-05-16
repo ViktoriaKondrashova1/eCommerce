@@ -116,6 +116,6 @@ export async function checkEmailExistence(email: string) {
   )
 
   if (emailExists) {
-    throw new Error('This email is already registered!')
+    throw new Error('Email is already registered!')
   }
 }

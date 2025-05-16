@@ -1,6 +1,7 @@
 import { AppButton } from '@/components/AppButton'
+import { AppText } from '@/components/AppText/AppText'
 import { CheckOutlined, CloseOutlined, PlusSquareOutlined } from '@ant-design/icons'
-import { Flex, Form, Switch, Typography } from 'antd'
+import { Flex, Form, Switch } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { formStore } from '../model/formStore'
 import { AddressFields } from './Addresses'
@@ -18,7 +19,7 @@ export const Billing = observer(() => {
             onChange={checked => formStore.setUseShippingForBilling(checked)}
           />
           {' '}
-          <Typography.Text>Use shipping address for billing</Typography.Text>
+          <AppText>Use shipping address for billing</AppText>
         </Form.Item>
         <Form.Item style={{ maxWidth: '250px', width: '100%', margin: '20px 10px' }}>
           <AppButton

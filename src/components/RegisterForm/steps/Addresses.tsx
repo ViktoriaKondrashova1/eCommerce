@@ -1,7 +1,9 @@
 import type { AddressWithCustomFileds } from '../model/formStore'
 import { AppButton } from '@/components/AppButton'
+import { AppInput } from '@/components/AppInput/AppInput'
+import { AppTitle } from '@/components/AppTitle/AppTitle'
 import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
-import { Button, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
+import { Card, Col, Form, Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { countries } from '../model/countries'
@@ -41,11 +43,11 @@ export const AddressFields = observer(
         className="shadow-sm mb-4"
         style={{ maxWidth: '600px', width: '100%', marginBottom: '15px' }}
       >
-        <Typography.Title level={5} className="mb-4">
+        <AppTitle level={5} className="mb-4">
           Address
           {' '}
           {index + 1}
-        </Typography.Title>
+        </AppTitle>
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
@@ -79,7 +81,7 @@ export const AddressFields = observer(
               wrapperCol={{ span: 24 }}
               required
             >
-              <Input
+              <AppInput
                 placeholder="Minsk"
                 onChange={e => onUpdate('city', e.target.value)}
                 value={address.city}
@@ -96,7 +98,7 @@ export const AddressFields = observer(
               wrapperCol={{ span: 24 }}
               required
             >
-              <Input
+              <AppInput
                 placeholder={postalCodePlaceholder}
                 onChange={e => onUpdate('postalCode', e.target.value)}
                 value={address.postalCode}
@@ -113,7 +115,7 @@ export const AddressFields = observer(
               wrapperCol={{ span: 24 }}
               required
             >
-              <Input
+              <AppInput
                 placeholder="Niamiha"
                 onChange={e => onUpdate('street', e.target.value)}
                 value={address.streetName}
@@ -122,13 +124,13 @@ export const AddressFields = observer(
           </Col>
 
           <Col span={12}>
-            <Button
+            <AppButton
               type={isPrimary ? 'primary' : 'default'}
               icon={<PushpinOutlined size={16} />}
               onClick={onSetPrimary}
             >
               Set as default
-            </Button>
+            </AppButton>
           </Col>
 
           <Col span={12} className="flex justify-between items-center">

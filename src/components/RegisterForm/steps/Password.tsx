@@ -1,6 +1,7 @@
 import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
-import { Card, Form, Input } from 'antd'
+import { AppInput } from '@/components/AppInput/AppInput'
+import { Card, Form } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { formStore } from '../model/formStore'
@@ -24,7 +25,8 @@ export const Passwords: FC<Props> = observer(({ testId = 'cardPassword', ...rest
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >
-        <Input.Password
+        <AppInput
+          isPassword
           placeholder="Password"
           visibilityToggle={{
             visible: passwordVisible,
@@ -42,7 +44,8 @@ export const Passwords: FC<Props> = observer(({ testId = 'cardPassword', ...rest
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >
-        <Input.Password
+        <AppInput
+          isPassword
           placeholder="Confirm password"
           visibilityToggle={{
             visible: confirmPasswordVisible,

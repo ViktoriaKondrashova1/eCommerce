@@ -1,7 +1,8 @@
 import type { BaseComponent } from '@/shared/types/common.types'
 import type { Dayjs } from 'dayjs'
 import type { FC } from 'react'
-import { Card, DatePicker, Form, Input } from 'antd'
+import { AppInput } from '@/components/AppInput/AppInput'
+import { Card, DatePicker, Form } from 'antd'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
 import { formStore } from '../model/formStore'
@@ -36,7 +37,7 @@ export const PersonalInfo: FC<Props> = observer(({ testId = 'cardInfo', ...rest 
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >
-        <Input
+        <AppInput
           placeholder="John"
           onChange={e => formStore.updateField('firstName', e.target.value)}
           value={formStore.formData.firstName}
@@ -49,7 +50,7 @@ export const PersonalInfo: FC<Props> = observer(({ testId = 'cardInfo', ...rest 
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >
-        <Input
+        <AppInput
           placeholder="Wick"
           onChange={e => formStore.updateField('lastName', e.target.value)}
           value={formStore.formData.lastName}
@@ -63,7 +64,7 @@ export const PersonalInfo: FC<Props> = observer(({ testId = 'cardInfo', ...rest 
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >
-        <Input
+        <AppInput
           placeholder="john@gmail.com"
           onChange={e => formStore.updateField('email', e.target.value)}
           value={formStore.formData.email}

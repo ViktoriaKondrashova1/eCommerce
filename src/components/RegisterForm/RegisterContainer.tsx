@@ -13,7 +13,7 @@ import { checkEmailExistence } from './validate'
 const steps = [
   {
     title: 'Info',
-    description: 'Personal info about user',
+    description: 'Personal info',
     content: <PersonalInfo />,
   },
   {
@@ -28,7 +28,7 @@ const steps = [
   },
   {
     title: 'Finish',
-    description: 'Input password & finish registration',
+    description: 'Finish registration',
     content: <Passwords />,
   },
 ] as const
@@ -57,14 +57,14 @@ const StepControls = observer(
     const showStepSuccess = () => {
       messageApi.open({
         type: 'success',
-        content: 'You step data is correct!',
+        content: 'Step completed!',
       })
     }
 
     const showErrorMessage = () => {
       messageApi.open({
         type: 'error',
-        content: 'Please fill in all required fields correctly',
+        content: 'Fill in all required fields correctly',
       })
     }
 
@@ -137,12 +137,12 @@ export const RegisterContainer = observer(() => {
 
   const next = () => {
     setCurrentStep(prev => prev + 1)
-    setPercentStep(prev => prev + 25)
+    setPercentStep(prev => prev + 100 / steps.length)
   }
 
   const prev = () => {
     setCurrentStep(prev => prev - 1)
-    setPercentStep(prev => prev - 25)
+    setPercentStep(prev => prev - 100 / steps.length)
   }
 
   const items = steps.map(item => ({ key: item.title, title: item.title, description: item.description }))

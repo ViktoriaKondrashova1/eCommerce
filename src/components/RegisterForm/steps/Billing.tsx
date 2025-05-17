@@ -1,9 +1,9 @@
-import { AppButton } from '@/components/AppButton'
-import { AppText } from '@/components/AppText/AppText'
 import { CheckOutlined, CloseOutlined, PlusSquareOutlined } from '@ant-design/icons'
 import { Flex, Form, Switch } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { formStore } from '../model/formStore'
+import { AppButton } from '@/components/AppButton'
+import { AppText } from '@/components/AppText/AppText'
+import { formStore } from '../model/form-store'
 import { AddressFields } from './Addresses'
 
 export const Billing = observer(() => {

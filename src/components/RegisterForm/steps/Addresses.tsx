@@ -1,11 +1,11 @@
-import type { AddressWithCustomFileds } from '../model/formStore'
-import { AppButton } from '@/components/AppButton'
-import { AppInput } from '@/components/AppInput/AppInput'
-import { AppTitle } from '@/components/AppTitle/AppTitle'
+import type { AddressWithCustomFileds } from '../model/form-store'
 import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
 import { Card, Col, Form, Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
+import { AppButton } from '@/components/AppButton'
+import { AppInput } from '@/components/AppInput/AppInput'
+import { AppTitle } from '@/components/AppTitle/AppTitle'
 import { countries } from '../model/countries'
 import {
   cityValidationRules,

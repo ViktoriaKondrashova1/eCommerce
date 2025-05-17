@@ -1,1 +1,1 @@
-export const appName = "BrewPort"
+export const appName = 'BrewPort'

@@ -1,7 +1,7 @@
-import { mockProducts } from '@/shared/constants'
 import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 import { NewProducts } from './NewProducts'
+import { mockProducts } from './test-mock'
 
 const mockNavigate = vi.fn()
 

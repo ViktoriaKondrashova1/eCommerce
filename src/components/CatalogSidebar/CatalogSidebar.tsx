@@ -1,14 +1,7 @@
 import type { BaseComponent } from '@/shared/types/common.types'
-import type { Category } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
-import { getAllCategories } from '@/entities/category/api/get-all-categories'
-import { globalStore } from '@/entities/global/model/global.store'
-import { getAbvRange } from '@/entities/product/api/get-abv-range'
-import { getAllBreweries } from '@/entities/product/api/get-breweries-list'
-import { getCountriesList } from '@/entities/product/api/get-countries-list'
-import { getPriceRange } from '@/entities/product/api/get-price-range'
+import { useFilter } from '@/entities/filter/api/useFilter'
 import { Flex } from 'antd'
-import { useEffect, useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppSkeleton } from '../AppSkeleton/AppSkeleton'
 import { Backdrop } from '../Backdrop/Backdrop'
@@ -16,42 +9,19 @@ import { RangeFilter } from '../RangeFilter/RangeFilter'
 import { SortingMenu } from '../SortingMenu/SortingMenu'
 
 export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }) => {
-  const [categories, setCategories] = useState<Category[]>()
-  const [breweries, setBreweries] = useState<string[]>()
-  const [countries, setCountries] = useState<string[]>()
-  const [priceRange, setPriceRange] = useState<{ min: number, max: number }>({ min: 0, max: 0 })
-  const [abvRange, setAbvRange] = useState<{ min: number, max: number }>({ min: 0, max: 0 })
+  const { isLoading, filterData } = useFilter()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        globalStore.setLoading(true)
+  if (isLoading || !filterData) {
+    return <AppSkeleton />
+  }
 
-        const [categoriesRes, breweriesRes, countriesRes, priceRes, abvRes] = await Promise.all([
-          getAllCategories(),
-          getAllBreweries(),
-          getCountriesList(),
-          getPriceRange(),
-          getAbvRange(),
-        ])
-
-        setCategories(categoriesRes.body.results)
-        setBreweries(breweriesRes)
-        setCountries(countriesRes)
-        setPriceRange(priceRes)
-        setAbvRange(abvRes)
-      }
-      catch (error) {
-        console.error('Error fetching data:', error)
-      }
-      finally {
-        globalStore.setLoading(false)
-      }
-    }
-
-    fetchData()
-      .catch(error => console.error('Unhandled promise rejection:', error))
-  }, [])
+  const {
+    categories,
+    breweries,
+    countries,
+    priceRange,
+    abvRange,
+  } = filterData
 
   const sortByPriceItems = [
     {
@@ -87,12 +57,6 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
       children: countries?.map((country, idx) => ({ key: idx.toString(), label: country })),
     },
   ]
-
-  if (globalStore.isLoading) {
-    return (
-      <AppSkeleton />
-    )
-  }
 
   return (
     <Backdrop>

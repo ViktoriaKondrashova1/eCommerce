@@ -1,5 +1,5 @@
+import { fetchProducts } from '@/entities/product/api/fetch-products'
 import { importProductAdapter } from '@/shared/adapters/import/product.adapter'
-import { fetchProducts } from './fetch-products'
 
 export async function getAbvRange(): Promise<{ min: number, max: number }> {
   try {

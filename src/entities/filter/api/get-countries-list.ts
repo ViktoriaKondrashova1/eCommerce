@@ -1,20 +1,20 @@
+import { fetchProducts } from '@/entities/product/api/fetch-products'
 import { importProductAdapter } from '@/shared/adapters/import/product.adapter'
-import { fetchProducts } from './fetch-products'
 
-export async function getAllBreweries(): Promise<string[]> {
+export async function getCountriesList(): Promise<string[]> {
   try {
     const allProductsResponse = await fetchProducts()
     const products = importProductAdapter(allProductsResponse.body.results)
 
-    const breweriesSet = new Set<string>()
+    const countriesSet = new Set<string>()
 
     products.forEach((product) => {
-      if (product.brewery) {
-        breweriesSet.add(product.brewery)
+      if (product.country) {
+        countriesSet.add(product.country)
       }
     })
 
-    return Array.from(breweriesSet)
+    return Array.from(countriesSet)
   }
   catch {
     throw new Error('Failed to fetch breweries')

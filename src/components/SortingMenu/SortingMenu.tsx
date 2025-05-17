@@ -18,6 +18,7 @@ export const SortingMenu: FC<Props> = ({ testId = 'sorting-menu', items }) => {
       mode="inline"
       items={items}
       style={{ border: 'none' }}
+      className="sorting-menu"
     />
   )
 }

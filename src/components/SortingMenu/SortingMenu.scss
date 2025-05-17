@@ -1,12 +1,21 @@
-.ant-menu-title-content {
+.sorting-menu {
+
+  .ant-menu-title-content {
     font-size: 16px;
     line-height: 1.5;
-}
+  }
 
-.ant-menu-submenu-title {
-  padding-left: 4px !important;
-}
+  .ant-menu-submenu-title {
+    padding-left: 4px !important;
+  }
 
-.ant-menu-item-only-child {
+  .ant-menu-item-only-child {
     padding-left: 16px !important;
+  }
+
+  .ant-menu {
+    max-height: 400px;
+    overflow-y: scroll;
+  }
 }
+

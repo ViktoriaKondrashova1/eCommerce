@@ -1,0 +1,26 @@
+.product-list {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+
+  .row {
+  width: 100%;
+  margin: 0 !important;
+  
+  > .ant-col {
+    padding-right: 0 !important;
+  }
+}
+
+.col {
+  display: flex;
+  justify-content: center;
+}
+}
+
+@media (max-width: 575px) {
+  .col {
+    padding: 0 8px !important;
+  }
+}

@@ -1,7 +1,7 @@
 import type { AddressDraft, BaseAddress, CustomerDraft } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
-import { registerCustomer } from '@/entities/customer/api/sign-up'
 import { makeAutoObservable } from 'mobx'
+import { registerCustomer } from '@/entities/customer/api/sign-up'
 
 export interface AddressWithCustomFileds extends Omit<AddressDraft, 'custom'> {
   custom: {

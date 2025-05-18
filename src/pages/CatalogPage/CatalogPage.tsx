@@ -8,20 +8,8 @@ import { ProductList } from '@/components/ProductList/ProductList'
 import { fetchProducts } from '@/entities/product/api/fetch-products'
 import { importProductAdapter, useCategories } from '@/shared/adapters/import/product.adapter'
 import { catalogPageLimit } from '@/shared/constants'
-import { HomeOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
 import { useEffect, useState } from 'react'
-
-const breadcrumbItems = [
-  { href: '/', title:
-    (
-      <>
-        <HomeOutlined />
-        <span>Home</span>
-      </>
-    ) },
-  { title: 'Catalog' },
-]
 
 export const CatalogPage: FC = () => {
   const [products, setProducts] = useState<ICleanProduct[]>([])
@@ -54,7 +42,7 @@ export const CatalogPage: FC = () => {
   return (
     <>
       <Flex justify="space-between">
-        <AppBreadcrumb items={breadcrumbItems} />
+        <AppBreadcrumb />
         <CatalogSearch />
       </Flex>
       <Flex gap="large" style={{ marginTop: 40 }}>

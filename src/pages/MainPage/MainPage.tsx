@@ -1,17 +1,38 @@
+import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { FC } from 'react'
+import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
+import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { HeroSection } from '@/components/HeroSection/HeroSection'
 import { MainPageCarousel } from '@/components/MainPageCarousel/MainPageCarousel'
 import { MainPageGrid } from '@/components/MainPageGrid/MainPageGrid'
-// import { NewProducts } from '@/components/NewProducts/NewProducts'
 import { PromocodeSection } from '@/components/PromocodeSection/PromocodeSection'
+import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
 import { appName } from '@/shared/constants'
+import { useRequest } from '@/shared/hooks/useRequest'
 import { Flex } from 'antd'
 
 export const MainPage: FC = () => {
+  const {
+    data: newProducts,
+    isLoading,
+    isError,
+  } = useRequest<ICleanProduct[]>(getFourRandomProducts)
+
   return (
     <Flex vertical gap={48}>
       <HeroSection appName={appName} />
-      {/* <NewProducts products={mockProducts} /> */}
+      {isLoading
+        ? (
+            <AppSkeleton />
+          )
+        : isError
+          ? (
+              <AppEmpty />
+            )
+          : (
+              <RelatedProducts title="NEW" products={newProducts || []} />
+            )}
       <PromocodeSection />
       <MainPageGrid />
       <MainPageCarousel />

@@ -9,17 +9,17 @@ import { AppTitle } from '../AppTitle/AppTitle'
 import { ProductCard } from '../ProductCard/ProductCard'
 
 interface Props extends BaseComponent {
+  title: string
   products: ICleanProduct[]
-
 }
 
-export const NewProducts: FC<Props> = ({ testId = 'new-products', products }) => {
+export const RelatedProducts: FC<Props> = ({ testId = 'related-products', title, products }) => {
   const navigate = useNavigate()
 
   return (
     <Flex vertical gap="large" data-testid={testId}>
       <Flex justify="space-between">
-        <AppTitle level={3}>NEW</AppTitle>
+        <AppTitle level={3}>{title}</AppTitle>
         <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end" onClick={() => navigate('/catalog')}>Go To Catalog</AppButton>
       </Flex>
       <Flex wrap="wrap" justify="space-around" gap="large">

@@ -2,15 +2,6 @@ import type { AuthMiddlewareOptions } from '@commercetools/sdk-client-v2'
 import type { ApiProvider } from './types'
 import { requestProvider } from './request-provider'
 
-/**
- * фабрика для настройки доступа к API Commercetools, чтобы собрать нуджные данные и перпедвать их для работы с апи
- *
- * в зависимости от того, какой провайдер используется
- * она возвращает соответствующий объект с данными:
- * адрес сервера, клоюч проекта, данные длля входа,
- * скоупы(права доступа,которые определяют, что можно делать)
- * и ф-ию requestProvider (отправка запросов)
- */
 function getEnvs(provider: ApiProvider): {
   host: string
   projectKey: string

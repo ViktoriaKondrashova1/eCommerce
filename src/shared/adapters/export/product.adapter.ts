@@ -3,17 +3,6 @@ import { categoryStore } from '@/entities/category/model/category.store'
 import { transformAttrsFromArrayToObj } from '@/shared/utils/attributes-from-array-to-obj'
 import { convertPriceByFractionDigit } from '@/shared/utils/convert-price-by-fraction-digit'
 
-/**
- * exportProductAdapter:
- * очищаем и формируем нужные нам данные о продуктах из большого объхекта коммерстулза, который принимаем как dirtyData
- ___________________
-    1. из masterVariant заюираем prices, images и массив наших кастомных аттрибутов, которые вручную были добавлены
-    2. priceObj и discountObj - забираем цену (value) и скидку (discounted) из prices
-    3. если чего-то нет - выбрасывааем ошибку
-    4. convertPriceByFractionDigit — конвертируем стоимость в гужный формат + приклеиваем $, аналогично считаем скидку, если она есть
-    5. transformAttrsFromArrayToObj - преобразуем кастомные аттрибуты
-    6. возвращаем объект товара с нужными для нас полями
- */
 export function exportProductAdapter(dirtyData: ProductProjectionPagedQueryResponse['results']) {
   return dirtyData.map((product) => {
     const { prices, images, attributes: attrsArray } = product?.masterVariant ?? {}

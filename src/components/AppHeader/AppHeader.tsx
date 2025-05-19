@@ -44,7 +44,7 @@ export const AppHeader: FC<Props> = observer(({ testId = 'header', ...rest }) =>
   const mobMenuItems = isAuthenticated ? [...menuItems, ...authMenuItems] : [...menuItems, ...unauthMenuItems]
 
   return (
-    <Header data-testid={testId} {...rest} className="header">
+    <Header data-testid={testId} {...rest} className="header" style={{ paddingLeft: screens.xs ? '1rem' : '50px', paddingRight: screens.xs ? '1rem' : '50px' }}>
       <Flex justify="space-between" align="center" style={{ height: '100%' }}>
         {!screens.md
           ? (

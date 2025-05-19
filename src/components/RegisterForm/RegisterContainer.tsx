@@ -94,7 +94,7 @@ export const RegisterContainer = observer(() => {
 
   return (
     <>
-      <Flex style={{ marginBottom: screens.xs ? '1rem' : '2rem' }} vertical>
+      <Flex style={{ marginBottom: screens.xs ? '1rem' : '2rem' }} vertical align="center" justify="center">
 
         {screens.xs
           ? (
@@ -105,7 +105,7 @@ export const RegisterContainer = observer(() => {
             )
           : (
               <Steps
-
+                style={{ maxWidth: '800px' }}
                 labelPlacement="horizontal"
                 current={currentStep}
                 items={items}

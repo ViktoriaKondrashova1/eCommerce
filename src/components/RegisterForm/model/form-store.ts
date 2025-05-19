@@ -1,4 +1,4 @@
-import type { AddressDraft, BaseAddress, CustomerDraft } from '@commercetools/platform-sdk'
+import type { AddressDraft, BaseAddress, MyCustomerDraft } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
 import { makeAutoObservable } from 'mobx'
 import { registerCustomer } from '@/entities/customer/api/sign-up'
@@ -213,52 +213,47 @@ export class FormStore {
   }
 
   async submitForm() {
-    try {
-      const {
-        firstName,
-        lastName,
-        email,
-        password,
-        dateOfBirth,
-        shippingAddresses,
-        billingAddresses,
-      } = this.formData
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      dateOfBirth,
+      shippingAddresses,
+      billingAddresses,
+    } = this.formData
 
-      const dateOfBirthStr = dateOfBirth ? dateOfBirth.toISOString().split('T')[0] : undefined
+    const dateOfBirthStr = dateOfBirth ? dateOfBirth.toISOString().split('T')[0] : undefined
 
-      const addresses: BaseAddress[] = [
-        ...shippingAddresses.map(addr => ({
-          key: addr.id,
-          country: addr.country,
-          city: addr.city,
-          postalCode: addr.postalCode,
-          streetName: addr.streetName,
-        })),
-        ...billingAddresses.map(addr => ({
-          key: addr.id,
-          country: addr.country,
-          city: addr.city,
-          postalCode: addr.postalCode,
-          streetName: addr.streetName,
-        })),
-      ]
+    const addresses: BaseAddress[] = [
+      ...shippingAddresses.map(addr => ({
+        key: addr.id,
+        country: addr.country,
+        city: addr.city,
+        postalCode: addr.postalCode,
+        streetName: addr.streetName,
+      })),
+      ...billingAddresses.map(addr => ({
+        key: addr.id,
+        country: addr.country,
+        city: addr.city,
+        postalCode: addr.postalCode,
+        streetName: addr.streetName,
+      })),
+    ]
 
-      const customerDraft: CustomerDraft = {
-        email,
-        password,
-        firstName,
-        lastName,
-        dateOfBirth: dateOfBirthStr,
-        addresses,
-      }
-
-      const response = await registerCustomer(customerDraft)
-
-      return response
+    const customerDraft: MyCustomerDraft = {
+      email,
+      password,
+      firstName,
+      lastName,
+      dateOfBirth: dateOfBirthStr,
+      addresses,
     }
-    catch {
-      throw new Error('Registration failed:')
-    }
+
+    const response = await registerCustomer(customerDraft)
+
+    return response
   }
 }
 

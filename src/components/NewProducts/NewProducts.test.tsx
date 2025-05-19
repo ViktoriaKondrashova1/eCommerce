@@ -6,7 +6,6 @@ import { NewProducts } from './NewProducts'
 const mockNavigate = vi.fn()
 
 vi.mock('react-router-dom', () => ({
-  // eslint-disable-next-line react-hooks-extra/no-unnecessary-use-prefix
   useNavigate: () => mockNavigate,
 }))
 

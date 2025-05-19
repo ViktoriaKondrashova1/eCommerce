@@ -4,7 +4,7 @@ import { Passwords } from '@/components/RegisterForm/steps/Password'
 import { Shipping } from '@/components/RegisterForm/steps/Shipping'
 import { PersonalInfo } from './Info'
 
-export const steps: { title: string, description: string, content: ReactNode }[] = [
+export const steps: { title?: string, description: string, content: ReactNode }[] = [
   {
     title: 'Info',
     description: 'Personal info',
@@ -12,12 +12,12 @@ export const steps: { title: string, description: string, content: ReactNode }[]
   },
   {
     title: 'Shipping',
-    description: 'Addresses for shipping',
+    description: 'Shipping addresses',
     content: <Shipping />,
   },
   {
     title: 'Billing',
-    description: 'Addresses for billing',
+    description: 'Billing addresses',
     content: <Billing />,
   },
   {

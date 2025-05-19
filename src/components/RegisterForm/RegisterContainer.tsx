@@ -27,7 +27,7 @@ export const RegisterContainer = observer(() => {
   const { showErrorNotify, showSuccessNotify } = useNotify()
   const { currentStep, steps, moveNext, movePrev } = useSteps()
 
-  const items = steps.map(item => ({ key: item.title, title: item.title, description: item.description }))
+  const items = steps.map(item => ({ key: item.title, title: item.title }))
   const StepContent = steps[currentStep].content
 
   const handleNext = async () => {

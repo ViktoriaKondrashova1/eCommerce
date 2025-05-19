@@ -1,7 +1,7 @@
-import { promocode, promocodeText } from '@/shared/constants'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { App as AntApp, Grid } from 'antd'
 import { vi } from 'vitest'
+import { promocode, promocodeText } from '@/shared/constants'
 import { PromocodeSection } from './PromocodeSection'
 
 vi.mock('antd', async (importOriginal) => {

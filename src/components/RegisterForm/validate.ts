@@ -1,11 +1,10 @@
 import type { Rule } from 'antd/es/form'
 import type { Dayjs } from 'dayjs'
-import { commerceApi } from '@/shared/configs/commerce-client'
 import dayjs from 'dayjs'
 import { countries } from './model/countries'
 
 export const passwordValidationRules: Rule[] = [
-  { required: true, message: 'Please input your Password!' },
+  { required: true, message: 'Please type your Password!' },
   { min: 8, message: 'Password must be at least 8 characters long!' },
   {
     pattern: /[A-Z]/,
@@ -26,19 +25,19 @@ export const passwordValidationRules: Rule[] = [
 ]
 
 export const confirmPasswordValidationRules: Rule[] = [
-  { required: true, message: 'Please input your Password!' },
+  { required: true, message: 'Please type your Password!' },
   ({ getFieldValue }) => ({
     async validator(_, value) {
       if (getFieldValue('password') === value) {
         return Promise.resolve()
       }
-      return Promise.reject(new Error('Your passwords do not match!'))
+      return Promise.reject(new Error('Your passwords doesn\'t match!'))
     },
   }),
 ]
 
 export const emailValidationRules: Rule[] = [
-  { required: true, message: 'Please input your Email!' },
+  { required: true, message: 'Please type your Email!' },
   { pattern: /^[^\s.][\w.%+-]*[^\s.]@[^\s.][a-z0-9-]*[^\s.]\.[a-z]{2,}$/i, message: 'Please enter a valid Email (e.g., user@example.com)' },
   {
     pattern: /^\S.*\S$/,
@@ -47,13 +46,13 @@ export const emailValidationRules: Rule[] = [
 ]
 
 export const nameValidationRules: Rule[] = [
-  { required: true, message: 'Please input your name!' },
+  { required: true, message: 'Please type your name!' },
   { min: 1, message: 'Name must contain at least one character!' },
   { pattern: /^[a-z\s]*$/i, message: 'Name must contain only letters!' },
 ]
 
 export const dateValidationRules: Rule[] = [
-  { required: true, message: 'Please input your date of birth!' },
+  { required: true, message: 'Please type your date of birth!' },
   { validator: async (_, value: Dayjs | null) => isOver18(value) },
 ]
 
@@ -64,7 +63,7 @@ export async function isOver18(date: Dayjs | null): Promise<void> {
 
   const eighteenYearsAgo = dayjs().subtract(18, 'year')
 
-  if (date.isBefore(eighteenYearsAgo)) {
+  if (date?.isBefore?.(eighteenYearsAgo)) {
     return Promise.resolve()
   }
   else {
@@ -73,11 +72,11 @@ export async function isOver18(date: Dayjs | null): Promise<void> {
 }
 
 export const countryValidationRules: Rule[] = [
-  { required: true, message: 'Please input your country!' },
+  { required: true, message: 'Please type your country!' },
 ]
 
 export const cityValidationRules: Rule[] = [
-  { required: true, message: 'Please input your city!' },
+  { required: true, message: 'Please type your city!' },
   { pattern: /^[a-z\s]*$/i, message: 'City must contain only letters!' },
 ]
 
@@ -87,7 +86,7 @@ export const postalCodeValidationRules: (country: string) => Rule[] = (country) 
     return [{ required: true, message: 'Select a country' }]
   }
 
-  const rules: Rule[] = [{ required: true, message: 'Please input your postal code!' }]
+  const rules: Rule[] = [{ required: true, message: 'Please type your postal code!' }]
 
   if (selectedCountry.code != null) {
     rules.push({
@@ -100,22 +99,6 @@ export const postalCodeValidationRules: (country: string) => Rule[] = (country) 
 }
 
 export const streetValidationRules: Rule[] = [
-  { required: true, message: 'Please input your street!' },
+  { required: true, message: 'Please type your street!' },
   { min: 1, message: 'Street must contain at least one character!' },
 ]
-
-// Прототип функции для проверки совпадения email
-export async function checkEmailExistence(email: string) {
-  if (!email)
-    return
-
-  const response = await commerceApi.customers().get().execute()
-  const customers = response.body.results
-  const emailExists = customers.some(customer =>
-    customer.email?.toLowerCase() === email.toLowerCase().trim(),
-  )
-
-  if (emailExists) {
-    throw new Error('Email is already registered!')
-  }
-}

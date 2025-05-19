@@ -52,6 +52,7 @@
     "happy-dom": "17.4.4",
     "husky": "9.1.7",
     "lint-staged": "15.4.3",
+    "nanoid": "^5.1.5",
     "postcss": "8.5.3",
     "sass": "1.87.0",
     "terser": "^5.39.0",

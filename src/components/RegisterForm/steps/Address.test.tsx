@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import { Form } from 'antd'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
+import { RegisterFormProvider } from '@/components/RegisterForm/model/registration-form-context'
 import { AddressFields } from './Addresses'
 
 describe('appAddressFields positive', () => {
@@ -23,15 +25,26 @@ describe('appAddressFields positive', () => {
     onDelete: vi.fn(),
   }
 
+  const TestWrapper = ({ children }: { children: React.ReactNode }) => {
+    const [form] = Form.useForm()
+    return (
+      <RegisterFormProvider form={form}>
+        {children}
+      </RegisterFormProvider>
+    )
+  }
+
   it('should render address card with all fields', () => {
     render(
       <MemoryRouter>
-        <AddressFields
-          address={mockAddress}
-          index={0}
-          isPrimary={false}
-          {...mockHandlers}
-        />
+        <TestWrapper>
+          <AddressFields
+            address={mockAddress}
+            index={0}
+            isPrimary={false}
+            {...mockHandlers}
+          />
+        </TestWrapper>
       </MemoryRouter>,
     )
 
@@ -44,12 +57,14 @@ describe('appAddressFields positive', () => {
   it('should call onUpdate when fields change', () => {
     render(
       <MemoryRouter>
-        <AddressFields
-          address={mockAddress}
-          index={0}
-          isPrimary={false}
-          {...mockHandlers}
-        />
+        <TestWrapper>
+          <AddressFields
+            address={mockAddress}
+            index={0}
+            isPrimary={false}
+            {...mockHandlers}
+          />
+        </TestWrapper>
       </MemoryRouter>,
     )
 
@@ -60,12 +75,14 @@ describe('appAddressFields positive', () => {
   it('should call onSetPrimary when button clicked', () => {
     render(
       <MemoryRouter>
-        <AddressFields
-          address={mockAddress}
-          index={0}
-          isPrimary={false}
-          {...mockHandlers}
-        />
+        <TestWrapper>
+          <AddressFields
+            address={mockAddress}
+            index={0}
+            isPrimary={false}
+            {...mockHandlers}
+          />
+        </TestWrapper>
       </MemoryRouter>,
     )
 

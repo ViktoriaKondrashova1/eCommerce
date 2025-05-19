@@ -3,20 +3,13 @@
     {
       "src": "vite.config.js",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "config": { "distDir": "dist" }
     }
   ],
   "routes": [
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/",
-      "status": 200
+      "dest": "/index.html"
     }
   ]
 }

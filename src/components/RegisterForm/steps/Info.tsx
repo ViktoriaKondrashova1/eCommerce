@@ -27,7 +27,7 @@ export const PersonalInfo: FC<Props> = observer(({ testId = 'cardInfo' }) => {
     <Card
       data-testid={testId}
       className="cardInfo"
-      style={{ maxWidth: '300px', width: '100%' }}
+      style={{ maxWidth: '500px', width: '100%' }}
     >
       <Form.Item
         name="firstName"

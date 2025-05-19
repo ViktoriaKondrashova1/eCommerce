@@ -1,62 +1,38 @@
-import type { FormInstance } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { AppButton } from '@/components/AppButton'
-import { formStore } from '@/components/RegisterForm/model/form-store'
-import { useRegistrationMessage } from '@/components/RegisterForm/use-registration-message'
 import { useSteps } from '@/components/RegisterForm/use-steps'
-import { checkEmailExistence } from '@/components/RegisterForm/validate'
+import { useNotify } from '@/shared/hooks/use-notify'
 
 export const StepControls = observer(
   ({
     currentStep,
     onNext,
     onPrev,
-    form,
+    onFinish,
   }: {
     currentStep: number
-    onNext: () => void
-    onPrev: () => void
-    form: FormInstance
+    onNext: () => Promise<void>
+    onPrev: () => Promise<void>
+    onFinish: () => Promise<void>
   }) => {
-    const { contextHolder, showErrorMessage, showRegistrationSucces, showStepSuccess } = useRegistrationMessage()
+    const { showErrorNotify } = useNotify()
     const { steps } = useSteps()
 
     const handleNext = async () => {
       try {
-        await form.validateFields()
-        showStepSuccess()
-        onNext()
+        void onNext()
       }
       catch {
-        showErrorMessage()
-      }
-    }
-
-    const handleFinish = async () => {
-      try {
-        await form.validateFields()
-        const email = formStore.formData.email
-        await checkEmailExistence(email)
-        await formStore.submitForm()
-        showRegistrationSucces()
-      }
-      catch (error) {
-        if (error instanceof Error) {
-          showErrorMessage(error.message)
-        }
-        else {
-          showErrorMessage('Registration failed')
-        }
+        showErrorNotify('Fill in all required fields correctly')
       }
     }
 
     return (
       <div style={{ margin: '24px 0 24px 0' }}>
-        {contextHolder}
         {currentStep > 0 && (
           <AppButton
             style={{ margin: '0 8px' }}
-            onClick={() => onPrev()}
+            onClick={() => void onPrev()}
           >
             Back
           </AppButton>
@@ -73,7 +49,7 @@ export const StepControls = observer(
         {currentStep === steps.length - 1 && (
           <AppButton
             type="primary"
-            onClick={() => void handleFinish()}
+            onClick={() => void onFinish()}
           >
             Register
           </AppButton>

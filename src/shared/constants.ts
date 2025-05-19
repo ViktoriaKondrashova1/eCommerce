@@ -1,4 +1,4 @@
-export const appName = 'BrewPort'
+export const appName = 'BREWPORT'
 
 export const promocode = 'BEER2025'
 

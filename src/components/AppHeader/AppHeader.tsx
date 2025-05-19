@@ -4,11 +4,14 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import { LogoutOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import { Divider, Flex, Grid, Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useNavigate } from 'react-router-dom'
 import { customerStore } from '@/entities/customer/model/customer.store'
 import { appName } from '@/shared/constants'
 import { AppTitle } from '../AppTitle/AppTitle'
 import { HeaderMenu } from '../HeaderMenu/HeaderMenu'
 import './AppHeader.scss'
+
+const HeaderTitle = ({ onClick }: { onClick: () => void }) => <AppTitle style={{ margin: 0, cursor: 'pointer' }} onClick={onClick}>{appName}</AppTitle>
 
 interface Props extends BaseComponent {}
 const { Header } = Layout
@@ -16,6 +19,7 @@ const { useBreakpoint } = Grid
 
 export const AppHeader: FC<Props> = observer(({ testId = 'header', ...rest }) => {
   const screens = useBreakpoint()
+  const navigate = useNavigate()
 
   const isAuthenticated = customerStore.isAuth // временное значение
 
@@ -46,14 +50,14 @@ export const AppHeader: FC<Props> = observer(({ testId = 'header', ...rest }) =>
           ? (
               <>
                 <HeaderMenu items={mobMenuItems} />
-                <AppTitle style={{ margin: 0 }}>{appName}</AppTitle>
+                <HeaderTitle onClick={() => navigate('/')} />
               </>
             )
 
           : (
               <>
                 <HeaderMenu items={menuItems} />
-                <AppTitle style={{ margin: 0 }}>{appName}</AppTitle>
+                <HeaderTitle onClick={() => navigate('/')} />
                 <HeaderMenu items={isAuthenticated ? authMenuItems : unauthMenuItems} />
               </>
             )}

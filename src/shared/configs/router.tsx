@@ -1,15 +1,15 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, redirect } from 'react-router-dom'
 import { ErrorBoundary } from '@/components/ErrorBoundary/ErrorBoundary'
 import { MainLayout } from '@/components/MainLayout/MainLayout'
-import { RouteGuard } from '@/components/RouteGuard/RouteGuard'
+import { customerStore } from '@/entities/customer/model/customer.store'
 import { AboutPage } from '@/pages/AboutPage/AboutPage'
 import { CartPage } from '@/pages/CartPage/CartPage'
 import { CatalogPage } from '@/pages/CatalogPage/CatalogPage'
 import { LoginPage } from '@/pages/LoginPage/LoginPage'
 import { MainPage } from '@/pages/MainPage/MainPage'
 import { NotFoundPage } from '@/pages/NotFoundPage/NotFoundPage'
-import { ProductPage } from '@/pages/ProductPage/ProductPage'
 
+import { ProductPage } from '@/pages/ProductPage/ProductPage'
 import { RegisterPage } from '@/pages/RegisterPage/RegisterPage'
 import { UserProfilePage } from '@/pages/UserProfilePage/UserProfilePage'
 
@@ -21,15 +21,24 @@ export const router = createBrowserRouter([
     children: [
       {
         path: 'login',
-        element: (
-          <RouteGuard redirectIf="authorized" redirectTo="/main">
-            <LoginPage />
-          </RouteGuard>
-        ),
+        element: <LoginPage />,
+
+        loader: async () => {
+          if (customerStore.isAuth) {
+            return redirect('/')
+          }
+          return null
+        },
       },
       {
         path: 'register',
         element: <RegisterPage />,
+        loader: async () => {
+          if (customerStore.isAuth) {
+            return redirect('/')
+          }
+          return null
+        },
       },
       {
         path: '/',
@@ -58,11 +67,13 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: (
-          <RouteGuard redirectIf="unauthorized" redirectTo="/login">
-            <UserProfilePage />
-          </RouteGuard>
-        ),
+        element: <UserProfilePage />,
+        loader: async () => {
+          if (!customerStore.isAuth) {
+            return redirect('/')
+          }
+          return null
+        },
       },
       {
         path: '*',

@@ -1,11 +1,13 @@
-import type { AddressWithCustomFileds } from '../model/formStore'
-import { AppButton } from '@/components/AppButton'
-import { AppInput } from '@/components/AppInput/AppInput'
-import { AppTitle } from '@/components/AppTitle/AppTitle'
+import type { AddressWithCustomFileds } from '../model/form-store'
 import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
 import { Card, Col, Form, Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
+import { AppButton } from '@/components/AppButton'
+import { AppInput } from '@/components/AppInput/AppInput'
+import { AppTitle } from '@/components/AppTitle/AppTitle'
+import { useRegisterFormContext } from '@/components/RegisterForm/model/registration-form-context'
+import { isNonNullable } from '../../../shared/types/is-non-nullable'
 import { countries } from '../model/countries'
 import {
   cityValidationRules,
@@ -31,10 +33,17 @@ export const AddressFields = observer(
     index: number
   }) => {
     const [country, setCountry] = useState('')
+    const { form } = useRegisterFormContext()
+
     const onCountryChange = (value: string) => {
       setCountry(value)
       onUpdate('country', value)
+
+      if (isNonNullable(address.postalCode) && typeof address.postalCode === 'string' && address.postalCode.length > 0) {
+        void form.validateFields([`postalCode-${address.id}`])
+      }
     }
+
     const selectedCountry = countries.find(item => item.value === country)
     const postalCodePlaceholder = selectedCountry ? selectedCountry.example : '220044'
 
@@ -62,6 +71,8 @@ export const AddressFields = observer(
                 placeholder="Belarus"
                 onChange={onCountryChange}
                 value={address.country}
+                options={countries}
+                showSearch
               >
                 {countries.map(country => (
                   <Select.Option key={country.value} value={country.value}>
@@ -97,8 +108,10 @@ export const AddressFields = observer(
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}
               required
+
             >
               <AppInput
+                maxLength={7}
                 placeholder={postalCodePlaceholder}
                 onChange={e => onUpdate('postalCode', e.target.value)}
                 value={address.postalCode}

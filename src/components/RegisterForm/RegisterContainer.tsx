@@ -1,181 +1,120 @@
-import type { FormInstance } from 'antd'
-import { Flex, Form, message, Steps } from 'antd'
+import type { ErrorResponse } from '@commercetools/platform-sdk'
+import { Flex, Form, Steps } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
-import { AppButton } from '../AppButton'
-import { formStore } from './model/formStore'
-import { Billing } from './steps/Billing'
-import { PersonalInfo } from './steps/Info'
-import { Passwords } from './steps/Password'
-import { Shipping } from './steps/Shipping'
-import { checkEmailExistence } from './validate'
-
-const steps = [
-  {
-    title: 'Info',
-    description: 'Personal info',
-    content: <PersonalInfo />,
-  },
-  {
-    title: 'Shipping',
-    description: 'Addresses for shipping',
-    content: <Shipping />,
-  },
-  {
-    title: 'Billing',
-    description: 'Addresses for billing',
-    content: <Billing />,
-  },
-  {
-    title: 'Finish',
-    description: 'Finish registration',
-    content: <Passwords />,
-  },
-] as const
-
-const StepControls = observer(
-  ({
-    currentStep,
-    onNext,
-    onPrev,
-    form,
-  }: {
-    currentStep: number
-    onNext: () => void
-    onPrev: () => void
-    form: FormInstance<unknown>
-  }) => {
-    const [messageApi, contextHolder] = message.useMessage()
-
-    const showRegistrationSucces = () => {
-      messageApi.open({
-        type: 'success',
-        content: 'You registered successfully!',
-      })
-    }
-
-    const showStepSuccess = () => {
-      messageApi.open({
-        type: 'success',
-        content: 'Step completed!',
-      })
-    }
-
-    const showErrorMessage = () => {
-      messageApi.open({
-        type: 'error',
-        content: 'Fill in all required fields correctly',
-      })
-    }
-
-    const handleNext = async () => {
-      try {
-        await form.validateFields()
-        showStepSuccess()
-        onNext()
-      }
-      catch {
-        showErrorMessage()
-      }
-    }
-
-    const handleFinish = async () => {
-      try {
-        await form.validateFields()
-        const email = formStore.formData.email
-        await checkEmailExistence(email)
-        await formStore.submitForm()
-        showRegistrationSucces()
-      }
-      catch (error) {
-        if (error instanceof Error) {
-          messageApi.error(error.message)
-        }
-        else {
-          messageApi.error('Registration failed')
-        }
-      }
-    }
-
-    return (
-      <div style={{ margin: '24px 0 24px 0' }}>
-        {contextHolder}
-        {currentStep > 0 && (
-          <AppButton
-            style={{ margin: '0 8px' }}
-            onClick={() => onPrev()}
-          >
-            Back
-          </AppButton>
-        )}
-
-        {currentStep < steps.length - 1 && (
-          <AppButton
-            type="primary"
-            onClick={() => void handleNext()}
-          >
-            Next
-          </AppButton>
-        )}
-        {currentStep === steps.length - 1 && (
-          <AppButton
-            type="primary"
-            onClick={() => void handleFinish()}
-          >
-            Register
-          </AppButton>
-        )}
-      </div>
-    )
-  },
-)
+import { useNavigate } from 'react-router-dom'
+import { formStore } from '@/components/RegisterForm/model/form-store'
+import { RegisterFormProvider } from '@/components/RegisterForm/model/registration-form-context'
+import { StepControls } from '@/components/RegisterForm/steps/StepConstrols'
+import { useSteps } from '@/components/RegisterForm/use-steps'
+import { fetchMe } from '@/entities/customer/api/fetch-me'
+import { loginCustomer } from '@/entities/customer/api/sign-in'
+import { customerStore } from '@/entities/customer/model/customer.store'
+import { globalStore } from '@/entities/global/model/global.store'
+import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
+import { useNotify } from '@/shared/hooks/use-notify'
+import { isNonNullable } from '@/shared/types/is-non-nullable'
+import { isType } from '@/shared/types/is-type'
 
 export const RegisterContainer = observer(() => {
   const [form] = Form.useForm()
-  const [currentStep, setCurrentStep] = useState(0)
-  const [percentStep, setPercentStep] = useState(0)
-
-  const next = () => {
-    setCurrentStep(prev => prev + 1)
-    setPercentStep(prev => prev + 100 / steps.length)
-  }
-
-  const prev = () => {
-    setCurrentStep(prev => prev - 1)
-    setPercentStep(prev => prev - 100 / steps.length)
-  }
+  const navigate = useNavigate()
+  const { showErrorNotify } = useNotify()
+  const { currentStep, steps, moveNext, movePrev } = useSteps()
 
   const items = steps.map(item => ({ key: item.title, title: item.title, description: item.description }))
+  const StepContent = steps[currentStep].content
+
+  const handleNext = async () => {
+    await form.validateFields()
+    moveNext()
+  }
+
+  const handlePrev = async () => {
+    await form.validateFields()
+    movePrev()
+  }
+
+  const handleFinish = async () => {
+    try {
+      await form.validateFields()
+
+      globalStore.setLoading(true)
+
+      void formStore.submitForm().then((res) => {
+        if (res.statusCode === 201) {
+          setCommerceApiFlow({ flow: 'password', payload: {
+            username: formStore.formData.email,
+            password: formStore.formData.password,
+          } })
+
+          loginCustomer({ email: formStore.formData.email, password: formStore.formData.password })
+            .then((res) => {
+              if (res.statusCode === 200) {
+                void fetchMe().then((res) => {
+                  if (res.statusCode === 200) {
+                    customerStore.setCustomer(res.body)
+                  }
+                })
+                customerStore.setIsAuth(true)
+                navigate('/')
+              }
+            })
+            .catch((res) => {
+              if (isNonNullable(res) && isType<ErrorResponse>(res)) {
+                showErrorNotify('Incorrect login or password')
+              }
+            })
+            .finally(() => {
+              globalStore.setLoading(false)
+            })
+        }
+      }).catch(() => {
+        globalStore.setLoading(false)
+      })
+    }
+    catch (error) {
+      globalStore.setLoading(false)
+
+      if (isNonNullable(error) && isType<ErrorResponse>(error) && isNonNullable(error.message)) {
+        showErrorNotify(error.message)
+        return
+      }
+      if (error instanceof Error) {
+        showErrorNotify(error.message)
+      }
+    }
+  }
 
   return (
     <>
       <Steps
         style={{ marginBottom: '2rem' }}
-        labelPlacement="vertical"
+        labelPlacement="horizontal"
         current={currentStep}
-        percent={percentStep}
         items={items}
       />
-      <Form
-        form={form}
-        layout="vertical"
-        className="mb-8"
-      >
-        <Flex
-          justify="center"
-          align="center"
-          vertical
-          style={{ width: '100%' }}
+      <RegisterFormProvider form={form}>
+        <Form
+          form={form}
+          layout="vertical"
+          className="mb-8"
         >
-          {steps[currentStep].content}
-        </Flex>
-      </Form>
+          <Flex
+            justify="center"
+            align="center"
+            vertical
+            style={{ width: '100%' }}
+          >
+            {StepContent}
+          </Flex>
+        </Form>
+      </RegisterFormProvider>
 
       <StepControls
-        onPrev={prev}
-        onNext={next}
+        onFinish={handleFinish}
+        onPrev={handlePrev}
+        onNext={handleNext}
         currentStep={currentStep}
-        form={form}
       />
     </>
   )

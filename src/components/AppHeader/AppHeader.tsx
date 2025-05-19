@@ -1,22 +1,23 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { ItemType } from 'antd/es/menu/interface'
 import type { FC } from 'react'
-import { appName } from '@/shared/constants'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { LogoutOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import { Divider, Flex, Grid, Layout } from 'antd'
+import { observer } from 'mobx-react-lite'
+import { customerStore } from '@/entities/customer/model/customer.store'
+import { appName } from '@/shared/constants'
 import { AppTitle } from '../AppTitle/AppTitle'
 import { HeaderMenu } from '../HeaderMenu/HeaderMenu'
 import './AppHeader.scss'
 
 interface Props extends BaseComponent {}
-
 const { Header } = Layout
 const { useBreakpoint } = Grid
 
-export const AppHeader: FC<Props> = ({ testId = 'header', ...rest }) => {
+export const AppHeader: FC<Props> = observer(({ testId = 'header', ...rest }) => {
   const screens = useBreakpoint()
 
-  const isAuthenticated = false // временное значение
+  const isAuthenticated = customerStore.isAuth // временное значение
 
   const menuItems: ItemType[] = [
     { key: '/', label: 'MAIN' },
@@ -27,7 +28,7 @@ export const AppHeader: FC<Props> = ({ testId = 'header', ...rest }) => {
   const authMenuItems: ItemType[] = [
     { key: '/cart', icon: <ShoppingCartOutlined /> },
     { key: '/profile', icon: <UserOutlined /> },
-    { key: '/login', icon: <LogoutOutlined /> },
+    { key: '/logout', icon: <LogoutOutlined /> },
   ]
 
   const unauthMenuItems: ItemType[] = [
@@ -60,4 +61,4 @@ export const AppHeader: FC<Props> = ({ testId = 'header', ...rest }) => {
       <Divider style={{ margin: '0' }} />
     </Header>
   )
-}
+})

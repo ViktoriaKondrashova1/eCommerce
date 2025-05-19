@@ -69,6 +69,7 @@ export const RegisterContainer = observer(() => {
             })
         }
       }).catch(() => {
+        showErrorNotify('Incorrect login or password')
         globalStore.setLoading(false)
       })
     }

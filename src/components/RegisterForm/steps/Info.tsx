@@ -8,7 +8,6 @@ import { AppInput } from '@/components/AppInput/AppInput'
 import { formStore } from '../model/form-store'
 import {
   dateValidationRules,
-  emailValidationRules,
   nameValidationRules,
 } from '../validate'
 
@@ -53,20 +52,6 @@ export const PersonalInfo: FC<Props> = observer(({ testId = 'cardInfo' }) => {
           placeholder="Wick"
           onChange={e => formStore.updateField('lastName', e.target.value)}
           value={formStore.formData.lastName}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="email"
-        label="Email"
-        rules={emailValidationRules}
-        labelCol={{ span: 24 }}
-        wrapperCol={{ span: 24 }}
-      >
-        <AppInput
-          placeholder="john@gmail.com"
-          onChange={e => formStore.updateField('email', e.target.value)}
-          value={formStore.formData.email}
         />
       </Form.Item>
 

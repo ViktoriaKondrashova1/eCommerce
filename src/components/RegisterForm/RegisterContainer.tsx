@@ -1,9 +1,11 @@
 import type { ErrorResponse } from '@commercetools/platform-sdk'
-import { Flex, Form, Steps } from 'antd'
+import { Flex, Form, Grid, Steps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
 import { formStore } from '@/components/RegisterForm/model/form-store'
 import { RegisterFormProvider } from '@/components/RegisterForm/model/registration-form-context'
+import { mobileTitleConstructor } from '@/components/RegisterForm/register-mobile-title/constructor'
+import { MobileTitle } from '@/components/RegisterForm/register-mobile-title/register-mobile-title'
 import { StepControls } from '@/components/RegisterForm/steps/StepConstrols'
 import { useSteps } from '@/components/RegisterForm/use-steps'
 import { fetchMe } from '@/entities/customer/api/fetch-me'
@@ -15,10 +17,14 @@ import { useNotify } from '@/shared/hooks/use-notify'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
 import { isType } from '@/shared/types/is-type'
 
+const { useBreakpoint } = Grid
+
 export const RegisterContainer = observer(() => {
   const [form] = Form.useForm()
   const navigate = useNavigate()
-  const { showErrorNotify } = useNotify()
+  const screens = useBreakpoint()
+
+  const { showErrorNotify, showSuccessNotify } = useNotify()
   const { currentStep, steps, moveNext, movePrev } = useSteps()
 
   const items = steps.map(item => ({ key: item.title, title: item.title, description: item.description }))
@@ -30,7 +36,6 @@ export const RegisterContainer = observer(() => {
   }
 
   const handlePrev = async () => {
-    await form.validateFields()
     movePrev()
   }
 
@@ -56,6 +61,7 @@ export const RegisterContainer = observer(() => {
                   }
                 })
                 customerStore.setIsAuth(true)
+                showSuccessNotify('Successfully registered')
                 navigate('/')
               }
             })
@@ -88,12 +94,26 @@ export const RegisterContainer = observer(() => {
 
   return (
     <>
-      <Steps
-        style={{ marginBottom: '2rem' }}
-        labelPlacement="horizontal"
-        current={currentStep}
-        items={items}
-      />
+      <Flex style={{ marginBottom: screens.xs ? '1rem' : '2rem' }} vertical>
+
+        {screens.xs
+          ? (
+              <MobileTitle
+                title={mobileTitleConstructor?.[currentStep].title}
+                description={mobileTitleConstructor?.[currentStep].description}
+              />
+            )
+          : (
+              <Steps
+
+                labelPlacement="horizontal"
+                current={currentStep}
+                items={items}
+              />
+            )}
+
+      </Flex>
+
       <RegisterFormProvider form={form}>
         <Form
           form={form}

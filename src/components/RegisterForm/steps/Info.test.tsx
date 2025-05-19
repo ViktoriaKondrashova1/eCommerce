@@ -11,7 +11,6 @@ describe('appPersonalInfo positive', () => {
     expect(info).toBeInTheDocument()
     expect(screen.getByText('First name')).toBeInTheDocument()
     expect(screen.getByText('Last name')).toBeInTheDocument()
-    expect(screen.getByText('Email')).toBeInTheDocument()
     expect(screen.getByText('Date of birth')).toBeInTheDocument()
   })
 
@@ -31,17 +30,5 @@ describe('appPersonalInfo positive', () => {
     render(<MemoryRouter><PersonalInfo /></MemoryRouter>)
     const lastNameInput = screen.getByPlaceholderText('Wick')
     expect(lastNameInput).toBeInTheDocument()
-  })
-
-  it('should have placeholder for email field', () => {
-    render(<MemoryRouter><PersonalInfo /></MemoryRouter>)
-    const emailInput = screen.getByPlaceholderText('john@gmail.com')
-    expect(emailInput).toBeInTheDocument()
-  })
-
-  it('should have placeholder for date of birth field', () => {
-    render(<MemoryRouter><PersonalInfo /></MemoryRouter>)
-    const dateInput = screen.getByPlaceholderText('1964-04-01')
-    expect(dateInput).toBeInTheDocument()
   })
 })

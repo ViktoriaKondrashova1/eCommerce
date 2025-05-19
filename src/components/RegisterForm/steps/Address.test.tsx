@@ -1,3 +1,4 @@
+import type { AddressWithCustomFileds } from '@/components/RegisterForm/model/form-store'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Form } from 'antd'
 import { MemoryRouter } from 'react-router-dom'
@@ -13,16 +14,20 @@ describe('appAddressFields positive', () => {
     postalCode: '',
     streetName: '',
     custom: {
+      type: {
+        key: 'address-custom-field',
+      },
       fields: {
         isPrimary: false,
       },
     },
-  }
+  } satisfies AddressWithCustomFileds
 
   const mockHandlers = {
     onUpdate: vi.fn(),
     onSetPrimary: vi.fn(),
     onDelete: vi.fn(),
+    onSetDefault: vi.fn(),
   }
 
   const TestWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -70,23 +75,5 @@ describe('appAddressFields positive', () => {
 
     fireEvent.change(screen.getByLabelText('City'), { target: { value: 'Minsk' } })
     expect(mockHandlers.onUpdate).toHaveBeenCalledWith('city', 'Minsk')
-  })
-
-  it('should call onSetPrimary when button clicked', () => {
-    render(
-      <MemoryRouter>
-        <TestWrapper>
-          <AddressFields
-            address={mockAddress}
-            index={0}
-            isPrimary={false}
-            {...mockHandlers}
-          />
-        </TestWrapper>
-      </MemoryRouter>,
-    )
-
-    fireEvent.click(screen.getByText('Set as default'))
-    expect(mockHandlers.onSetPrimary).toHaveBeenCalled()
   })
 })

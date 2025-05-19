@@ -1,10 +1,14 @@
-import type { AddressDraft, BaseAddress, MyCustomerDraft } from '@commercetools/platform-sdk'
+import type { AddressDraft, MyCustomerDraft } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
 import { makeAutoObservable } from 'mobx'
+import { nanoid } from 'nanoid'
 import { registerCustomer } from '@/entities/customer/api/sign-up'
 
 export interface AddressWithCustomFileds extends Omit<AddressDraft, 'custom'> {
   custom: {
+    type: {
+      key: 'address-custom-field'
+    }
     fields: {
       isPrimary: boolean
     }
@@ -18,52 +22,78 @@ export interface FormData {
   dateOfBirth: Dayjs | null
   shippingAddresses: AddressWithCustomFileds[]
   billingAddresses: AddressWithCustomFileds[]
-  useShippingForBilling: boolean
+  isUseShippingForBilling: boolean
+  isShippingAddressAsDefault: boolean
+  isBillingAddressAsDefault: boolean
   password: string
   confirmPassword: string
 }
 
+const addressTemplate = {
+  country: '',
+  city: '',
+  postalCode: '',
+  streetName: '',
+  custom: {
+    type: {
+      key: 'address-custom-field',
+    },
+    fields: {
+      isPrimary: false,
+    },
+  },
+} satisfies AddressWithCustomFileds
+
+const initialState: FormData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  dateOfBirth: null,
+  isUseShippingForBilling: false,
+  isShippingAddressAsDefault: false,
+  isBillingAddressAsDefault: false,
+
+  shippingAddresses: [
+    { ...addressTemplate, custom:
+       {
+         ...addressTemplate.custom,
+         fields: {
+           isPrimary: true,
+         },
+       }, id: nanoid() },
+  ],
+  billingAddresses: [
+    { ...addressTemplate, custom:
+      {
+        ...addressTemplate.custom,
+        fields: {
+          isPrimary: true,
+        },
+      }, id: nanoid() },
+  ],
+
+}
+
 export class FormStore {
-  formData: FormData = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    dateOfBirth: null,
-    shippingAddresses: [
-      {
-        id: '1',
-        country: '',
-        city: '',
-        postalCode: '',
-        streetName: '',
-        custom: {
-          fields: {
-            isPrimary: true,
-          },
-        },
-      },
-    ],
-    billingAddresses: [
-      {
-        id: '999',
-        country: '',
-        city: '',
-        postalCode: '',
-        streetName: '',
-        custom: {
-          fields: {
-            isPrimary: true,
-          },
-        },
-      },
-    ],
-    useShippingForBilling: false,
-    password: '',
-    confirmPassword: '',
-  }
+  formData: FormData = initialState
 
   constructor() {
     makeAutoObservable(this)
+  }
+
+  setPrimaryShippingAddress = (id: string | undefined) => {
+    const index = this.formData.shippingAddresses.findIndex(
+      address => address.id === id,
+    )
+
+    if (index === 0) {
+      this.formData.isShippingAddressAsDefault = !this.formData.isShippingAddressAsDefault
+    }
+    else {
+      this.formData.isBillingAddressAsDefault = !this.formData.isBillingAddressAsDefault
+    }
   }
 
   updateField<T extends keyof FormData>(field: T, value: FormData[T]) {
@@ -71,35 +101,11 @@ export class FormStore {
   }
 
   addShippingAddress = () => {
-    const newAddress = {
-      id: crypto.randomUUID(),
-      country: '',
-      city: '',
-      postalCode: '',
-      street: '',
-      custom: {
-        fields: {
-          isPrimary: false,
-        },
-      },
-    }
-    this.formData.shippingAddresses.push(newAddress)
+    this.formData.shippingAddresses.push({ ...addressTemplate, id: nanoid() })
   }
 
   addBillingAddress = () => {
-    const newAddress = {
-      id: crypto.randomUUID(),
-      country: '',
-      city: '',
-      postalCode: '',
-      street: '',
-      custom: {
-        fields: {
-          isPrimary: false,
-        },
-      },
-    }
-    this.formData.billingAddresses.push(newAddress)
+    this.formData.billingAddresses.push({ ...addressTemplate, id: nanoid() })
   }
 
   removeShippingAddress = (id: string | undefined) => {
@@ -132,20 +138,20 @@ export class FormStore {
     )
   }
 
-  setPrimaryShippingAddress = (id: string | undefined) => {
-    this.formData.shippingAddresses = this.formData.shippingAddresses.map(
-      address => ({
-        ...address,
-        custom: {
-          ...address.custom,
-          fields: {
-            ...address.custom.fields,
-            isPrimary: address.id === id,
-          },
-        },
-      }),
-    )
-  }
+  // setPrimaryShippingAddress = (id: string | undefined) => {
+  //   this.formData.shippingAddresses = this.formData.shippingAddresses.map(
+  //     address => ({
+  //       ...address,
+  //       custom: {
+  //         ...address.custom,
+  //         fields: {
+  //           ...address.custom.fields,
+  //           isPrimary: address.id === id,
+  //         },
+  //       },
+  //     }),
+  //   )
+  // }
 
   setPrimaryBillingAddress = (id: string | undefined) => {
     this.formData.billingAddresses = this.formData.billingAddresses.map(
@@ -185,28 +191,26 @@ export class FormStore {
   }
 
   setUseShippingForBilling = (value: boolean) => {
-    this.formData.useShippingForBilling = value
+    this.formData.isUseShippingForBilling = value
     if (value) {
       this.formData.billingAddresses = this.formData.shippingAddresses.map(
         address => ({
           ...address,
-          id: crypto.randomUUID(),
+          id: nanoid(),
         }),
       )
     }
     else {
       this.formData.billingAddresses = [
         {
-          id: crypto.randomUUID(),
-          country: '',
-          city: '',
-          postalCode: '',
-          streetName: '',
+          ...addressTemplate,
           custom: {
+            ...addressTemplate.custom,
             fields: {
               isPrimary: true,
             },
           },
+          id: nanoid(),
         },
       ]
     }
@@ -225,8 +229,9 @@ export class FormStore {
 
     const dateOfBirthStr = dateOfBirth ? dateOfBirth.toISOString().split('T')[0] : undefined
 
-    const addresses: BaseAddress[] = [
+    const addresses: AddressWithCustomFileds[] = [
       ...shippingAddresses.map(addr => ({
+        ...addr,
         key: addr.id,
         country: addr.country,
         city: addr.city,
@@ -234,6 +239,7 @@ export class FormStore {
         streetName: addr.streetName,
       })),
       ...billingAddresses.map(addr => ({
+        ...addr,
         key: addr.id,
         country: addr.country,
         city: addr.city,
@@ -249,6 +255,8 @@ export class FormStore {
       lastName,
       dateOfBirth: dateOfBirthStr,
       addresses,
+      defaultShippingAddress: this.formData.isShippingAddressAsDefault === true ? 0 : undefined,
+      defaultBillingAddress: this.formData.isBillingAddressAsDefault === true ? 1 : undefined,
     }
 
     const response = await registerCustomer(customerDraft)

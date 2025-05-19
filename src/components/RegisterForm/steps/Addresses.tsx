@@ -1,11 +1,8 @@
 import type { AddressWithCustomFileds } from '../model/form-store'
-import { DeleteOutlined, PushpinOutlined } from '@ant-design/icons'
-import { Card, Col, Form, Row, Select } from 'antd'
+import { Card, Checkbox, Col, Form, Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
-import { AppButton } from '@/components/AppButton'
 import { AppInput } from '@/components/AppInput/AppInput'
-import { AppTitle } from '@/components/AppTitle/AppTitle'
 import { useRegisterFormContext } from '@/components/RegisterForm/model/registration-form-context'
 import { isNonNullable } from '../../../shared/types/is-non-nullable'
 import { countries } from '../model/countries'
@@ -20,15 +17,17 @@ export const AddressFields = observer(
   ({
     address,
     onUpdate,
-    onSetPrimary,
-    onDelete,
-    isPrimary,
-    index,
+    // onSetPrimary,
+    // onDelete,
+    // isPrimary,
+    onSetDefault,
+    // index,
   }: {
     address: AddressWithCustomFileds
     onUpdate: (field: string, value: string) => void
     onSetPrimary: () => void
     onDelete: () => void
+    onSetDefault: (id: string) => void
     isPrimary: boolean
     index: number
   }) => {
@@ -52,11 +51,11 @@ export const AddressFields = observer(
         className="shadow-sm mb-4"
         style={{ maxWidth: '600px', width: '100%', marginBottom: '15px' }}
       >
-        <AppTitle level={5} className="mb-4">
+        {/* <AppTitle level={5} className="mb-4">
           Address
           {' '}
           {index + 1}
-        </AppTitle>
+        </AppTitle> */}
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
@@ -130,13 +129,23 @@ export const AddressFields = observer(
             >
               <AppInput
                 placeholder="Niamiha"
-                onChange={e => onUpdate('street', e.target.value)}
+                onChange={e => onUpdate('streetName', e.target.value)}
                 value={address.streetName}
               />
             </Form.Item>
           </Col>
 
-          <Col span={12}>
+          <Row>
+            <Col offset={2} span={24}>
+              <Checkbox
+                onClick={() => onSetDefault(address?.id ?? '')}
+              >
+                Mark as default
+              </Checkbox>
+            </Col>
+          </Row>
+
+          {/* <Col span={12}>
             <AppButton
               type={isPrimary ? 'primary' : 'default'}
               icon={<PushpinOutlined size={16} />}
@@ -156,7 +165,7 @@ export const AddressFields = observer(
             >
               Delete
             </AppButton>
-          </Col>
+          </Col> */}
         </Row>
       </Card>
     )

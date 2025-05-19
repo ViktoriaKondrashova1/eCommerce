@@ -9,7 +9,7 @@ import { commerceApi } from '@/shared/configs/commerce-client'
  */
 export async function getAllCategories(): Promise<ClientResponse<CategoryPagedQueryResponse>> {
   try {
-    const response = await commerceApi
+    const response = await commerceApi.client
       .categories()
       .get()
       .execute()

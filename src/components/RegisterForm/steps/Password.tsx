@@ -1,10 +1,10 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
-import { AppInput } from '@/components/AppInput/AppInput'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Card, Form } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
-import { formStore } from '../model/formStore'
+import { AppInput } from '@/components/AppInput/AppInput'
+import { formStore } from '../model/form-store'
 import {
   confirmPasswordValidationRules,
   passwordValidationRules,

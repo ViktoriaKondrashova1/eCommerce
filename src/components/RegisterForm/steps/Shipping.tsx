@@ -1,8 +1,8 @@
-import { AppButton } from '@/components/AppButton'
 import { PlusSquareOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { formStore } from '../model/formStore'
+import { AppButton } from '@/components/AppButton'
+import { formStore } from '../model/form-store'
 import { AddressFields } from './Addresses'
 
 export const Shipping = observer(() => {

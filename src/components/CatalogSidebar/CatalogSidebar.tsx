@@ -1,15 +1,23 @@
 import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { useFilter } from '@/entities/filter/api/useFilter'
-import { Flex } from 'antd'
+import { Drawer, Flex, Grid } from 'antd'
 import { AppButton } from '../AppButton'
 import { AppSkeleton } from '../AppSkeleton/AppSkeleton'
 import { Backdrop } from '../Backdrop/Backdrop'
 import { RangeFilter } from '../RangeFilter/RangeFilter'
 import { SortingMenu } from '../SortingMenu/SortingMenu'
 
-export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }) => {
+interface Props extends BaseComponent {
+  isFiltersVisible: boolean
+  setFiltersVisible: (isVisible: boolean) => void
+}
+
+const { useBreakpoint } = Grid
+
+export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFiltersVisible, setFiltersVisible }) => {
   const { isLoading, filterData } = useFilter()
+  const screens = useBreakpoint()
 
   if (isLoading || !filterData) {
     return <AppSkeleton />
@@ -58,7 +66,7 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
     },
   ]
 
-  return (
+  const filtersContent = (
     <Backdrop>
       <Flex vertical data-testid={testId} style={{ width: 200 }}>
         <SortingMenu items={sortByPriceItems} />
@@ -83,5 +91,25 @@ export const CatalogSidebar: FC<BaseComponent> = ({ testId = 'catalog-sidebar' }
         </Flex>
       </Flex>
     </Backdrop>
+  )
+
+  return (
+    <>
+      {screens.md
+        ? (
+            filtersContent
+          )
+        : (
+            <Drawer
+              title="Filters"
+              placement="right"
+              onClose={() => setFiltersVisible(false)}
+              open={isFiltersVisible}
+              width={300}
+            >
+              {filtersContent}
+            </Drawer>
+          )}
+    </>
   )
 }

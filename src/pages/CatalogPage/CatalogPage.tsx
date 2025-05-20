@@ -1,6 +1,7 @@
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { FC } from 'react'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
+import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { CatalogPagination } from '@/components/CatalogPagination/CatalogPagination'
@@ -11,11 +12,16 @@ import { fetchProducts } from '@/entities/product/api/fetch-products'
 import { importProductAdapter, useCategories } from '@/shared/adapters/import/product.adapter'
 import { catalogPageLimit } from '@/shared/constants'
 import { useRequest } from '@/shared/hooks/useRequest'
-import { Flex } from 'antd'
+import { FilterOutlined } from '@ant-design/icons'
+import { Flex, Grid } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
+
+const { useBreakpoint } = Grid
 
 export const CatalogPage: FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [filterDrawerVisible, setFilterDrawerVisible] = useState(false)
+  const screens = useBreakpoint()
 
   useCategories()
 
@@ -53,7 +59,7 @@ export const CatalogPage: FC = () => {
         <CatalogSearch />
       </Flex>
       <Flex gap="large" style={{ marginTop: 40 }}>
-        <CatalogSidebar />
+        <CatalogSidebar isFiltersVisible={filterDrawerVisible} setFiltersVisible={setFilterDrawerVisible} />
         {isLoading
           ? (
               <AppSkeleton />
@@ -64,6 +70,17 @@ export const CatalogPage: FC = () => {
               )
             : (
                 <Flex vertical gap="large">
+                  {!screens.md
+                    ? (
+                        <AppButton
+                          icon={<FilterOutlined />}
+                          onClick={() => setFilterDrawerVisible(true)}
+                          style={{ width: '100px' }}
+                        >
+                          Filters
+                        </AppButton>
+                      )
+                    : null}
                   <ProductList products={productsData?.products || []} />
                   <CatalogPagination
                     total={productsData?.total !== undefined ? productsData.total : 0}

@@ -138,21 +138,6 @@ export class FormStore {
     )
   }
 
-  // setPrimaryShippingAddress = (id: string | undefined) => {
-  //   this.formData.shippingAddresses = this.formData.shippingAddresses.map(
-  //     address => ({
-  //       ...address,
-  //       custom: {
-  //         ...address.custom,
-  //         fields: {
-  //           ...address.custom.fields,
-  //           isPrimary: address.id === id,
-  //         },
-  //       },
-  //     }),
-  //   )
-  // }
-
   setPrimaryBillingAddress = (id: string | undefined) => {
     this.formData.billingAddresses = this.formData.billingAddresses.map(
       address => ({
@@ -193,12 +178,32 @@ export class FormStore {
   setUseShippingForBilling = (value: boolean) => {
     this.formData.isUseShippingForBilling = value
     if (value) {
-      this.formData.billingAddresses = this.formData.shippingAddresses.map(
-        address => ({
-          ...address,
-          id: nanoid(),
-        }),
+      const newBillingAddresses = this.formData.shippingAddresses.map(
+        (address) => {
+          const newAddress = {
+            ...address,
+            id: nanoid(),
+            custom: {
+              ...address.custom,
+              fields: {
+                ...address.custom.fields,
+              },
+            },
+          }
+          return newAddress
+        },
       )
+
+      this.formData.billingAddresses = newBillingAddresses
+
+      const primaryShipping = this.formData.shippingAddresses.find(
+        address => address.custom.fields.isPrimary,
+      )
+      if (primaryShipping) {
+        this.formData.billingAddresses.forEach((billingAddr) => {
+          billingAddr.custom.fields.isPrimary = billingAddr.id === primaryShipping.id
+        })
+      }
     }
     else {
       this.formData.billingAddresses = [
@@ -218,6 +223,7 @@ export class FormStore {
 
   async submitForm() {
     const {
+      isUseShippingForBilling,
       firstName,
       lastName,
       email,
@@ -229,24 +235,32 @@ export class FormStore {
 
     const dateOfBirthStr = dateOfBirth ? dateOfBirth.toISOString().split('T')[0] : undefined
 
-    const addresses: AddressWithCustomFileds[] = [
-      ...shippingAddresses.map(addr => ({
-        ...addr,
-        key: addr.id,
-        country: addr.country,
-        city: addr.city,
-        postalCode: addr.postalCode,
-        streetName: addr.streetName,
-      })),
-      ...billingAddresses.map(addr => ({
-        ...addr,
-        key: addr.id,
-        country: addr.country,
-        city: addr.city,
-        postalCode: addr.postalCode,
-        streetName: addr.streetName,
-      })),
-    ]
+    const addresses = isUseShippingForBilling
+      ? [
+          ...shippingAddresses,
+          ...billingAddresses,
+        ].map(addr => ({
+          ...addr,
+          key: addr.id,
+          country: addr.country,
+          city: addr.city,
+          postalCode: addr.postalCode,
+          streetName: addr.streetName,
+        }))
+      : [
+          ...shippingAddresses,
+          ...billingAddresses,
+        ].map(addr => ({
+          ...addr,
+          key: addr.id,
+          country: addr.country,
+          city: addr.city,
+          postalCode: addr.postalCode,
+          streetName: addr.streetName,
+        }))
+
+    const getDefaultIndex = (isDefault: boolean, addresses: AddressWithCustomFileds[]) =>
+      isDefault ? addresses.findIndex(address => address.custom.fields.isPrimary) : undefined
 
     const customerDraft: MyCustomerDraft = {
       email,
@@ -255,8 +269,11 @@ export class FormStore {
       lastName,
       dateOfBirth: dateOfBirthStr,
       addresses,
-      defaultShippingAddress: this.formData.isShippingAddressAsDefault === true ? 0 : undefined,
-      defaultBillingAddress: this.formData.isBillingAddressAsDefault === true ? 1 : undefined,
+      defaultShippingAddress: getDefaultIndex(this.formData.isShippingAddressAsDefault, shippingAddresses),
+      defaultBillingAddress: getDefaultIndex(
+        this.formData.isBillingAddressAsDefault,
+        isUseShippingForBilling ? shippingAddresses : billingAddresses,
+      ),
     }
 
     const response = await registerCustomer(customerDraft)

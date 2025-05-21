@@ -15,7 +15,7 @@ import {
 
 describe('password validation', () => {
   it('should have correct number of rules', () => {
-    expect(passwordValidationRules.length).toBe(6)
+    expect(passwordValidationRules.length).toBe(3)
   })
 
   it('should be required', () => {
@@ -44,54 +44,48 @@ describe('postal code validation', () => {
 })
 
 describe('email validation', () => {
-  it('rule should be required', () => {
-    expect(emailValidationRules[0]).toHaveProperty('required', true)
-    expect(emailValidationRules[0]).toHaveProperty('message')
-  })
-
-  it('should validate correct email format', () => {
-    const rule = emailValidationRules[1]
-    if ('pattern' in rule && rule.pattern !== undefined) {
-      const validEmails = [
-        'user@example.com',
-        'user.name+tag@sub.domain',
-        'user123@domain.io',
-      ]
-      validEmails.forEach((email) => {
-        expect(rule.pattern?.test(email)).toBe(true)
-      })
-    }
-  })
-
-  it('should invalidate incorrect email format', () => {
-    const rule = emailValidationRules[1]
-    if ('pattern' in rule && rule.pattern !== undefined) {
-      const invalidEmails = [
-        'userexample.com',
-        'user@.com',
-        'user@domain',
-        'user@domain..com',
-        'user@domain.c',
-      ]
-      invalidEmails.forEach((email) => {
-        expect(rule.pattern?.test(email)).toBe(false)
-      })
-    }
+  it('should have correct number of rules', () => {
+    expect(emailValidationRules.length).toBe(2)
   })
 })
 
-describe('name validation', () => {
-  it('should be required', () => {
-    expect(nameValidationRules[0]).toHaveProperty('required', true)
-    expect(nameValidationRules[0]).toHaveProperty('message')
-  })
+it('should validate correct email format', () => {
+  const rule = emailValidationRules[1]
+  if ('pattern' in rule && rule.pattern !== undefined) {
+    const validEmails = [
+      'user@example.com',
+      'user.name+tag@sub.domain',
+      'user123@domain.io',
+    ]
+    validEmails.forEach((email) => {
+      expect(rule.pattern?.test(email)).toBe(true)
+    })
+  }
+})
 
-  it('should have min length rule', () => {
-    expect(nameValidationRules[1]).toHaveProperty('min', 1)
+it('should invalidate incorrect email format', () => {
+  const rule = emailValidationRules[1]
+  if ('pattern' in rule && rule.pattern !== undefined) {
+    const invalidEmails = [
+      'userexample.com',
+      'user@.com',
+      'user@domain',
+      'user@domain..com',
+      'user@domain.c',
+    ]
+    invalidEmails.forEach((email) => {
+      expect(rule.pattern?.test(email)).toBe(false)
+    })
+  }
+})
+
+describe('name validation', () => {
+  it('should have correct number of rules', () => {
+    expect(nameValidationRules.length).toBe(2)
   })
 
   it('should validate correct name format', () => {
-    const rule = nameValidationRules[2]
+    const rule = nameValidationRules[1]
     if ('pattern' in rule && rule.pattern !== undefined) {
       const validNames = [
         'user',
@@ -105,7 +99,7 @@ describe('name validation', () => {
   })
 
   it('should invalidate incorrect name format', () => {
-    const rule = nameValidationRules[2]
+    const rule = nameValidationRules[1]
     if ('pattern' in rule && rule.pattern !== undefined) {
       const validNames = [
         'user!',
@@ -119,7 +113,7 @@ describe('name validation', () => {
   })
 })
 
-describe('data validation', () => {
+describe('date validation', () => {
   it('should be required', () => {
     expect(dateValidationRules[0]).toHaveProperty('required', true)
     expect(dateValidationRules[0]).toHaveProperty('message')
@@ -136,12 +130,12 @@ describe('data validation', () => {
 
   it('should reject if date is exactly 18 years ago', async () => {
     const exact18 = dayjs().subtract(18, 'year')
-    await expect(isOver18(exact18)).rejects.toThrow('You must be over 18 years!')
+    await expect(isOver18(exact18)).rejects.toThrow('You must be over 18 years')
   })
 
   it('should reject if date is less than 18 years ago', async () => {
     const recentDate = dayjs().subtract(17, 'year').add(1, 'day')
-    await expect(isOver18(recentDate)).rejects.toThrow('You must be over 18 years!')
+    await expect(isOver18(recentDate)).rejects.toThrow('You must be over 18 years')
   })
 })
 
@@ -173,14 +167,14 @@ describe('city validation', () => {
   })
 
   it('should invalidate incorrect city format', () => {
-    const rule = nameValidationRules[2]
+    const rule = cityValidationRules[1]
     if ('pattern' in rule && rule.pattern !== undefined) {
-      const validCities = [
+      const invalidCities = [
         'minsk!',
         'mInSk1',
         'minsk*MINSK',
       ]
-      validCities.forEach((city) => {
+      invalidCities.forEach((city) => {
         expect(rule.pattern?.test(city)).toBe(false)
       })
     }

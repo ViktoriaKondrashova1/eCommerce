@@ -61,7 +61,7 @@ describe('promocodeSection', () => {
     await waitFor(() => {
       expect(writeTextMock).toHaveBeenCalledWith(promocode)
       expect(writeTextMock).toHaveBeenCalledTimes(1)
-      expect(AntApp.useApp().message.success).toHaveBeenCalledWith('Promocode has been copied!')
+      expect(AntApp.useApp().message.success).toHaveBeenCalledWith('Promocode has been copied')
     })
 
     writeTextMock.mockRestore()

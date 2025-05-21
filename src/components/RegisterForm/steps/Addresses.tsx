@@ -17,11 +17,7 @@ export const AddressFields = observer(
   ({
     address,
     onUpdate,
-    // onSetPrimary,
-    // onDelete,
-    // isPrimary,
     onSetDefault,
-    // index,
   }: {
     address: AddressWithCustomFileds
     onUpdate: (field: string, value: string) => void
@@ -51,11 +47,6 @@ export const AddressFields = observer(
         className="shadow-sm mb-4"
         style={{ maxWidth: '600px', width: '100%', marginBottom: '15px' }}
       >
-        {/* <AppTitle level={5} className="mb-4">
-          Address
-          {' '}
-          {index + 1}
-        </AppTitle> */}
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
@@ -144,28 +135,6 @@ export const AddressFields = observer(
               </Checkbox>
             </Col>
           </Row>
-
-          {/* <Col span={12}>
-            <AppButton
-              type={isPrimary ? 'primary' : 'default'}
-              icon={<PushpinOutlined size={16} />}
-              onClick={onSetPrimary}
-            >
-              Set as default
-            </AppButton>
-          </Col>
-
-          <Col span={12} className="flex justify-between items-center">
-            <AppButton
-              danger
-              disabled={!!isPrimary}
-              icon={<DeleteOutlined />}
-              onClick={onDelete}
-              className="mb-4"
-            >
-              Delete
-            </AppButton>
-          </Col> */}
         </Row>
       </Card>
     )

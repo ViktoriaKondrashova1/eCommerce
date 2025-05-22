@@ -1,6 +1,6 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { MenuProps } from 'antd'
 import type { FC } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Menu } from 'antd'
 import './SortingMenu.scss'
 

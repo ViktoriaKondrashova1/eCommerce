@@ -1,7 +1,7 @@
 import type { FilterData } from '../model/filter.types'
+import { useEffect, useState } from 'react'
 import { getAllCategories } from '@/entities/category/api/get-all-categories'
 import { session } from '@/shared/lib/storage'
-import { useEffect, useState } from 'react'
 import { filterStore } from '../model/filter.store'
 import { getAbvRange } from './get-abv-range'
 import { getAllBreweries } from './get-breweries-list'

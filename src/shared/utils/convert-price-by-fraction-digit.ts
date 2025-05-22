@@ -1,9 +1,3 @@
-/**
- * преобразуем цену:
- * 1. делим на целую и дробную часть, в зависимости от fractionDigits (цифр после точки)
- * 2. startPart - целая часть, restPart - дробная часть (после точки)
- * пример: 1099 => 10.99
- */
 export function convertPriceByFractionDigit(price: number, fractionDigits?: number | undefined): string {
   if (typeof price !== 'number' || Number.isNaN(price)) {
     throw new TypeError('Price is required for convertPriceByFractionDigit function')

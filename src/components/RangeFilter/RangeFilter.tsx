@@ -1,5 +1,5 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Flex, InputNumber, Slider, Space } from 'antd'
 import { useState } from 'react'
 import { AppTitle } from '../AppTitle/AppTitle'

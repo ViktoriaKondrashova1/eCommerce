@@ -1,6 +1,6 @@
+import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
-import type { FC } from 'react'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
 import { useNavigate } from 'react-router-dom'

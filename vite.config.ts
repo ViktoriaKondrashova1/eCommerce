@@ -7,6 +7,7 @@ import { defineConfig } from 'vite'
 dotenv.config()
 
 export default defineConfig({
+    base: '/',
   plugins: [react()],
   resolve: {
     alias: {

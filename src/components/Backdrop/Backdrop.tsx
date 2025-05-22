@@ -1,5 +1,5 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC, ReactNode } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 
 import './Backdrop.scss'
 

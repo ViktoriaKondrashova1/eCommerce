@@ -1,6 +1,6 @@
 import type { FilterData } from './filter.types'
-import { session } from '@/shared/lib/storage'
 import { makeAutoObservable } from 'mobx'
+import { session } from '@/shared/lib/storage'
 
 class FilterStore {
   public isDataLoaded: boolean

@@ -1,7 +1,7 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { BreadcrumbProps } from 'antd'
 import type { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
 import type { FC } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { HomeOutlined } from '@ant-design/icons'
 import { Breadcrumb } from 'antd'
 

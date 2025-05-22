@@ -1,52 +1,48 @@
-// import { mockProducts } from '@/shared/constants'
-// import { render, screen } from '@testing-library/react'
-// import { vi } from 'vitest'
-// import { RelatedProducts } from './RelatedProducts'
+import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
+import { RelatedProducts } from './RelatedProducts'
+import { mockProducts } from './test-mock'
 
-// const mockNavigate = vi.fn()
+const mockNavigate = vi.fn()
 
-// vi.mock('react-router-dom', () => ({
-//   // eslint-disable-next-line react-hooks-extra/no-unnecessary-use-prefix
-//   useNavigate: () => mockNavigate,
-// }))
+vi.mock('react-router-dom', () => ({
 
-// describe('relatedProducts', () => {
-//   it('should render the component container', () => {
-//     render(<RelatedProducts products={mockProducts} />)
+  useNavigate: () => mockNavigate,
+}))
 
-//     const container = screen.getByTestId('related-products')
+const mockTitle = 'Test Title'
 
-//     expect(container).toBeInTheDocument()
-//   })
+describe('relatedProducts', () => {
+  beforeEach(() => {
+    render(<RelatedProducts title={mockTitle} products={mockProducts} />)
+  })
 
-//   it('should display the title', () => {
-//     render(<RelatedProducts products={mockProducts} />)
+  it('should render the component container', () => {
+    const container = screen.getByTestId('related-products')
 
-//     expect(screen.getByText('NEW')).toBeInTheDocument()
-//   })
+    expect(container).toBeInTheDocument()
+  })
 
-//   it('should render all product cards', () => {
-//     render(<RelatedProducts products={mockProducts} />)
+  it('should display the title', () => {
+    expect(screen.getByText(mockTitle)).toBeInTheDocument()
+  })
 
-//     const productCards = screen.getAllByTestId('product-card')
+  it('should render all product cards', () => {
+    const productCards = screen.getAllByTestId('product-card')
 
-//     expect(productCards).toHaveLength(4)
-//   })
+    expect(productCards).toHaveLength(4)
+  })
 
-//   it('should have a "Go To Catalog" button', () => {
-//     render(<RelatedProducts products={mockProducts} />)
+  it('should have a "Go To Catalog" button', () => {
+    const button = screen.getByText('Go To Catalog')
 
-//     const button = screen.getByText('Go To Catalog')
+    expect(button).toBeInTheDocument()
+  })
 
-//     expect(button).toBeInTheDocument()
-//   })
+  it('should navigate to /catalog when the button is clicked', () => {
+    const button = screen.getByText('Go To Catalog')
+    button.click()
 
-//   it('should navigate to /catalog when the button is clicked', () => {
-//     render(<RelatedProducts products={mockProducts} />)
-
-//     const button = screen.getByText('Go To Catalog')
-//     button.click()
-
-//     expect(mockNavigate).toHaveBeenCalledWith('/catalog')
-//   })
-// })
+    expect(mockNavigate).toHaveBeenCalledWith('/catalog')
+  })
+})

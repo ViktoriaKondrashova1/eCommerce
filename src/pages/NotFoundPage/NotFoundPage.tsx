@@ -1,9 +1,9 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
-import beerIcon from '@/assets/broken-bottle.png'
-import { AppButton } from '@/components/AppButton'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Flex, Result } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import beerIcon from '@/assets/broken-bottle.png'
+import { AppButton } from '@/components/AppButton'
 import './NotFoundPage.scss'
 
 interface Props extends BaseComponent {}

@@ -19,7 +19,7 @@ export async function fetchProducts(page?: number): Promise<ClientResponse<Produ
       const limit = catalogPageLimit
       const offset = (page - 1) * limit
 
-      const response = await commerceApi
+      const response = await commerceApi.client
         .productProjections()
         .get({
           queryArgs: {
@@ -33,7 +33,7 @@ export async function fetchProducts(page?: number): Promise<ClientResponse<Produ
       return response
     }
     else {
-      const response = await commerceApi
+      const response = await commerceApi.client
         .productProjections()
         .get({
           queryArgs: {
@@ -51,20 +51,11 @@ export async function fetchProducts(page?: number): Promise<ClientResponse<Produ
   }
 }
 
-/**
- fetchPublishedProductsById:
-   1. получаем опубликованные товары по категории
-   2. принимеам айдишник категории, чтобы получить товары только из нее
-   3. опционально: settings {limit, offset, sort} - лимит продуктов на странице, офсет начиная с первого товара в категории и сортировка
-   4. создаем запрос, добавляем фильтр where: "categories(id=...)" по айдишнику категории
-   5. отправялем запрос через .get({ queryArgs: ... }).execute()
-   6. возвращем товапры, если все ок, если нет - выбрасываем ошибку
- */
 export async function fetchPublishedProductsById(categoryId: string, settings?: { limit: number, offset: number, sort: string }): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   const { limit = 38, offset = 0, sort = 'ASC' } = settings ?? {}
 
   try {
-    const response = await commerceApi
+    const response = await commerceApi.client
       .productProjections()
       .get({
         queryArgs: {

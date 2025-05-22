@@ -1,5 +1,8 @@
-import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { FC } from 'react'
+import type { ICleanProduct } from '@/entities/product/model/product.types'
+import { FilterOutlined } from '@ant-design/icons'
+import { Flex, Grid } from 'antd'
+import { useCallback, useEffect, useState } from 'react'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
@@ -11,10 +14,7 @@ import { ProductList } from '@/components/ProductList/ProductList'
 import { fetchProducts } from '@/entities/product/api/fetch-products'
 import { importProductAdapter, useCategories } from '@/shared/adapters/import/product.adapter'
 import { catalogPageLimit } from '@/shared/constants'
-import { useRequest } from '@/shared/hooks/useRequest'
-import { FilterOutlined } from '@ant-design/icons'
-import { Flex, Grid } from 'antd'
-import { useCallback, useEffect, useState } from 'react'
+import { useRequest } from '@/shared/hooks/use-request'
 
 const { useBreakpoint } = Grid
 

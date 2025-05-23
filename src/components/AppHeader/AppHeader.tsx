@@ -26,7 +26,7 @@ export const AppHeader: FC<Props> = observer(({ testId = 'header', ...rest }) =>
   const menuItems: ItemType[] = [
     { key: '/', label: 'MAIN' },
     { key: '/about', label: 'ABOUT' },
-    { key: '/catalog', label: 'CATALOG' },
+    { key: '/catalog/1', label: 'CATALOG' },
   ]
 
   const authMenuItems: ItemType[] = [

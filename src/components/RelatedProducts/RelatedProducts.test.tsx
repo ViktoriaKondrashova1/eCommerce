@@ -39,10 +39,10 @@ describe('relatedProducts', () => {
     expect(button).toBeInTheDocument()
   })
 
-  it('should navigate to /catalog when the button is clicked', () => {
+  it('should navigate to /catalog/1 when the button is clicked', () => {
     const button = screen.getByText('Go To Catalog')
     button.click()
 
-    expect(mockNavigate).toHaveBeenCalledWith('/catalog')
+    expect(mockNavigate).toHaveBeenCalledWith('/catalog/1')
   })
 })

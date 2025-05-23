@@ -19,7 +19,7 @@ export const NotFoundPage: FC<Props> = ({ testId = 'not-found-page' }) => {
         extra={(
           <Flex justify="center" gap="small">
             <AppButton type="primary" onClick={() => navigate('/')}>Back Home</AppButton>
-            <AppButton type="primary" onClick={() => navigate('/catalog')}>Explore Beers</AppButton>
+            <AppButton type="primary" onClick={() => navigate('/catalog/1')}>Explore Beers</AppButton>
           </Flex>
         )}
         icon={<img src={beerIcon} alt="broken beer" width={200} />}

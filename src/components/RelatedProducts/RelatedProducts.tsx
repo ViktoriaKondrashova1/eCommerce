@@ -20,7 +20,7 @@ export const RelatedProducts: FC<Props> = ({ testId = 'related-products', title,
     <Flex vertical gap="large" data-testid={testId}>
       <Flex justify="space-between">
         <AppTitle level={3}>{title}</AppTitle>
-        <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end" onClick={() => navigate('/catalog')}>Go To Catalog</AppButton>
+        <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end" onClick={() => navigate('/catalog/1')}>Go To Catalog</AppButton>
       </Flex>
       <Flex wrap="wrap" justify="space-around" gap="large">
         {products.map(card =>

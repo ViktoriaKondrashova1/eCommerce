@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx'
 class GlobalStore {
   isLoading: boolean
   constructor() {
-    this.isLoading = true
+    this.isLoading = false
 
     makeAutoObservable(this)
   }

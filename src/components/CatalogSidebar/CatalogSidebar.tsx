@@ -1,23 +1,29 @@
 import type { FC } from 'react'
+import type { IFilterForm, TFilterItemValue } from '@/pages/CatalogPage/use-filter-form.ts'
 import type { BaseComponent } from '@/shared/types/common.types'
 import { Drawer, Flex, Grid } from 'antd'
+import { useState } from 'react'
 import { useFilter } from '@/entities/filter/api/useFilter'
 import { AppButton } from '../AppButton'
 import { AppSkeleton } from '../AppSkeleton/AppSkeleton'
 import { Backdrop } from '../Backdrop/Backdrop'
 import { RangeFilter } from '../RangeFilter/RangeFilter'
-import { SortingMenu } from '../SortingMenu/SortingMenu'
+import { SortingSelect } from '../SortingSelect/SortingSelect'
 
 interface Props extends BaseComponent {
   isFiltersVisible: boolean
   setFiltersVisible: (isVisible: boolean) => void
+  handleChangeFilterForm: ({ key, value }: { key: keyof IFilterForm, value: TFilterItemValue }) => void
+  handleAcceptFilters: () => void
+  handleResetFilterForm: () => void
 }
 
 const { useBreakpoint } = Grid
 
-export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFiltersVisible, setFiltersVisible }) => {
+export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFiltersVisible, setFiltersVisible, handleAcceptFilters, handleChangeFilterForm, handleResetFilterForm }) => {
   const { isLoading, filterData } = useFilter()
   const screens = useBreakpoint()
+  const [isNeedReset, setINR] = useState<boolean>(false)
 
   if (isLoading || !filterData) {
     return <AppSkeleton />
@@ -31,63 +37,62 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
     abvRange,
   } = filterData
 
-  const sortByPriceItems = [
-    {
-      key: 'sub1',
-      label: 'Sorting',
-      children: [
-        { key: '1', label: 'Price: high - low' },
-        { key: '2', label: 'Price: low - high' },
-      ],
-    },
-  ]
+  const sortByPriceArr = ['Price: high - low', 'Price: low - high']
 
-  const sortByStyleItems = [
-    {
-      key: 'sub2',
-      label: 'Style',
-      children: categories?.map(category => ({ key: category.id, label: category.name['en-US'] })),
-    },
-  ]
+  const sortByPriceOptions = sortByPriceArr.map(elem => ({
+    label: elem,
+    value: elem,
+  }))
 
-  const sortByBreweryItems = [
-    {
-      key: 'sub3',
-      label: 'Brewery',
-      children: breweries?.map((brewery, idx) => ({ key: idx.toString(), label: brewery })),
-    },
-  ]
+  const sortByStyleOptions = categories?.map(category => ({
+    label: category.name['en-US'],
+    value: category.name['en-US'],
+  })) || []
 
-  const sortByCountryItems = [
-    {
-      key: 'sub4',
-      label: 'Country',
-      children: countries?.map((country, idx) => ({ key: idx.toString(), label: country })),
-    },
-  ]
+  const sortByBreweryOptions = breweries?.map(brewery => ({
+    label: brewery,
+    value: brewery,
+  })) || []
+
+  const sortByCountryOptions = countries?.map(country => ({
+    label: country,
+    value: country,
+  })) || []
 
   const filtersContent = (
     <Backdrop>
-      <Flex vertical data-testid={testId} style={{ width: 200 }}>
-        <SortingMenu items={sortByPriceItems} />
-        <SortingMenu items={sortByStyleItems} />
-        <SortingMenu items={sortByBreweryItems} />
-        <SortingMenu items={sortByCountryItems} />
+      <Flex vertical gap="middle" data-testid={testId} style={{ width: 200 }}>
+        <SortingSelect title="Sorting" options={sortByPriceOptions} isMultiple={false} onClick={value => handleChangeFilterForm({ key: 'sorting', value })} />
+        <SortingSelect title="Style" options={sortByStyleOptions} onClick={value => handleChangeFilterForm({ key: 'style', value })} />
+        <SortingSelect title="Brewery" options={sortByBreweryOptions} onClick={value => handleChangeFilterForm({ key: 'brewery', value })} />
+        <SortingSelect title="Country" options={sortByCountryOptions} onClick={value => handleChangeFilterForm({ key: 'country', value })} />
         <RangeFilter
           title="Price, $"
           icon="$"
           minValue={priceRange.min}
           maxValue={priceRange.max}
+          onChange={value => handleChangeFilterForm({ key: 'price', value })}
+          shouldUpdate={isNeedReset}
         />
         <RangeFilter
           title="ABV, %"
           icon="%"
           minValue={abvRange.min}
           maxValue={abvRange.max}
+          onChange={value => handleChangeFilterForm({ key: 'ABV', value })}
+          shouldUpdate={isNeedReset}
         />
         <Flex vertical gap="small">
-          <AppButton type="primary">Accept</AppButton>
-          <AppButton type="primary">Reset</AppButton>
+          <AppButton type="primary" onClick={handleAcceptFilters}>Accept</AppButton>
+          <AppButton
+            type="primary"
+            onClick={() => {
+              handleResetFilterForm()
+              setINR(prevState => !prevState)
+            }}
+          >
+            Reset
+          </AppButton>
         </Flex>
       </Flex>
     </Backdrop>

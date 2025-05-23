@@ -1,4 +1,5 @@
 import type { ClientResponse, ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk'
+import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import { catalogPageLimit } from '@/shared/constants'
 
@@ -14,11 +15,13 @@ import { catalogPageLimit } from '@/shared/constants'
 interface Props {
   page?: number
   deferredQuery?: string
+  filters?: IFilterForm
 }
 
 export async function fetchProducts({
   page,
   deferredQuery,
+  filters: _filters,
 }: Props): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   try {
     const MAX_LIMIT = 500

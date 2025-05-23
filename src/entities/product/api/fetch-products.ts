@@ -11,40 +11,44 @@ import { catalogPageLimit } from '@/shared/constants'
  * 4. если все ок - вернем товары в формате, который соответствует типу ProductProjectionPagedQueryResponse, если нет - выбросим ошибку
  */
 
-export async function fetchProducts(page?: number): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
+interface Props {
+  page?: number
+  deferredQuery?: string
+}
+
+export async function fetchProducts({
+  page,
+  deferredQuery,
+}: Props): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   try {
     const MAX_LIMIT = 500
+    const limit = page !== undefined ? catalogPageLimit : MAX_LIMIT
+    const offset = page !== undefined ? (page - 1) * limit : undefined
 
-    if (page !== undefined) {
-      const limit = catalogPageLimit
-      const offset = (page - 1) * limit
-
-      const response = await commerceApi.client
-        .productProjections()
-        .get({
-          queryArgs: {
-            limit,
-            offset,
-            where: 'published=true',
-          },
-        })
-        .execute()
-
-      return response
+    const queryArgs: {
+      'limit': number
+      'offset'?: number
+      'where'?: string
+      'text.en'?: string
+    } = {
+      limit,
+      where: 'published=true',
     }
-    else {
-      const response = await commerceApi.client
-        .productProjections()
-        .get({
-          queryArgs: {
-            limit: MAX_LIMIT,
-            where: 'published=true',
-          },
-        })
-        .execute()
 
-      return response
+    if (deferredQuery?.trim() !== '') {
+      queryArgs['text.en'] = deferredQuery
     }
+
+    if (offset !== undefined) {
+      queryArgs.offset = offset
+    }
+
+    const response = await commerceApi.client
+      .productProjections()
+      .get({ queryArgs })
+      .execute()
+
+    return response
   }
   catch {
     throw new Error('Failed to fetch products')

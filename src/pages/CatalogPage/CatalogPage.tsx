@@ -14,13 +14,15 @@ import { catalogPageLimit } from '@/shared/constants'
 import { useCatalogPage } from './use-catalog-page'
 import { useCategories } from './use-categories'
 import { useProducts } from './use-products'
+import { useSearch } from './use-search'
 
 const { useBreakpoint } = Grid
 
 export const CatalogPage: FC = () => {
   const { currentPage, handlePageChange } = useCatalogPage()
+  const { deferredQuery, handleSetQuery } = useSearch()
 
-  const { productsData, isLoading, isError } = useProducts({ currentPage })
+  const { productsData, isLoading, isError } = useProducts({ currentPage, deferredQuery })
 
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false)
   const screens = useBreakpoint()
@@ -64,7 +66,7 @@ export const CatalogPage: FC = () => {
     <>
       <Flex justify="space-between">
         <AppBreadcrumb />
-        <CatalogSearch />
+        <CatalogSearch onChange={handleSetQuery} />
       </Flex>
       <Flex gap="large" style={{ marginTop: 40 }}>
         <CatalogSidebar

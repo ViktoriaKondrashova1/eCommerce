@@ -4,7 +4,7 @@ import { fetchProducts } from './fetch-products'
 
 export async function getFourRandomProducts(): Promise<ICleanProduct[]> {
   try {
-    const allProductsResponse = await fetchProducts()
+    const allProductsResponse = await fetchProducts({})
     const products = importProductAdapter(allProductsResponse.body.results)
 
     if (!products.length) {

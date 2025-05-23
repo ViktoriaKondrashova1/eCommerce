@@ -1,18 +1,12 @@
 import type { CustomerSignInResult } from '@commercetools/platform-sdk'
-import { storage } from '@/shared/lib/storage'
+import type { TokenStore } from '@commercetools/sdk-client-v2'
 import { makeAutoObservable } from 'mobx'
+import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
+import { TOKEN_STORAGE_KEY } from '@/shared/constants'
+import { storage } from '@/shared/lib/storage'
 
-/**
- * стор юзера:
- * 1. храним данные юзера
- * 2. статус авторизации (isAuth)
- * 3. loadCustomer - загружаем сохраненные данные юзера
- * 4. setIsAuth - устанавливаем статус авторизации
- * 5. setCustomer - сохраняем данные юзера
- * 6. logout - очищаем данные при логауте, вычищаем локал сторадж
- */
 class CustomerStore {
-  public customer: CustomerSignInResult | null
+  public customer: CustomerSignInResult['customer'] | null
   public isAuth: boolean
 
   constructor() {
@@ -27,20 +21,20 @@ class CustomerStore {
     this.isAuth = isAuth
   }
 
-  public setCustomer(customer: CustomerSignInResult) {
+  public setCustomer(customer: CustomerSignInResult['customer']) {
     this.customer = customer
   }
 
   logout(): void {
     this.customer = null
     this.isAuth = false
-    storage.remove('customer')
+    storage.remove(TOKEN_STORAGE_KEY)
+    setCommerceApiFlow({ flow: 'anonymous' })
   }
 
   private loadCustomer(): void {
-    const savedCustomer = storage.get<CustomerSignInResult>('customer')
-    if (savedCustomer instanceof Object && Object.keys(savedCustomer).length > 0) {
-      this.customer = savedCustomer
+    const tokenCache = storage.get<TokenStore>(TOKEN_STORAGE_KEY)
+    if (tokenCache instanceof Object && Object.keys(tokenCache).length > 0) {
       this.isAuth = true
     }
   }

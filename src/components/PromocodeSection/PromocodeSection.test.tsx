@@ -1,7 +1,7 @@
-import { promocode, promocodeText } from '@/shared/constants'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { App as AntApp, Grid } from 'antd'
 import { vi } from 'vitest'
+import { promocode, promocodeText } from '@/shared/constants'
 import { PromocodeSection } from './PromocodeSection'
 
 vi.mock('antd', async (importOriginal) => {
@@ -12,8 +12,6 @@ vi.mock('antd', async (importOriginal) => {
   return {
     ...actual,
     App: {
-      // Todo refactor
-      // eslint-disable-next-line react-hooks-extra/no-unnecessary-use-prefix
       useApp: () => ({ message }),
     },
     Grid: {
@@ -63,7 +61,7 @@ describe('promocodeSection', () => {
     await waitFor(() => {
       expect(writeTextMock).toHaveBeenCalledWith(promocode)
       expect(writeTextMock).toHaveBeenCalledTimes(1)
-      expect(AntApp.useApp().message.success).toHaveBeenCalledWith('Promocode has been copied!')
+      expect(AntApp.useApp().message.success).toHaveBeenCalledWith('Promocode has been copied')
     })
 
     writeTextMock.mockRestore()

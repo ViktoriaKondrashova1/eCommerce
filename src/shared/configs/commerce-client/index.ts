@@ -1,45 +1,45 @@
+/* eslint-disable no-console */
 import type { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk'
-import type { AuthMiddlewareOptions, HttpMiddlewareOptions } from '@commercetools/sdk-client-v2'
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
-import {
+import type { TokenStore } from '@commercetools/sdk-client-v2'
+import { getCommerceClientWithPassword } from '@/shared/configs/commerce-client/clients/get-auth-client'
+import { getCommerceClientPublic } from '@/shared/configs/commerce-client/clients/get-public-client'
+import { getExistingSessionClient } from '@/shared/configs/commerce-client/clients/get-session-client'
+import { isType } from '@/shared/types/is-type'
 
-  ClientBuilder,
-} from '@commercetools/sdk-client-v2'
-import { getAuthMiddlewareOptions } from './auth-middleware'
-import { getHttpMiddlewareOptions } from './http-middleware'
-
-// в commerceApiClient храним созданный апи, чтоьбы не создавать его заново при каждом вызове
-let commerceApiClient: ByProjectKeyRequestBuilder | null = null
-
-function getCommerceClient(): ByProjectKeyRequestBuilder {
-  // проверяем существует ли commerceApiClient, если да, то возвращем его
-  if (commerceApiClient) {
-    return commerceApiClient
-  }
-  // получаем из commercetools sdk пармаетры для авторизации и http запросов
-  const authMiddlewareOptions: AuthMiddlewareOptions = getAuthMiddlewareOptions()
-  const httpMiddlewareOptions: HttpMiddlewareOptions = getHttpMiddlewareOptions()
-
-  // билдер по созданию клиента коммерстулза с нужными мидлвэйрами (автор-ция, http и логирование)
-  const ctpClientWithLogger = new ClientBuilder()
-    .withClientCredentialsFlow(authMiddlewareOptions)
-    .withHttpMiddleware(httpMiddlewareOptions)
-    .withLoggerMiddleware()
-    .build()
-
-  // билдер по созданию клиента коммерстулза с нужными мидлвэйрами без логирования
-  const ctpClientWithoutLogger = new ClientBuilder()
-    .withClientCredentialsFlow(authMiddlewareOptions)
-    .withHttpMiddleware(httpMiddlewareOptions)
-    .build()
-
-  const ctpClient = import.meta.env.MODE === 'development' ? ctpClientWithLogger : ctpClientWithoutLogger
-
-  // создаем апи-клиента, привязывапя его к ключу из енва VITE_CTP_KEY
-  commerceApiClient = createApiBuilderFromCtpClient(ctpClient)
-    .withProjectKey({ projectKey: import.meta.env.VITE_CTP_KEY ?? '' })
-
-  return commerceApiClient
+export const commerceApi: Record<'client', ByProjectKeyRequestBuilder> = {
+  client: getCommerceClientPublic(),
 }
 
-export const commerceApi = getCommerceClient()
+export function setCommerceApiFlow<T extends Record<string, unknown>>({ flow, payload }: { flow: 'anonymous' | 'password' | 'token', payload?: T }): void {
+  switch (flow) {
+    case 'password': {
+      if (payload !== undefined && isType<{ username: string, password: string }>(payload)) {
+        commerceApi.client = getCommerceClientWithPassword(payload)
+        if (import.meta.env.MODE === 'development') {
+          console.log('сменили флоу на password')
+        }
+      }
+      break
+    }
+
+    case 'token': {
+      if (payload !== undefined && isType<TokenStore>(payload)) {
+        commerceApi.client = getExistingSessionClient(payload)
+        if (import.meta.env.MODE === 'development') {
+          console.log('сменили флоу на token')
+        }
+      }
+      break
+    }
+
+    case 'anonymous':
+    default: {
+      commerceApi.client = getCommerceClientPublic()
+      if (import.meta.env.MODE === 'development') {
+        console.log('сменили флоу на public')
+      }
+
+      break
+    }
+  }
+}

@@ -1,12 +1,11 @@
-import { mockProducts } from '@/shared/constants'
 import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 import { NewProducts } from './NewProducts'
+import { mockProducts } from './test-mock'
 
 const mockNavigate = vi.fn()
 
 vi.mock('react-router-dom', () => ({
-  // eslint-disable-next-line react-hooks-extra/no-unnecessary-use-prefix
   useNavigate: () => mockNavigate,
 }))
 

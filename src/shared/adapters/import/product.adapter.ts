@@ -1,18 +1,8 @@
 import type { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
-import { useEffect } from 'react'
-import { getAllCategories } from '@/entities/category/api/get-all-categories'
 import { categoryStore } from '@/entities/category/model/category.store'
 import { transformAttrsFromArrayToObj } from '@/shared/utils/attributes-from-array-to-obj'
 import { convertPriceByFractionDigit } from '@/shared/utils/convert-price-by-fraction-digit'
-
-export function useCategories() {
-  useEffect(() => {
-    getAllCategories()
-      .then(response => categoryStore.setCategories(response.body.results))
-      .catch(() => console.error('categories fetch error:'))
-  }, [])
-}
 
 /**
  * importProductAdapter:

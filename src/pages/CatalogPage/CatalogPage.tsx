@@ -10,9 +10,9 @@ import { CatalogPagination } from '@/components/CatalogPagination/CatalogPaginat
 import { CatalogSearch } from '@/components/CatalogSearch/CatalogSearch'
 import { CatalogSidebar } from '@/components/CatalogSidebar/CatalogSidebar'
 import { ProductList } from '@/components/ProductList/ProductList'
-import { useCategories } from '@/shared/adapters/import/product.adapter'
 import { catalogPageLimit } from '@/shared/constants'
 import { useCatalogPage } from './use-catalog-page'
+import { useCategories } from './use-categories'
 import { useProducts } from './use-products'
 
 const { useBreakpoint } = Grid

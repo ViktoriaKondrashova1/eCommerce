@@ -53,5 +53,6 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', title, imageUr
         )}
       />
     </Card>
+
   )
 }

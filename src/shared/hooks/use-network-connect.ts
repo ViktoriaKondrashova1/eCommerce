@@ -15,6 +15,5 @@ export function useNetworkConnection(): void {
       window.removeEventListener('offline', showDisconnected)
       window.removeEventListener('online', showConnected)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }

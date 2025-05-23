@@ -4,6 +4,7 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import { PlusOutlined } from '@ant-design/icons'
 import { Card, Flex, Grid, Tooltip } from 'antd'
 import Meta from 'antd/es/card/Meta'
+import { useNavigate } from 'react-router-dom'
 import { AppButton } from '../AppButton'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './ProductCard.scss'
@@ -15,9 +16,11 @@ interface Props extends BaseComponent {
 export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => {
   const { useBreakpoint } = Grid
   const screens = useBreakpoint()
+  const navigate = useNavigate()
 
   return (
     <Card
+      onClick={() => navigate(`/catalog/product/${product.slug}`)}
       data-testid={testId}
       hoverable
       className="product-card"

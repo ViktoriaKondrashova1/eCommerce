@@ -1,4 +1,4 @@
-import type { ClientResponse, ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk'
+import type { ClientResponse, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
 import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import { catalogPageLimit } from '@/shared/constants'
@@ -18,6 +18,14 @@ interface Props {
   filters?: IFilterForm
 }
 
+interface queryProps {
+  'limit': number
+  'offset'?: number
+  'where'?: string
+  'text.en'?: string
+  [key: string]: QueryParam | undefined
+}
+
 export async function fetchProducts({
   page,
   deferredQuery,
@@ -28,12 +36,7 @@ export async function fetchProducts({
     const limit = page !== undefined ? catalogPageLimit : MAX_LIMIT
     const offset = page !== undefined ? (page - 1) * limit : undefined
 
-    const queryArgs: {
-      'limit': number
-      'offset'?: number
-      'where'?: string
-      'text.en'?: string
-    } = {
+    const queryArgs: queryProps = {
       limit,
       where: 'published=true',
     }

@@ -23,7 +23,7 @@ const { useBreakpoint } = Grid
 export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFiltersVisible, setFiltersVisible, handleAcceptFilters, handleChangeFilterForm, handleResetFilterForm }) => {
   const { isLoading, filterData } = useFilter()
   const screens = useBreakpoint()
-  const [isNeedReset, setINR] = useState<boolean>(false)
+  const [isNeedReset, setIsNeedReset] = useState<boolean>(false)
 
   if (isLoading || !filterData) {
     return <AppSkeleton />
@@ -88,7 +88,7 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
             type="primary"
             onClick={() => {
               handleResetFilterForm()
-              setINR(prevState => !prevState)
+              setIsNeedReset(prevState => !prevState)
             }}
           >
             Reset

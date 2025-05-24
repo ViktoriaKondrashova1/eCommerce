@@ -1,11 +1,11 @@
-import { appName } from '@/shared/constants'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { AppHeader } from './AppHeader'
+import { appName } from '@/shared/constants'
+import { AppHeaderAuth } from './AppHeaderAuth'
 
-describe('appHeader positive', () => {
+describe('appHeaderAuth positive', () => {
   it('should render the header, title and divider', () => {
-    render(<MemoryRouter><AppHeader /></MemoryRouter>)
+    render(<MemoryRouter><AppHeaderAuth /></MemoryRouter>)
 
     const header = screen.getByTestId('header')
 
@@ -15,7 +15,7 @@ describe('appHeader positive', () => {
   })
 
   it('should always render constant menu items', () => {
-    render(<MemoryRouter><AppHeader /></MemoryRouter>)
+    render(<MemoryRouter><AppHeaderAuth /></MemoryRouter>)
 
     expect(screen.getByText('MAIN')).toBeInTheDocument()
     expect(screen.getByText('ABOUT')).toBeInTheDocument()
@@ -23,7 +23,7 @@ describe('appHeader positive', () => {
   })
 
   it('should have header className', () => {
-    render(<MemoryRouter><AppHeader /></MemoryRouter>)
+    render(<MemoryRouter><AppHeaderAuth /></MemoryRouter>)
 
     const header = screen.getByTestId('header')
 

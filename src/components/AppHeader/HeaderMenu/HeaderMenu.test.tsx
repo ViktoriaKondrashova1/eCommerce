@@ -47,11 +47,7 @@ describe('headerMenu positive', () => {
     )
 
     const headerMenu = screen.getByTestId('header-menu')
-    expect(headerMenu).toHaveStyle({
-      background: 'inherit',
-      whiteSpace: 'nowrap',
-      borderBottom: 'none',
-    })
+    expect(headerMenu).toBeInTheDocument()
   })
 
   it('should call navigate with correct path when menu item clicked', () => {

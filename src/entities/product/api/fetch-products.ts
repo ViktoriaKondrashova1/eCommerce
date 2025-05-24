@@ -42,7 +42,7 @@ export async function fetchProducts({
     }
 
     if (deferredQuery?.trim() !== '') {
-      queryArgs['text.en'] = deferredQuery
+      queryArgs['text.en'] = `${deferredQuery?.trim()}*`
     }
 
     if (offset !== undefined) {

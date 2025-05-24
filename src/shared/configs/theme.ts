@@ -9,6 +9,9 @@ export const theme = {
       colorError: '#ff4d4f',
       fontSize: 16,
     },
+    Button: {
+      colorPrimaryTextHover: '#fff',
+    },
   },
 
 } satisfies ThemeConfig

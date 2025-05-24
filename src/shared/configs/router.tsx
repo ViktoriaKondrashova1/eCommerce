@@ -66,7 +66,7 @@ export const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path: 'profile',
+        path: 'profile/:chapter',
         element: <UserProfilePage />,
         loader: async () => {
           if (!customerStore.isAuth) {

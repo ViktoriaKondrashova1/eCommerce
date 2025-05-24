@@ -21,7 +21,7 @@ export const AppHeader: FC<Props> = observer(({ testId = 'header', ...rest }) =>
   const screens = useBreakpoint()
   const navigate = useNavigate()
 
-  const isAuthenticated = customerStore.isAuth // временное значение
+  const isAuthenticated = customerStore.isAuth
 
   const menuItems: ItemType[] = [
     { key: '/', label: 'MAIN' },

@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
 import { PlusOutlined } from '@ant-design/icons'
-import { Card, Flex, Grid, Tooltip } from 'antd'
+import { Card, Flex, Tooltip } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import { useNavigate } from 'react-router-dom'
 import { AppButton } from '../AppButton'
@@ -14,8 +14,6 @@ interface Props extends BaseComponent {
 }
 
 export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => {
-  const { useBreakpoint } = Grid
-  const screens = useBreakpoint()
   const navigate = useNavigate()
 
   return (
@@ -39,7 +37,7 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
               <div className="price">
                 {product.price.discount !== null && product.price.discount !== ''
                   ? (
-                      <Flex gap="small">
+                      <Flex gap="6px">
                         <span className="original-price">{product.price.amount}</span>
                         <span className="discount-price">{product.price.discount}</span>
                       </Flex>
@@ -51,12 +49,6 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
                   type="primary"
                   shape="circle"
                   icon={<PlusOutlined />}
-                  style={{
-                    width: screens.lg ? 32 : 24,
-                    height: screens.lg ? 32 : 24,
-                    minWidth: 'unset !important',
-                    fontSize: screens.lg ? 16 : 14,
-                  }}
                 />
               </Tooltip>
             </Flex>

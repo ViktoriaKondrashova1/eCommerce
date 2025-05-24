@@ -75,7 +75,7 @@ export const CatalogPage: FC = () => {
 
   return (
     <>
-      <Flex justify="space-between">
+      <Flex justify="space-between" vertical={screens.xs} gap={screens.xs ? 'middle' : undefined}>
         <AppBreadcrumb />
         <CatalogSearch onChange={handleSetQuery} />
       </Flex>

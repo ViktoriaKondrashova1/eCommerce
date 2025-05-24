@@ -24,7 +24,8 @@ export const ProductList: FC<Props> = ({ testId = 'product-list', products }) =>
             sm={12}
             md={8}
             lg={6}
-            className="col"
+            xxl={0}
+            className="col five-cols"
           >
             <ProductCard product={product} />
           </Col>

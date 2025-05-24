@@ -22,6 +22,6 @@ const breadcrumbItems = [
 
 export const AppBreadcrumb: FC<props> = ({ testId = 'breadcrumb', items }) => {
   return (
-    <Breadcrumb data-testid={testId} items={items || breadcrumbItems} />
+    <Breadcrumb data-testid={testId} items={items || breadcrumbItems} style={{ display: 'flex', alignItems: 'center' }} />
   )
 }

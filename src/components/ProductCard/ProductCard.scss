@@ -17,10 +17,6 @@
       width: 100%;
       height: 350px;
       object-fit: cover;
-      
-      @media (max-width: 768px) {
-        height: 250px;
-      }
     }
   }
   
@@ -76,20 +72,75 @@
     color: #E84B1A;
   }
 
-  @media (max-width: 768px) {
-    .brewery, .category {
-      font-size: 14px;
-    }
-    
-    .price {
-      font-size: 16px;
-    }
+  .ant-btn.ant-btn-circle.ant-btn {
+    box-shadow: none;
   }
 
+}
 
-  @media (max-width: 576px) {
+@media (max-width: 1200px) {
+  .product-card {
+    .brewery, .category, .price {
+      font-size: 14px;
+    }
+
+    h4 {
+      font-size: 18px;
+    }
+
+    .ant-card-cover img {
+      height: 250px;
+    }
+
+    .ant-btn.ant-btn-circle.ant-btn {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+    }
+  }
+}
+
+
+@media (max-width: 992px) {
+  .product-card {
     .ant-card-cover img {
       height: 200px;
     }
+
+    .brewery, .category, .price {
+      font-size: 12px;
+    }
+
+    .ant-btn.ant-btn-circle.ant-btn {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    .brewery, .category, .price {
+      font-size: 18px;
+    }
+
+    h4 {
+      font-size: 20px;
+    }
+
+    .ant-btn.ant-btn-circle.ant-btn {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .product-card {
+     width: 250px;
   }
 }

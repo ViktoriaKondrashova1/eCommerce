@@ -56,7 +56,7 @@ export const HeaderMobileNav = observer(() => {
           <Divider />
 
           <Flex justify="end" align="center" gap={16}>
-            <AppButton color="danger" variant="outlined">
+            <AppButton color="danger" variant="outlined" onClick={() => customerStore.logout()}>
               LOGOUT
             </AppButton>
           </Flex>

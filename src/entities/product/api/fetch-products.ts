@@ -42,7 +42,10 @@ export async function fetchProducts({
     }
 
     if (deferredQuery?.trim() !== '') {
-      queryArgs['text.en'] = `${deferredQuery?.trim()}*`
+      queryArgs['text.en-US'] = `${deferredQuery?.trim()}`
+      queryArgs.staged = false
+      queryArgs.fuzzy = true
+      delete queryArgs.where
     }
 
     if (offset !== undefined) {
@@ -51,6 +54,7 @@ export async function fetchProducts({
 
     const response = await commerceApi.client
       .productProjections()
+      .search()
       .get({ queryArgs })
       .execute()
 

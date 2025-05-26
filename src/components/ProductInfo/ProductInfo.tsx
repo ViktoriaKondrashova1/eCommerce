@@ -1,21 +1,22 @@
-import type { IProduct } from '@/entities/product/model/product.types'
+import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { ArrowLeftOutlined, MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Carousel, Col, Divider, Flex, Image, Row, Space, Tooltip } from 'antd'
+import { Col, Divider, Flex, Row, Space, Tooltip } from 'antd'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
+import { ProductImageGallery } from './ProductImageGallery'
 import './ProductInfo.scss'
 
 interface Props extends BaseComponent {
-  product: IProduct
+  product: ICleanProduct
 }
 
 export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...rest }) => {
-  const { title, category, country, brewery, ABV, IBU, price, discount, description, images } = product
+  const { title, category, country, brewery, ABV, IBU, price: { amount, discount }, description, images } = product
 
   const [quantity, setQuantity] = useState(1)
   const navigate = useNavigate()
@@ -48,26 +49,7 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
           >
             Back To Catalog
           </AppButton>
-          <Image.PreviewGroup items={images}>
-            <Carousel
-              arrows
-              infinite={true}
-              autoplay
-              autoplaySpeed={8000}
-              fade
-              style={{ width: '80%', margin: '0 auto' }}
-            >
-              {images.map((image, index) => (
-                <div key={index}>
-                  <Image
-                    src={image}
-                    alt={`${title} - ${index + 1}`}
-                    style={{ borderRadius: 8, objectFit: 'contain', width: '100%' }}
-                  />
-                </div>
-              ))}
-            </Carousel>
-          </Image.PreviewGroup>
+          <ProductImageGallery images={images} title={title} />
         </Col>
 
         <Col xs={24} md={12}>
@@ -78,13 +60,13 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
               {discount !== undefined && discount !== ''
                 ? (
                     <Flex gap="middle">
-                      <AppText style={{ fontSize: '28px', textDecoration: 'line-through', opacity: '0.7' }}>{price}</AppText>
+                      <AppText style={{ fontSize: '28px', textDecoration: 'line-through', opacity: '0.7' }}>{amount}</AppText>
                       {' '}
                       <AppText style={{ fontSize: '28px', color: '#E84B1A' }}>{discount}</AppText>
                     </Flex>
                   )
                 : (
-                    <AppText style={{ fontSize: '28px', fontWeight: '600' }}>{price}</AppText>
+                    <AppText style={{ fontSize: '28px', fontWeight: '600' }}>{amount}</AppText>
                   )}
             </Space>
 

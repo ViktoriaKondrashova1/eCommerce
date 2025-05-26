@@ -5,7 +5,7 @@ import { mockProducts } from '@/shared/constants'
 export const ProductPage: FC = () => {
   return (
     <>
-      <ProductInfo product={mockProducts[2]} />
+      <ProductInfo product={mockProducts[1]} />
     </>
   )
 }

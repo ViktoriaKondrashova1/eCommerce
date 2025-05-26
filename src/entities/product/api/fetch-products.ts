@@ -83,6 +83,17 @@ export async function fetchProducts({
       )
     }
 
+    if (filters?.price) {
+      const minInCent = filters.price[0] * 100
+      const maxInCent = filters.price[1] * 100
+
+      const priceFilter = `variants.prices.value.centAmount:range (${minInCent} to ${maxInCent})`
+      const discountedPriceFilter = `variants.prices.discounted.value.centAmount:range (${minInCent} to ${maxInCent})`
+
+      filterConditions.push(`${priceFilter}`)
+      filterConditions.push(`${discountedPriceFilter}`)
+    }
+
     if (filterConditions.length > 0) {
       queryArgs.filter = filterConditions
     }

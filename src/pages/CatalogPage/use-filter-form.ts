@@ -29,6 +29,7 @@ export function useFilterForm() {
 
   const handleChangeFilterForm = ({ key, value }: { key: keyof IFilterForm, value: TFilterItemValue }) => {
     setFilterForm(prevState => ({ ...prevState, [key]: value }))
+    setIsNeedApplyFilters(false)
   }
 
   const handleResetFilterForm = () => {
@@ -38,5 +39,6 @@ export function useFilterForm() {
   const handleAcceptFilters = () => {
     setIsNeedApplyFilters(true)
   }
+
   return { filterForm, isNeedApplyFilters, handleChangeFilterForm, handleResetFilterForm, handleAcceptFilters }
 }

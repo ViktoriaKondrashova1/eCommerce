@@ -11,9 +11,8 @@ interface Props extends BaseComponent {
 
 export const ProductList: FC<Props> = ({ testId = 'product-list', products }) => {
   return (
-    <div className="product-list">
+    <div className="product-list" data-testid={testId}>
       <Row
-        data-testid={testId}
         gutter={[24, 24]}
         className="row"
       >

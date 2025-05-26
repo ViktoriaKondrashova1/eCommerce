@@ -60,7 +60,7 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
   })) || []
 
   const filtersContent = (
-    <Backdrop>
+    <Backdrop style={{ margin: '0' }}>
       <Flex vertical gap="middle" data-testid={testId} style={{ width: 200 }}>
         <SortingSelect title="Sorting" options={sortByPriceOptions} isMultiple={false} onClick={value => handleChangeFilterForm({ key: 'sorting', value })} />
         <SortingSelect title="Style" options={sortByStyleOptions} onClick={value => handleChangeFilterForm({ key: 'style', value })} />

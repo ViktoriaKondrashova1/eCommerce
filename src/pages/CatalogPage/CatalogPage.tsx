@@ -50,7 +50,7 @@ export const CatalogPage: FC = () => {
       return <AppSkeleton />
 
     return (
-      <Flex vertical gap="large">
+      <Flex vertical gap="large" style={{ width: '100%' }}>
         {!screens.md
           ? (
               <AppButton

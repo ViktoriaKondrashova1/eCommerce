@@ -29,7 +29,7 @@ interface queryProps {
 export async function fetchProducts({
   page,
   deferredQuery,
-  filters: _filters,
+  filters,
 }: Props): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   try {
     const MAX_LIMIT = 500
@@ -41,11 +41,22 @@ export async function fetchProducts({
       where: 'published=true',
     }
 
+    // console.log('here', filters)
+
     if (deferredQuery?.trim() !== '') {
       queryArgs['text.en-US'] = `${deferredQuery?.trim()}`
       queryArgs.staged = false
       queryArgs.fuzzy = true
       delete queryArgs.where
+    }
+
+    if (filters?.sorting) {
+      if (filters.sorting.includes('Price: high - low')) {
+        queryArgs.sort = ['price desc']
+      }
+      else if (filters.sorting.includes('Price: low - high')) {
+        queryArgs.sort = ['price asc']
+      }
     }
 
     if (offset !== undefined) {

@@ -12,12 +12,17 @@ interface Props extends BaseComponent {
 }
 
 export const SortingSelect: FC<Props> = ({ testId = 'sorting-select', title, options, isMultiple = true, onClick }) => {
+  const handleChange = (value: string[]): void => {
+    const values = Array.isArray(value) ? value : [value]
+    onClick(values)
+  }
+
   return (
     <Select
       data-testid={testId}
       mode={isMultiple ? 'multiple' : undefined}
       placeholder={title}
-      onChange={() => onClick(['sadsdasd', 'test'])}
+      onChange={handleChange}
       style={{ width: '100%' }}
       options={options}
       className="sorting-select"

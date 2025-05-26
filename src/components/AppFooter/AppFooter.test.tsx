@@ -1,7 +1,7 @@
-import { theme } from '@/shared/configs/theme'
-import { appName } from '@/shared/constants'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { theme } from '@/shared/configs/theme'
+import { appName } from '@/shared/constants'
 import { AppFooter } from './AppFooter'
 
 describe('appFooter positive', () => {

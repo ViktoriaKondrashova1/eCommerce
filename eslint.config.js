@@ -18,10 +18,15 @@ export default antfu({
     'ts/consistent-type-assertions': 'off',
     'ts/no-unsafe-assignment': 'off',
     'ts/no-unsafe-call': 'off',
+    'react-hooks-extra/no-unnecessary-use-prefix': 'off',
   },
 }, {
   files: ['vite.config.ts'],
   rules: {
     'ts/strict-boolean-expressions': 'off',
+  },
+}, {
+  rules: {
+    'react-hooks/exhaustive-deps': 'off',
   },
 })

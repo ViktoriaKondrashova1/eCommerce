@@ -1,6 +1,6 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { InputProps } from 'antd'
 import type { FC } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Input } from 'antd'
 
 interface PasswordProps {

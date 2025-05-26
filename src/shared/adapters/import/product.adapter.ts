@@ -1,10 +1,11 @@
 import type { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk'
+import type { ICleanProduct } from '@/entities/product/model/product.types'
 import { categoryStore } from '@/entities/category/model/category.store'
 import { transformAttrsFromArrayToObj } from '@/shared/utils/attributes-from-array-to-obj'
 import { convertPriceByFractionDigit } from '@/shared/utils/convert-price-by-fraction-digit'
 
 /**
- * exportProductAdapter:
+ * importProductAdapter:
  * очищаем и формируем нужные нам данные о продуктах из большого объхекта коммерстулза, который принимаем как dirtyData
  ___________________
     1. из masterVariant заюираем prices, images и массив наших кастомных аттрибутов, которые вручную были добавлены
@@ -14,7 +15,7 @@ import { convertPriceByFractionDigit } from '@/shared/utils/convert-price-by-fra
     5. transformAttrsFromArrayToObj - преобразуем кастомные аттрибуты
     6. возвращаем объект товара с нужными для нас полями
  */
-export function exportProductAdapter(dirtyData: ProductProjectionPagedQueryResponse['results']) {
+export function importProductAdapter(dirtyData: ProductProjectionPagedQueryResponse['results']): ICleanProduct[] {
   return dirtyData.map((product) => {
     const { prices, images, attributes: attrsArray } = product?.masterVariant ?? {}
 
@@ -57,7 +58,10 @@ export function exportProductAdapter(dirtyData: ProductProjectionPagedQueryRespo
         discount,
       },
       images,
-      ...attrsObj,
+      ABV: attrsObj.ABV,
+      IBU: attrsObj.IBU,
+      brewery: attrsObj.brewery,
+      country: attrsObj.country,
     }
   })
 }

@@ -4,4 +4,11 @@ export const theme = {
   token: {
     colorPrimary: '#001529',
   },
+  components: {
+    Notification: {
+      colorError: '#ff4d4f',
+      fontSize: 16,
+    },
+  },
+
 } satisfies ThemeConfig

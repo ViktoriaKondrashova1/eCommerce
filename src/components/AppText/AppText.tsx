@@ -1,5 +1,5 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Typography } from 'antd'
 
 const { Text } = Typography

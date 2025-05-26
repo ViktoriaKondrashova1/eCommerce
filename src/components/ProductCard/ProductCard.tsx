@@ -1,55 +1,58 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
+import type { ICleanProduct } from '@/entities/product/model/product.types'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { PlusOutlined } from '@ant-design/icons'
 import { Card, Flex, Tooltip } from 'antd'
 import Meta from 'antd/es/card/Meta'
+import { useNavigate } from 'react-router-dom'
 import { AppButton } from '../AppButton'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './ProductCard.scss'
 
 interface Props extends BaseComponent {
-  title: string
-  imageUrl: string
-  price: string
-  category: string
-  brewery: string
-  discount?: string
+  product: ICleanProduct
 }
 
-export const ProductCard: FC<Props> = ({ testId = 'product-card', title, imageUrl, price, category, brewery, discount, ...rest }) => {
+export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => {
+  const navigate = useNavigate()
+
   return (
     <Card
+      onClick={() => navigate(`/catalog/product/${product.slug}`)}
       data-testid={testId}
       hoverable
       className="product-card"
       cover={(
-        <img alt={title} src={imageUrl} />
+        product.images
+        && <img alt={product.title} src={product.images[0].url} />
       )}
-      {...rest}
     >
       <Meta
-        title={<AppTitle level={4}>{title}</AppTitle>}
+        title={<AppTitle level={4} className="product-title">{product.title}</AppTitle>}
         description={(
-          <>
-            <div style={{ fontSize: 16 }}>{brewery}</div>
-            <div style={{ fontSize: 16 }}>{category}</div>
-            <Flex justify="space-between" align="center">
-              <div style={{ fontWeight: 'bold', marginTop: 8, fontSize: 20 }}>
-                {discount !== undefined && discount !== ''
+          <div className="product-description">
+            <div className="brewery">{product.brewery}</div>
+            <div className="category">{product.category}</div>
+            <Flex justify="space-between" align="center" className="price-section">
+              <div className="price">
+                {product.price.discount !== null && product.price.discount !== ''
                   ? (
-                      <Flex gap="small">
-                        <div style={{ textDecoration: 'line-through' }}>{price}</div>
-                        {' '}
-                        <div style={{ color: '#E84B1A' }}>{discount}</div>
+                      <Flex gap="6px">
+                        <span className="original-price">{product.price.amount}</span>
+                        <span className="discount-price">{product.price.discount}</span>
                       </Flex>
                     )
-                  : price}
+                  : product.price.amount}
               </div>
               <Tooltip title="Add to Cart">
-                <AppButton type="primary" shape="circle" icon={<PlusOutlined />} />
+                <AppButton
+                  type="primary"
+                  shape="circle"
+                  icon={<PlusOutlined />}
+                />
               </Tooltip>
             </Flex>
-          </>
+          </div>
         )}
       />
     </Card>

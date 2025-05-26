@@ -1,9 +1,9 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
-import beerIcon from '@/assets/broken-bottle.png'
-import { AppButton } from '@/components/AppButton'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Flex, Result } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import beerIcon from '@/assets/broken-bottle.png'
+import { AppButton } from '@/components/AppButton'
 import './NotFoundPage.scss'
 
 interface Props extends BaseComponent {}
@@ -19,7 +19,7 @@ export const NotFoundPage: FC<Props> = ({ testId = 'not-found-page' }) => {
         extra={(
           <Flex justify="center" gap="small">
             <AppButton type="primary" onClick={() => navigate('/')}>Back Home</AppButton>
-            <AppButton type="primary" onClick={() => navigate('/catalog')}>Explore Beers</AppButton>
+            <AppButton type="primary" onClick={() => navigate('/catalog/1')}>Explore Beers</AppButton>
           </Flex>
         )}
         icon={<img src={beerIcon} alt="broken beer" width={200} />}

@@ -1,5 +1,5 @@
-import { AppButton } from '@/components/AppButton/AppButton'
 import { render, screen } from '@testing-library/react'
+import { AppButton } from '@/components/AppButton/AppButton'
 
 /**
  * IMPORTANT

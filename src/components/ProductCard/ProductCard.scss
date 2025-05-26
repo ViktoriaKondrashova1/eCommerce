@@ -1,10 +1,146 @@
 .product-card {
-    width: 300px;
-    max-width: 100%;
-
+  width: 300px;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  .ant-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .ant-card-cover {
     img {
-        width: 100%;
-        height: 350px;
-         object-fit: cover;
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
     }
+  }
+  
+  .ant-card-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+    &-detail {
+      flex: 1;
+    }
+  }
+  
+  .product-description {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .brewery {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 2.4em;
+    line-height: 1.2em;
+  }
+  
+  .category {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .price-section {
+    margin-top: auto;
+  }
+  
+  .price {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  .discount-price {
+    color: #E84B1A;
+  }
+
+  .ant-btn.ant-btn-circle.ant-btn {
+    box-shadow: none;
+  }
+
+}
+
+@media (max-width: 1200px) {
+  .product-card {
+    .brewery, .category, .price {
+      font-size: 14px;
+    }
+
+    h4 {
+      font-size: 18px;
+    }
+
+    .ant-card-cover img {
+      height: 250px;
+    }
+
+    .ant-btn.ant-btn-circle.ant-btn {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+    }
+  }
+}
+
+
+@media (max-width: 992px) {
+  .product-card {
+    .ant-card-cover img {
+      height: 200px;
+    }
+
+    .brewery, .category, .price {
+      font-size: 12px;
+    }
+
+    .ant-btn.ant-btn-circle.ant-btn {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    .brewery, .category, .price {
+      font-size: 18px;
+    }
+
+    h4 {
+      font-size: 20px;
+    }
+
+    .ant-btn.ant-btn-circle.ant-btn {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .product-card {
+     width: 250px;
+  }
 }

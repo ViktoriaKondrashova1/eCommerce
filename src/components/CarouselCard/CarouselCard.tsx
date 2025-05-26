@@ -1,5 +1,5 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Card } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import { AppTitle } from '../AppTitle/AppTitle'

@@ -1,10 +1,10 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { ItemType } from 'antd/es/menu/interface'
 import type { FC } from 'react'
-import { theme } from '@/shared/configs/theme'
-import { appName } from '@/shared/constants'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { Flex, Grid, Layout, List, Menu, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { theme } from '@/shared/configs/theme'
+import { appName } from '@/shared/constants'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './AppFooter.scss'
 
@@ -21,7 +21,7 @@ export const AppFooter: FC<Props> = ({ testId = 'footer', ...rest }) => {
   const menuItems: ItemType[] = [
     { key: '/', label: 'MAIN' },
     { key: '/about', label: 'ABOUT' },
-    { key: '/catalog', label: 'CATALOG' },
+    { key: '/catalog/1', label: 'CATALOG' },
     { key: '/cart', label: 'CART' },
   ]
 

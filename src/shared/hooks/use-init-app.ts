@@ -1,5 +1,6 @@
 import type { TokenStore } from '@commercetools/sdk-client-v2'
 import { useEffect, useState } from 'react'
+import { profileStore } from '@/components/Profile/model/profile.store.ts'
 import { fetchMe } from '@/entities/customer/api/fetch-me'
 import { customerStore } from '@/entities/customer/model/customer.store'
 import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
@@ -30,6 +31,7 @@ async function getMe(): Promise<boolean> {
       void fetchMe().then((res) => {
         if (res.statusCode === 200) {
           customerStore.setCustomer(res.body)
+          profileStore.setProfile(res.body)
           resolve(true)
         }
       })

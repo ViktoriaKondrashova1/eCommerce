@@ -7,12 +7,12 @@ import { ModeAwareContent } from '@/components/Profile/ui/ModeAwareContent.tsx'
 interface Props {}
 
 export const Billing: FC<Props> = observer(() => {
-  const handleClickSave = () => {}
+  const handleClickSave = async () => {}
 
   return (
     <>
       <ModeAwareContent
-        onSaveClick={handleClickSave}
+        onClickSave={handleClickSave}
         viewSlot={<BillingView />}
         editSlot={<BillingEdit />}
       />

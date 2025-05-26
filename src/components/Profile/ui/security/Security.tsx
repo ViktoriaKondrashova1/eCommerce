@@ -7,12 +7,12 @@ import { SecurityView } from '@/components/Profile/ui/security/SecurityView.tsx'
 interface Props {}
 
 export const Security: FC<Props> = observer(() => {
-  const handleClickSave = () => {}
+  const handleClickSave = async () => {}
 
   return (
     <>
       <ModeAwareContent
-        onSaveClick={handleClickSave}
+        onClickSave={handleClickSave}
         viewSlot={<SecurityView />}
         editSlot={<SecurityEdit />}
       />

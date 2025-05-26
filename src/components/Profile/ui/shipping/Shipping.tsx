@@ -7,12 +7,12 @@ import { ShippingView } from '@/components/Profile/ui/shipping/ShippingView.tsx'
 interface Props {}
 
 export const Shipping: FC<Props> = observer(() => {
-  const handleClickSave = () => {}
+  const handleClickSave = async () => {}
 
   return (
     <>
       <ModeAwareContent
-        onSaveClick={handleClickSave}
+        onClickSave={handleClickSave}
         viewSlot={<ShippingView />}
         editSlot={<ShippingEdit />}
       />

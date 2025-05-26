@@ -1,9 +1,5 @@
-import type { FC } from 'react'
+import { Profile } from '@/components/Profile'
 
-export const UserProfilePage: FC = () => {
-  return (
-    <>
-
-    </>
-  )
+export function UserProfilePage() {
+  return <Profile />
 }

@@ -2,10 +2,12 @@ import type { FC } from 'react'
 import { Card, Flex, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useNavigate, useParams } from 'react-router-dom'
+import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
 import { Billing } from '@/components/Profile/ui/billing/Billing.tsx'
 import { PersonalInfo } from '@/components/Profile/ui/personalInfo/PersonalInfo.tsx'
 import { Security } from '@/components/Profile/ui/security/Security.tsx'
 import { Shipping } from '@/components/Profile/ui/shipping/Shipping.tsx'
+import './Profile.scss'
 
 type ChapterKey = 'info' | 'shipping' | 'billing' | 'security'
 
@@ -35,6 +37,9 @@ export const Profile: FC = observer(() => {
   return (
     <Flex vertical gap={24} className="profile">
       <Card>
+        <AppTitle level={2}>
+          My Profile
+        </AppTitle>
         <Tabs
           tabPosition="left"
           activeKey={chapter}

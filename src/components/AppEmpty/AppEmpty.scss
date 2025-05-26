@@ -1,0 +1,15 @@
+.empty {
+    width: 100%;
+
+    .ant-empty-image {
+      svg {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    .ant-empty-description {
+      font-size: 20px;
+      padding-top: 70px;
+    }
+}

@@ -1,7 +1,7 @@
-import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
-import { promocode, promocodeText } from '@/shared/constants'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { App as AntApp, Card, Flex, Grid, Space } from 'antd'
+import { promocode, promocodeText } from '@/shared/constants'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
@@ -16,7 +16,7 @@ export const PromocodeSection: FC<Props> = ({ testId = 'promocode' }) => {
 
   const copyPromocode = (): void => {
     navigator.clipboard.writeText(promocode).then(() => {
-      message.success('Promocode has been copied!')
+      message.success('Promocode has been copied')
     }).catch((err) => {
       console.error('Failed to copy:', err)
     })

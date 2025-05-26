@@ -1,6 +1,6 @@
-import { appName } from '@/shared/constants'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { appName } from '@/shared/constants'
 import { AppHeader } from './AppHeader'
 
 describe('appHeader positive', () => {

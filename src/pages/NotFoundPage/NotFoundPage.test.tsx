@@ -60,6 +60,6 @@ describe('notFoundPage', () => {
     )
 
     fireEvent.click(screen.getByText('Explore Beers'))
-    expect(mockNavigate).toHaveBeenCalledWith('/catalog')
+    expect(mockNavigate).toHaveBeenCalledWith('/catalog/1')
   })
 })

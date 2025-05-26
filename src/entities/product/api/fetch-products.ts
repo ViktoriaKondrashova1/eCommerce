@@ -1,5 +1,6 @@
 import type { ClientResponse, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
 import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form'
+import { categoryStore } from '@/entities/category/model/category.store'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import { catalogPageLimit } from '@/shared/constants'
 
@@ -63,6 +64,15 @@ export async function fetchProducts({
 
     if (filters?.country && filters.country.length > 0) {
       queryArgs.filter = `variants.attributes.country:${filters.country.map(el => `"${el}"`).join(', ')}`
+    }
+
+    if (filters?.style && filters.style.length > 0) {
+      const styleIdsArr = filters.style.map((el) => {
+        const foundCategory = categoryStore.getCategoryByName(el)
+        return foundCategory?.id
+      })
+
+      queryArgs.filter = `categories.id:${styleIdsArr.map(el => `"${el}"`).join(', ')}`
     }
 
     if (offset !== undefined) {

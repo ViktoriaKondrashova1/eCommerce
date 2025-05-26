@@ -29,6 +29,12 @@ class CategoryStore {
     return foundCategory !== undefined ? foundCategory : null
   }
 
+  getCategoryByName(name: string): Category | null {
+    const foundCategory = this.categories.find(category => category.name['en-US'] === name)
+
+    return foundCategory !== undefined ? foundCategory : null
+  }
+
   getCategoryNameById(id: string): string | null {
     const foundCategory = this.getCategoryById(id)
 

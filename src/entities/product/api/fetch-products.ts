@@ -45,9 +45,7 @@ export async function fetchProducts({
 
     if (deferredQuery?.trim() !== '') {
       queryArgs['text.en-US'] = `${deferredQuery?.trim()}`
-      queryArgs.staged = false
       queryArgs.fuzzy = true
-      delete queryArgs.where
     }
 
     if (filters?.sorting) {
@@ -57,6 +55,14 @@ export async function fetchProducts({
       else if (filters.sorting.includes('Price: low - high')) {
         queryArgs.sort = ['price asc']
       }
+    }
+
+    if (filters?.brewery && filters.brewery.length > 0) {
+      queryArgs.filter = `variants.attributes.brewery:${filters.brewery.map(el => `"${el}"`).join(', ')}`
+    }
+
+    if (filters?.country && filters.country.length > 0) {
+      queryArgs.filter = `variants.attributes.country:${filters.country.map(el => `"${el}"`).join(', ')}`
     }
 
     if (offset !== undefined) {

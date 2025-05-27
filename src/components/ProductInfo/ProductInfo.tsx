@@ -1,10 +1,9 @@
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
-import { ArrowLeftOutlined, MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Col, Divider, Flex, Row, Space, Tooltip } from 'antd'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
@@ -19,7 +18,6 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
   const { title, category, country, brewery, ABV, IBU, price: { amount, discount }, description, images } = product
 
   const [quantity, setQuantity] = useState(1)
-  const navigate = useNavigate()
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -40,15 +38,6 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
     >
       <Row gutter={[12, 12]}>
         <Col xs={24} md={12}>
-          <AppButton
-            type="text"
-            icon={<ArrowLeftOutlined />}
-            iconPosition="start"
-            onClick={() => navigate('/catalog/1')}
-            style={{ margin: '0 0 10px 40px' }}
-          >
-            Back To Catalog
-          </AppButton>
           <ProductImageGallery images={images} title={title} />
         </Col>
 
@@ -60,7 +49,7 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
               {discount !== null
                 ? (
                     <Flex gap="middle">
-                      <AppText style={{ fontSize: '28px', textDecoration: 'line-through', opacity: '0.7' }}>{amount}</AppText>
+                      <AppText style={{ fontSize: '28px', textDecoration: 'line-through', opacity: '0.5' }}>{amount}</AppText>
                       {' '}
                       <AppText style={{ fontSize: '28px', color: '#ff4d4f' }}>{discount}</AppText>
                     </Flex>
@@ -72,7 +61,6 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
 
             <Space>
               <AppTitle level={3} style={{ color: '#f56b21', margin: '0' }}>Characteristics</AppTitle>
-
             </Space>
 
             <Space size="small">

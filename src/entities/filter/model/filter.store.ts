@@ -21,7 +21,7 @@ class FilterStore {
 
   public setFilterData(filterData: FilterData) {
     this.filterData = filterData
-    this.isDataLoaded = true
+    this.setIsDataLoaded(true)
   }
 
   hasData(): boolean {
@@ -30,7 +30,7 @@ class FilterStore {
 
   clearData(): void {
     this.filterData = null
-    this.isDataLoaded = false
+    this.setIsDataLoaded(false)
     session.remove('filter')
   }
 
@@ -38,7 +38,7 @@ class FilterStore {
     const savedFilterData = session.get<FilterData>('filter')
     if (savedFilterData instanceof Object && Object.keys(savedFilterData).length > 0) {
       this.filterData = savedFilterData
-      this.isDataLoaded = true
+      this.setIsDataLoaded(true)
     }
   }
 }

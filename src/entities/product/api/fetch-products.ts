@@ -24,6 +24,7 @@ interface queryProps {
   'offset'?: number
   'where'?: string
   'text.en'?: string
+  'filter'?: string[]
   [key: string]: QueryParam | undefined
 }
 
@@ -42,14 +43,12 @@ export async function fetchProducts({
       where: 'published=true',
     }
 
-    // console.log('here', filters)
-
-    if (deferredQuery?.trim() !== '') {
+    if (deferredQuery !== undefined && deferredQuery?.trim() !== '') {
       queryArgs['text.en-US'] = `${deferredQuery?.trim()}`
       queryArgs.fuzzy = true
     }
 
-    if (filters?.sorting) {
+    if (filters && filters?.sorting) {
       if (filters.sorting.includes('Price: high - low')) {
         queryArgs.sort = ['price desc']
       }
@@ -60,19 +59,19 @@ export async function fetchProducts({
 
     const filterConditions: string[] = []
 
-    if (filters?.brewery && filters.brewery.length > 0) {
+    if (filters && filters?.brewery && filters.brewery.length > 0) {
       filterConditions.push(
         `variants.attributes.brewery:"${filters.brewery.join('","')}"`,
       )
     }
 
-    if (filters?.country && filters.country.length > 0) {
+    if (filters && filters?.country && filters.country.length > 0) {
       filterConditions.push(
         `variants.attributes.country:"${filters.country.join('","')}"`,
       )
     }
 
-    if (filters?.style && filters.style.length > 0) {
+    if (filters && filters?.style && filters.style.length > 0) {
       const styleIdsArr = filters.style.map((el) => {
         const foundCategory = categoryStore.getCategoryByName(el)
         return foundCategory?.id
@@ -83,7 +82,7 @@ export async function fetchProducts({
       )
     }
 
-    if (filters?.price) {
+    if (filters && filters?.price) {
       const minInCent = filters.price[0] * 100
       const maxInCent = filters.price[1] * 100
 
@@ -93,6 +92,12 @@ export async function fetchProducts({
       filterConditions.push(`${priceFilter}`)
       filterConditions.push(`${discountedPriceFilter}`)
     }
+
+    // if (filters && filters?.ABV) {
+    //   filterConditions.push(
+    //     `variants.attributes.ABV:range (${filters.ABV[0]} to ${filters.ABV[1]})`,
+    //   )
+    // }
 
     if (filterConditions.length > 0) {
       queryArgs.filter = filterConditions

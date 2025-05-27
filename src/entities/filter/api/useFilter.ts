@@ -21,7 +21,7 @@ async function getData() {
 export function useFilter(): { isLoading: boolean, filterData: FilterData | null } {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [filterData, setFilterData] = useState<FilterData | null>(null)
-
+  // console.log(filterStore.isDataLoaded)
   useEffect(() => {
     const loadData = async () => {
       if (!filterStore.isDataLoaded) {
@@ -57,6 +57,7 @@ export function useFilter(): { isLoading: boolean, filterData: FilterData | null
         }
       }
       else {
+        // console.log('here')
         setFilterData(filterStore.filterData)
       }
     }

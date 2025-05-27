@@ -8,6 +8,7 @@ import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
 import { ProductImageGallery } from './ProductImageGallery'
+import { RelatedProducts } from './RelatedProduct'
 import './ProductInfo.scss'
 
 interface Props extends BaseComponent {
@@ -94,7 +95,7 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
             <div style={{ textAlign: 'justify' }}>{description}</div>
             <Divider />
 
-            <Space>
+            <Space style={{ marginBottom: '20px' }}>
               <AppButton
                 type="primary"
                 shape="round"
@@ -121,6 +122,12 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
           </Space>
         </Col>
       </Row>
+      <RelatedProducts
+        currentProduct={{
+          title,
+          category,
+        }}
+      />
     </Flex>
   )
 }

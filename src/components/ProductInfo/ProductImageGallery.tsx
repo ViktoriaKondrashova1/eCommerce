@@ -29,7 +29,6 @@ export const ProductImageGallery: FC<Props> = ({ images, title }) => {
               alt={`${title} - ${index + 1}`}
               style={{
                 borderRadius: 8,
-                objectFit: 'contain',
                 width: '100%',
               }}
             />

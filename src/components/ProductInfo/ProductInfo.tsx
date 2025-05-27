@@ -44,7 +44,7 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
             type="text"
             icon={<ArrowLeftOutlined />}
             iconPosition="start"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/catalog/1')}
             style={{ margin: '0 0 10px 40px' }}
           >
             Back To Catalog
@@ -54,20 +54,25 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
 
         <Col xs={24} md={12}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-            <AppTitle level={2}>{title}</AppTitle>
+            <AppTitle level={2} style={{ margin: '0' }}>{title}</AppTitle>
 
             <Space size="middle" align="baseline">
-              {discount !== undefined && discount !== ''
+              {discount !== null
                 ? (
                     <Flex gap="middle">
                       <AppText style={{ fontSize: '28px', textDecoration: 'line-through', opacity: '0.7' }}>{amount}</AppText>
                       {' '}
-                      <AppText style={{ fontSize: '28px', color: '#E84B1A' }}>{discount}</AppText>
+                      <AppText style={{ fontSize: '28px', color: '#ff4d4f' }}>{discount}</AppText>
                     </Flex>
                   )
                 : (
                     <AppText style={{ fontSize: '28px', fontWeight: '600' }}>{amount}</AppText>
                   )}
+            </Space>
+
+            <Space>
+              <AppTitle level={3} style={{ color: '#f56b21', margin: '0' }}>Characteristics</AppTitle>
+
             </Space>
 
             <Space size="small">
@@ -96,8 +101,9 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
               <AppText>{IBU}</AppText>
             </Tooltip>
 
-            <div style={{ textAlign: 'justify' }}>{description}</div>
+            <AppTitle level={3} style={{ color: '#f56b21', margin: '0' }}>Description</AppTitle>
 
+            <div style={{ textAlign: 'justify' }}>{description}</div>
             <Divider />
 
             <Space>

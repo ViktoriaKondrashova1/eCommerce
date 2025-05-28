@@ -1,10 +1,13 @@
 import type { FC } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
 import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import { useState } from 'react'
 import { AppButton } from '@/components/AppButton/AppButton'
 
-const AddToCartButton: FC = () => {
+interface Props extends BaseComponent {}
+
+export const AddToCartButton: FC<Props> = ({ testId = 'add-to-cart' }) => {
   const [isChecked, setIsChecked] = useState(false)
 
   const handleAddToCart = (e: React.MouseEvent): void => {
@@ -14,7 +17,7 @@ const AddToCartButton: FC = () => {
   }
 
   return (
-    <Tooltip title="Add to Cart">
+    <Tooltip data-testid={testId} title="Add to Cart">
       <AppButton
         type="primary"
         shape="circle"
@@ -24,5 +27,3 @@ const AddToCartButton: FC = () => {
     </Tooltip>
   )
 }
-
-export default AddToCartButton

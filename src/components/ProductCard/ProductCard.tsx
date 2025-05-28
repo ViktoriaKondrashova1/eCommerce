@@ -4,7 +4,7 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import { Card, Flex } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import { useNavigate } from 'react-router-dom'
-import AddToCartButton from '../AddToCartButton/AddToCartButton'
+import { AddToCartButton } from '../AddToCartButton/AddToCartButton'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './ProductCard.scss'
 

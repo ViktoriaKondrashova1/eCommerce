@@ -5,7 +5,7 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import { HomeOutlined } from '@ant-design/icons'
 import { Breadcrumb } from 'antd'
 
-interface props extends BreadcrumbProps, BaseComponent {
+interface Props extends BreadcrumbProps, BaseComponent {
   items?: ItemType[]
 }
 
@@ -20,7 +20,7 @@ const breadcrumbItems = [
   { title: 'Catalog' },
 ]
 
-export const AppBreadcrumb: FC<props> = ({ testId = 'breadcrumb', items }) => {
+export const AppBreadcrumb: FC<Props> = ({ testId = 'breadcrumb', items }) => {
   return (
     <Breadcrumb data-testid={testId} items={items || breadcrumbItems} style={{ display: 'flex', alignItems: 'center' }} />
   )

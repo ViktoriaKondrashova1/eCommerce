@@ -62,16 +62,52 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
   const filtersContent = (
     <Backdrop style={{ margin: '0' }}>
       <Flex vertical gap="middle" data-testid={testId} style={{ width: 200 }}>
-        <SortingSelect title="Sorting" options={sortByPriceOptions} isMultiple={false} onClick={value => handleChangeFilterForm({ key: 'sorting', value })} />
-        <SortingSelect title="Style" options={sortByStyleOptions} onClick={value => handleChangeFilterForm({ key: 'style', value })} />
-        <SortingSelect title="Brewery" options={sortByBreweryOptions} onClick={value => handleChangeFilterForm({ key: 'brewery', value })} />
-        <SortingSelect title="Country" options={sortByCountryOptions} onClick={value => handleChangeFilterForm({ key: 'country', value })} />
+        <SortingSelect
+          title="Sorting"
+          options={sortByPriceOptions}
+          isMultiple={false}
+          onChange={(value) => {
+            setIsNeedReset(false)
+            handleChangeFilterForm({ key: 'sorting', value })
+          }}
+          shouldUpdate={isNeedReset}
+        />
+        <SortingSelect
+          title="Style"
+          options={sortByStyleOptions}
+          onChange={(value) => {
+            setIsNeedReset(false)
+            handleChangeFilterForm({ key: 'style', value })
+          }}
+          shouldUpdate={isNeedReset}
+        />
+        <SortingSelect
+          title="Brewery"
+          options={sortByBreweryOptions}
+          onChange={(value) => {
+            setIsNeedReset(false)
+            handleChangeFilterForm({ key: 'brewery', value })
+          }}
+          shouldUpdate={isNeedReset}
+        />
+        <SortingSelect
+          title="Country"
+          options={sortByCountryOptions}
+          onChange={(value) => {
+            setIsNeedReset(false)
+            handleChangeFilterForm({ key: 'country', value })
+          }}
+          shouldUpdate={isNeedReset}
+        />
         <RangeFilter
           title="Price, $"
           icon="$"
           minValue={priceRange.min}
           maxValue={priceRange.max}
-          onChange={value => handleChangeFilterForm({ key: 'price', value })}
+          onChange={(value) => {
+            setIsNeedReset(false)
+            handleChangeFilterForm({ key: 'price', value })
+          }}
           shouldUpdate={isNeedReset}
         />
         <RangeFilter
@@ -79,7 +115,10 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
           icon="%"
           minValue={abvRange.min}
           maxValue={abvRange.max}
-          onChange={value => handleChangeFilterForm({ key: 'ABV', value })}
+          onChange={(value) => {
+            setIsNeedReset(false)
+            handleChangeFilterForm({ key: 'ABV', value })
+          }}
           shouldUpdate={isNeedReset}
         />
         <Flex vertical gap="small">
@@ -88,7 +127,7 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
             type="primary"
             onClick={() => {
               handleResetFilterForm()
-              setIsNeedReset(prevState => !prevState)
+              setIsNeedReset(true)
             }}
           >
             Reset

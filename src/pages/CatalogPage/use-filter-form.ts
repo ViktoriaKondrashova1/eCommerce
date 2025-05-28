@@ -29,15 +29,15 @@ export function useFilterForm() {
 
   const handleChangeFilterForm = ({ key, value }: { key: keyof IFilterForm, value: TFilterItemValue }) => {
     setFilterForm(prevState => ({ ...prevState, [key]: value }))
-    setIsNeedApplyFilters(false)
   }
 
   const handleResetFilterForm = () => {
     setFilterForm(initialForm)
+    setIsNeedApplyFilters(prev => !prev)
   }
 
   const handleAcceptFilters = () => {
-    setIsNeedApplyFilters(true)
+    setIsNeedApplyFilters(prev => !prev)
   }
 
   return { filterForm, isNeedApplyFilters, handleChangeFilterForm, handleResetFilterForm, handleAcceptFilters }

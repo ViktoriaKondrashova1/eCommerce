@@ -7,17 +7,15 @@ import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
-import { ProductImageGallery } from './ProductImageGallery'
-import { RelatedProducts } from './RelatedProduct'
-import './ProductInfo.scss'
+import { ProductImageGallery } from '../ProductImageGallery/ProductImageGallery'
+import './ProductDescription.scss'
 
 interface Props extends BaseComponent {
   product: ICleanProduct
 }
 
-export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...rest }) => {
+export const ProductDescription: FC<Props> = ({ testId = 'product-info', product, ...rest }) => {
   const { title, category, country, brewery, ABV, IBU, price: { amount, discount }, description, images } = product
-
   const [quantity, setQuantity] = useState(1)
 
   const decreaseQuantity = () => {
@@ -122,12 +120,6 @@ export const ProductInfo: FC<Props> = ({ testId = 'product-info', product, ...re
           </Space>
         </Col>
       </Row>
-      <RelatedProducts
-        currentProduct={{
-          title,
-          category,
-        }}
-      />
     </Flex>
   )
 }

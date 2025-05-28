@@ -1,7 +1,7 @@
 import type { Image as ImageType } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
 import { Carousel, Image } from 'antd'
-import './ProductInfo.scss'
+import './ProductImageGallery.scss'
 
 interface Props {
   images?: ImageType[]

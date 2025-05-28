@@ -1,6 +1,6 @@
 import type { AuthMiddlewareOptions, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/sdk-client-v2'
 import { TOKEN_STORAGE_KEY } from '@/shared/constants'
-import { storage } from '@/shared/lib/storage'
+import { local } from '@/shared/lib/storage'
 import { createAuthMiddleWareOptions } from './factory'
 
 const options = createAuthMiddleWareOptions(import.meta.env.VITE_CTP_API_PROVIDER ?? 'ADMIN')
@@ -24,11 +24,11 @@ export function getPasswordAuthMiddlewareOptions(
     scopes: import.meta.env.VITE_CTP_FRONTEND_CLIENT_SCOPES.split(' '),
     tokenCache: {
       get: (): TokenStore => {
-        const cache = storage.get<TokenStore>(TOKEN_STORAGE_KEY)
+        const cache = local.get<TokenStore>(TOKEN_STORAGE_KEY)
         return cache || { token: '', expirationTime: 0 }
       },
       set: (cache: TokenStore): void => {
-        storage.set(TOKEN_STORAGE_KEY, cache)
+        local.set(TOKEN_STORAGE_KEY, cache)
       },
 
     },

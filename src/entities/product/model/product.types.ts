@@ -1,13 +1,19 @@
-export interface IProduct {
-  id: number
-  title: string
-  category: string
-  country: string
-  brewery: string
+import type { Image } from '@commercetools/platform-sdk'
+
+export interface ICleanProduct {
   ABV: string
   IBU: string
-  price: string
-  discount?: string
+  brewery: string
+  country: string
+  category: string | null
+  title: string
   description: string
-  images: string[]
+  slug: string
+  id: string
+  key?: string
+  price: {
+    amount: string
+    discount: string | null
+  }
+  images?: Image[]
 }

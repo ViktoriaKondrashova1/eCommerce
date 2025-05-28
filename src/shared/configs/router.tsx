@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         index: true,
       },
       {
-        path: 'catalog',
+        path: 'catalog/:pageNumber',
         element: <CatalogPage />,
       },
       {
@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
         element: <CatalogPage />,
       },
       {
-        path: 'product/:productId',
+        path: 'catalog/product/:slug',
         element: <ProductPage />,
       },
       {

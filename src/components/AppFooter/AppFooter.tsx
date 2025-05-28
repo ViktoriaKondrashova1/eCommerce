@@ -21,7 +21,7 @@ export const AppFooter: FC<Props> = ({ testId = 'footer', ...rest }) => {
   const menuItems: ItemType[] = [
     { key: '/', label: 'MAIN' },
     { key: '/about', label: 'ABOUT' },
-    { key: '/catalog', label: 'CATALOG' },
+    { key: '/catalog/1', label: 'CATALOG' },
     { key: '/cart', label: 'CART' },
   ]
 

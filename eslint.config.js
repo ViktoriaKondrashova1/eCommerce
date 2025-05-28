@@ -26,4 +26,8 @@ export default antfu({
   rules: {
     'ts/strict-boolean-expressions': 'off',
   },
+}, {
+  rules: {
+    'react-hooks/exhaustive-deps': 'off',
+  },
 })

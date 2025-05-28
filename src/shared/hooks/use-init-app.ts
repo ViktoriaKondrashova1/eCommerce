@@ -5,11 +5,11 @@ import { fetchMe } from '@/entities/customer/api/fetch-me'
 import { customerStore } from '@/entities/customer/model/customer.store'
 import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
 import { TOKEN_STORAGE_KEY } from '@/shared/constants'
-import { storage } from '@/shared/lib/storage'
+import { local } from '@/shared/lib/storage'
 
 async function setInitialFlow(): Promise<boolean> {
   return new Promise((resolve) => {
-    const tokenCache = storage.get<TokenStore>(TOKEN_STORAGE_KEY)
+    const tokenCache = local.get<TokenStore>(TOKEN_STORAGE_KEY)
     const isToken = Boolean(tokenCache?.token)
     if (tokenCache !== null && isToken) {
       setCommerceApiFlow<TokenStore>({ flow: 'token', payload: tokenCache })
@@ -24,7 +24,7 @@ async function setInitialFlow(): Promise<boolean> {
 
 async function getMe(): Promise<boolean> {
   return new Promise((resolve) => {
-    const tokenCache = storage.get<TokenStore>(TOKEN_STORAGE_KEY)
+    const tokenCache = local.get<TokenStore>(TOKEN_STORAGE_KEY)
     const isToken = Boolean(tokenCache?.token)
 
     if (isToken) {

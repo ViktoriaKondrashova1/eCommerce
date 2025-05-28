@@ -7,12 +7,18 @@ import { ProductDescription } from '@/components/ProductDescription/ProductDescr
 import { RelatedProductsDescription } from '@/components/RelatedProductsDescription/RelatedProductsDescription'
 import { ArrowLeftOutlined, HomeOutlined, UnorderedListOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useLayoutEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useProductBySlug } from './use-product'
 
 export const ProductPage: FC = () => {
+  const location = useLocation()
   const navigate = useNavigate()
   const { product, isLoading, isError } = useProductBySlug()
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   const breadcrumbItems = [
     { href: '/', title:

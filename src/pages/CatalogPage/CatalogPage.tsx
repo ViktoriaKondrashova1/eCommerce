@@ -2,7 +2,6 @@ import type { FC } from 'react'
 import { FilterOutlined } from '@ant-design/icons'
 import { Flex, Grid } from 'antd'
 import { useEffect, useState } from 'react'
-
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
@@ -12,7 +11,6 @@ import { CatalogSearch } from '@/components/CatalogSearch/CatalogSearch'
 import { CatalogSidebar } from '@/components/CatalogSidebar/CatalogSidebar'
 import { ProductList } from '@/components/ProductList/ProductList'
 import { useCatalogPage } from '@/pages/CatalogPage/use-catalog-page.ts'
-import { useCategories } from '@/pages/CatalogPage/use-categories.ts'
 import { useFilterForm } from '@/pages/CatalogPage/use-filter-form'
 import { useProducts } from '@/pages/CatalogPage/use-products.ts'
 import { useSearch } from '@/pages/CatalogPage/use-search.ts'
@@ -37,7 +35,6 @@ export const CatalogPage: FC = () => {
 
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false)
   const screens = useBreakpoint()
-  useCategories()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })

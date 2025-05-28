@@ -10,7 +10,7 @@ const AddToCartButton: FC = () => {
   const handleAddToCart = (e: React.MouseEvent): void => {
     e.stopPropagation()
     setIsChecked(true)
-    setTimeout(() => setIsChecked(false), 2000)
+    setTimeout(() => setIsChecked(false), 1000)
   }
 
   return (

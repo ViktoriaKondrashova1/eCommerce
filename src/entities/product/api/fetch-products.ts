@@ -4,15 +4,6 @@ import { categoryStore } from '@/entities/category/model/category.store'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import { catalogPageLimit } from '@/shared/constants'
 
-/**
- fetchProducts:
- * 1. если передан аргумент page - получаем продукты на конкретную страницу, если не передан - получаем все 38 продуктов
- * 4. productProjections - вызывает апи комерстулза и получает список всех товаров
- * 5. .get().execute() - отправляем запрос и получаем данные
- * 6. в .get() прописываем limit, offset и статус опубликованных продуктов, которые хотим получить
- * 4. если все ок - вернем товары в формате, который соответствует типу ProductProjectionPagedQueryResponse, если нет - выбросим ошибку
- */
-
 interface Props {
   page?: number
   deferredQuery?: string
@@ -99,12 +90,14 @@ export async function fetchProducts({
     //   )
     // }
 
-    if (filterConditions.length > 0) {
-      queryArgs.filter = filterConditions
-    }
-
     if (offset !== undefined) {
       queryArgs.offset = offset
+    }
+
+    if (filterConditions.length > 0) {
+      queryArgs.filter = filterConditions
+      queryArgs.offset = undefined
+      queryArgs.limit = MAX_LIMIT
     }
 
     const response = await commerceApi.client

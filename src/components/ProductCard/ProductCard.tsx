@@ -1,11 +1,10 @@
 import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
-import { PlusOutlined } from '@ant-design/icons'
-import { Card, Flex, Tooltip } from 'antd'
+import { Card, Flex } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import { useNavigate } from 'react-router-dom'
-import { AppButton } from '../AppButton'
+import AddToCartButton from '../AddToCartButton/AddToCartButton'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './ProductCard.scss'
 
@@ -44,13 +43,7 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
                     )
                   : product.price.amount}
               </div>
-              <Tooltip title="Add to Cart">
-                <AppButton
-                  type="primary"
-                  shape="circle"
-                  icon={<PlusOutlined />}
-                />
-              </Tooltip>
+              <AddToCartButton />
             </Flex>
           </div>
         )}

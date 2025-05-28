@@ -122,12 +122,21 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
           shouldUpdate={isNeedReset}
         />
         <Flex vertical gap="small">
-          <AppButton type="primary" onClick={handleAcceptFilters}>Accept</AppButton>
+          <AppButton
+            type="primary"
+            onClick={() => {
+              handleAcceptFilters()
+              setFiltersVisible(false)
+            }}
+          >
+            Accept
+          </AppButton>
           <AppButton
             type="primary"
             onClick={() => {
               handleResetFilterForm()
               setIsNeedReset(true)
+              setFiltersVisible(false)
             }}
           >
             Reset

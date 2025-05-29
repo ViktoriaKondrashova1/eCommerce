@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { countries } from './model/countries'
+import { countries } from './countries.ts'
 import {
   cityValidationRules,
   confirmPasswordValidationRules,
@@ -11,7 +11,7 @@ import {
   passwordValidationRules,
   postalCodeValidationRules,
   streetValidationRules,
-} from './validate'
+} from './validate.ts'
 
 describe('password validation', () => {
   it('should have correct number of rules', () => {

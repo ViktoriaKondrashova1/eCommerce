@@ -5,13 +5,13 @@ import { useState } from 'react'
 import { AppInput } from '@/components/AppInput/AppInput'
 import { useRegisterFormContext } from '@/components/RegisterForm/model/registration-form-context'
 import { isNonNullable } from '../../../shared/types/is-non-nullable'
-import { countries } from '../model/countries'
+import { countries } from '../../../shared/validators/countries.ts'
 import {
   cityValidationRules,
   countryValidationRules,
   postalCodeValidationRules,
   streetValidationRules,
-} from '../validate'
+} from '../../../shared/validators/validate.ts'
 
 export const AddressFields = observer(
   ({

@@ -13,7 +13,6 @@ export function useProductBySlug() {
 
   useEffect(() => {
     if (slug === undefined) {
-      setIsLoading(false)
       return
     }
 

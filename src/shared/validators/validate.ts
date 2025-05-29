@@ -1,7 +1,7 @@
 import type { Rule } from 'antd/es/form'
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
-import { countries } from './model/countries'
+import { countries } from './countries.ts'
 
 export const passwordValidationRules: Rule[] = [
   {

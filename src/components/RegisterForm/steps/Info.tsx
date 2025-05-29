@@ -5,11 +5,11 @@ import { Card, DatePicker, Form } from 'antd'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
 import { AppInput } from '@/components/AppInput/AppInput'
-import { formStore } from '../model/form-store'
 import {
   dateValidationRules,
   nameValidationRules,
-} from '../validate'
+} from '@/shared/validators/validate.ts'
+import { formStore } from '../model/form-store'
 
 interface Props extends BaseComponent {}
 

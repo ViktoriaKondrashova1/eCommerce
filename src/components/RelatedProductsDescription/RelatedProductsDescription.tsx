@@ -26,7 +26,7 @@ export const RelatedProductsDescription: FC<Props> = ({ testId = 'related-produc
       vertical
       gap="large"
       data-testid={testId}
-      className="related-products"
+      className="related-products-info"
       {...rest}
     >
       {isLoading
@@ -39,7 +39,7 @@ export const RelatedProductsDescription: FC<Props> = ({ testId = 'related-produc
             )
           : (
               <>
-                <AppTitle level={3}>Related products</AppTitle>
+                <AppTitle level={3} style={{ margin: '0 auto' }}>Related products</AppTitle>
                 <Flex wrap="wrap" justify="space-around" gap="large">
                   {relatedProducts?.map(product => (
                     <ProductCard key={product.id} product={product} />

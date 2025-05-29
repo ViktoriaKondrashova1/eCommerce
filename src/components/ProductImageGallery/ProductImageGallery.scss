@@ -1,7 +1,19 @@
 .ant-carousel {
   .slick-slider {
     width: 80%;
-    margin: 0 auto
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      width: 52%;
+    }
+
+    @media (max-width: 576px) {
+      width: 70%;
+    }
+
+    @media (max-width: 420px) {
+      display: none;
+    }
   }
   // Стили для стрелок навигации
   .slick-prev,
@@ -73,6 +85,17 @@
   border-radius: 8px;
   width: 320px;
   max-width: 100%;
-  height: 420px;
+  height: 450px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 350px;
+    height: 370px;
+  }
+
+  @media (max-width: 576px) {
+    width: 330px;
+    height: 350px;
+  }
 }
+

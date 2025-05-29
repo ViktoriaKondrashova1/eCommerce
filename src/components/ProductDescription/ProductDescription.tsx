@@ -40,83 +40,85 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
           <ProductImageGallery images={images} title={title} />
         </Col>
 
-        <Col xs={24} md={12}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Col xs={24} md={12} className="descripion-container">
+          <Space direction="vertical" size="middle">
             <AppTitle level={2} style={{ margin: '0' }}>{title}</AppTitle>
 
             <Space size="middle" align="baseline">
               {discount !== null
                 ? (
                     <Flex gap="middle">
-                      <AppText style={{ fontSize: '28px', textDecoration: 'line-through', opacity: '0.5' }}>{amount}</AppText>
-                      {' '}
-                      <AppText style={{ fontSize: '28px', color: '#ff4d4f' }}>{discount}</AppText>
+                      <AppText className="description__original-price ">{amount}</AppText>
+                      <AppText className="description__discount-price ">{discount}</AppText>
                     </Flex>
                   )
                 : (
-                    <AppText style={{ fontSize: '28px', fontWeight: '600' }}>{amount}</AppText>
+                    <AppText className="description__price">{amount}</AppText>
                   )}
             </Space>
 
-            <Space>
-              <AppTitle level={3} style={{ color: '#f56b21', margin: '0' }}>Characteristics</AppTitle>
-            </Space>
+            <AppTitle className="title-name" level={3}>Characteristics</AppTitle>
 
-            <Space size="small">
-              <AppText style={{ fontWeight: '700' }}>Category: </AppText>
-              <AppText>{category}</AppText>
-            </Space>
+            <Flex vertical gap="small">
+              <Flex align="center" gap="middle">
+                <AppText className="category-name">Category:</AppText>
+                <AppText className="description-text">{category}</AppText>
+              </Flex>
 
-            <Space size="small">
-              <AppText style={{ fontWeight: '700' }}>Country: </AppText>
-              <AppText>{country}</AppText>
-            </Space>
+              <Flex align="center" gap="middle">
+                <AppText className="category-name">Country:</AppText>
+                <AppText className="description-text">{country}</AppText>
+              </Flex>
 
-            <Space size="small">
-              <AppText style={{ fontWeight: '700' }}>Brewery: </AppText>
-              <AppText>{brewery}</AppText>
-            </Space>
+              <Flex align="center" gap="middle">
+                <AppText className="category-name">Brewery:</AppText>
+                <AppText className="description-text">{brewery}</AppText>
+              </Flex>
 
-            <Tooltip title="Beer strength as a percentage of total volume">
-              <AppText style={{ fontWeight: '700' }}>ABV: </AppText>
-              <AppText>{ABV}</AppText>
-            </Tooltip>
-            <Tooltip
-              title="International beer bitterness scale from 0 to 100"
-            >
-              <AppText style={{ fontWeight: '700' }}>IBU: </AppText>
-              <AppText>{IBU}</AppText>
-            </Tooltip>
+              <Flex align="center" gap="middle">
+                <Tooltip title="Beer strength as a percentage of total volume">
+                  <AppText className="category-name">ABV:</AppText>
+                </Tooltip>
+                <AppText className="description-text">{ABV}</AppText>
+              </Flex>
 
-            <AppTitle level={3} style={{ color: '#f56b21', margin: '0' }}>Description</AppTitle>
+              <Flex align="center" gap="middle">
+                <Tooltip title="International beer bitterness scale from 0 to 100">
+                  <AppText className="category-name">IBU:</AppText>
+                </Tooltip>
+                <AppText className="description-text">{IBU}</AppText>
+              </Flex>
+            </Flex>
 
-            <div style={{ textAlign: 'justify' }}>{description}</div>
+            <AppTitle level={3} className="title-name">Description</AppTitle>
+            <div className="description-text">{description}</div>
+
             <Divider />
 
-            <Space style={{ marginBottom: '20px' }}>
+            <Flex gap="middle" align="center">
               <AppButton
                 type="primary"
                 shape="round"
                 icon={<ShoppingCartOutlined />}
-                style={{ marginRight: '20px' }}
               >
                 Add to Cart
               </AppButton>
-              <AppButton
-                shape="circle"
-                icon={<MinusOutlined />}
-                onClick={decreaseQuantity}
-                disabled={quantity <= 1}
-                style={{ minWidth: '0', width: '24px', height: '24px' }}
-              />
-              <AppText>{quantity}</AppText>
-              <AppButton
-                shape="circle"
-                icon={<PlusOutlined />}
-                onClick={increaseQuantity}
-                style={{ minWidth: '0', width: '24px', height: '24px' }}
-              />
-            </Space>
+              <Flex gap="small" align="center">
+                <AppButton
+                  shape="circle"
+                  icon={<MinusOutlined />}
+                  onClick={decreaseQuantity}
+                  disabled={quantity <= 1}
+                />
+                <AppText>{quantity}</AppText>
+                <AppButton
+                  shape="circle"
+                  icon={<PlusOutlined />}
+                  onClick={increaseQuantity}
+                />
+              </Flex>
+            </Flex>
+            <Divider />
           </Space>
         </Col>
       </Row>

@@ -46,6 +46,9 @@ export async function fetchProducts({
       else if (filters.sorting.includes('Price: low - high')) {
         queryArgs.sort = ['price asc']
       }
+      else if (filters.sorting.includes('Name')) {
+        queryArgs.sort = ['name.en-us asc']
+      }
     }
 
     const filterConditions: string[] = []

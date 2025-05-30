@@ -37,7 +37,7 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
     abvRange,
   } = filterData
 
-  const sortByPriceArr = ['Price: high - low', 'Price: low - high']
+  const sortByPriceArr = ['Price: high - low', 'Price: low - high', 'Name']
 
   const sortByPriceOptions = sortByPriceArr.map(elem => ({
     label: elem,

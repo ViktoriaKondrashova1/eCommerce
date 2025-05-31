@@ -3,13 +3,13 @@ import type {
 } from '@commercetools/platform-sdk'
 import { commerceApi } from '@/shared/configs/commerce-client'
 
-export async function updateCustomerInfo(updatedData: MyCustomerUpdate) {
-  const response = await commerceApi.client
+export async function updateMe(body: MyCustomerUpdate) {
+  const res = await commerceApi.client
     .me()
     .post({
-      body: updatedData,
+      body,
     })
     .execute()
 
-  return response
+  return res
 }

@@ -1,10 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import type { ReactElement } from 'react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { ProductCard } from './ProductCard'
 import { mockProduct } from './test-mock'
 
 describe('productCard', () => {
-  const renderWithRouter = (ui: React.ReactElement) => {
+  const renderWithRouter = (ui: ReactElement) => {
     return render(<MemoryRouter>{ui}</MemoryRouter>)
   }
 
@@ -26,7 +27,9 @@ describe('productCard', () => {
     const icon = button.querySelector('span.anticon-plus')
     expect(icon).toBeInTheDocument()
 
-    fireEvent.mouseEnter(button)
+    act(() => {
+      fireEvent.mouseEnter(button)
+    })
     expect(await screen.findByText('Add to Cart')).toBeInTheDocument()
   })
 })

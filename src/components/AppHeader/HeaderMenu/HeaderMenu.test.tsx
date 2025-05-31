@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
 import { HeaderMenu } from './HeaderMenu'
@@ -57,7 +57,9 @@ describe('headerMenu positive', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(screen.getByText('Contact'))
+    act(() => {
+      fireEvent.click(screen.getByText('Contact'))
+    })
     expect(mockNavigate).toHaveBeenCalledWith('/contact')
   })
 })

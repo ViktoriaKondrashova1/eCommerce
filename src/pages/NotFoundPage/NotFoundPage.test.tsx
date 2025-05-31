@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import { vi } from 'vitest'
 import { NotFoundPage } from './NotFoundPage'
@@ -48,7 +48,9 @@ describe('notFoundPage', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(screen.getByText('Back Home'))
+    act(() => {
+      fireEvent.click(screen.getByText('Back Home'))
+    })
     expect(mockNavigate).toHaveBeenCalledWith('/')
   })
 
@@ -59,7 +61,9 @@ describe('notFoundPage', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(screen.getByText('Explore Beers'))
+    act(() => {
+      fireEvent.click(screen.getByText('Explore Beers'))
+    })
     expect(mockNavigate).toHaveBeenCalledWith('/catalog/1')
   })
 })

@@ -8,7 +8,7 @@ import { emailValidationRules } from '@/components/LoginForm'
 import {
   confirmPasswordValidationRules,
   passwordValidationRules,
-} from '../../../shared/validators/validate.ts'
+} from '@/shared/validators/validate.ts'
 import { formStore } from '../model/form-store'
 
 interface Props extends BaseComponent {}
@@ -56,7 +56,7 @@ export const Passwords: FC<Props> = observer(({ testId = 'cardPassword', ...rest
         name="confirmPassword"
         label="Confirm password"
         dependencies={['password']}
-        rules={confirmPasswordValidationRules}
+        rules={confirmPasswordValidationRules('password')}
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >

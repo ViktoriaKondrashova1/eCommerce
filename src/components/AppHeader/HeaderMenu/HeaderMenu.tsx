@@ -6,6 +6,7 @@ import { Flex } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { AppButton } from '@/components/AppButton'
 import { customerStore } from '@/entities/customer/model/customer.store'
+import { ROUTES } from '@/shared/constants.ts'
 
 interface Props extends MenuProps, BaseComponent {
   items: MenuItem[]
@@ -20,7 +21,7 @@ export const HeaderMenu: FC<Props> = ({ testId = 'header-menu', items, align = '
   const handleMenuClick = (info: { key: string }): void => {
     if (info.key === '/logout') {
       customerStore.logout()
-      navigate('/')
+      navigate(ROUTES.main)
       onItemClick?.()
     }
     else {

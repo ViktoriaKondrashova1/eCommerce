@@ -1,31 +1,29 @@
-import type { AddressWithCustomFileds } from '../model/form-store'
+import type { AddressWithCustomFields } from '@/components/RegisterForm/model/form-store.ts'
 import { Card, Checkbox, Col, Form, Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { AppInput } from '@/components/AppInput/AppInput'
 import { useRegisterFormContext } from '@/components/RegisterForm/model/registration-form-context'
-import { isNonNullable } from '../../../shared/types/is-non-nullable'
-import { countries } from '../../../shared/validators/countries.ts'
+import { isNonNullable } from '@/shared/types/is-non-nullable.ts'
+import { countries } from '@/shared/validators/countries.ts'
 import {
   cityValidationRules,
   countryValidationRules,
   postalCodeValidationRules,
   streetValidationRules,
-} from '../../../shared/validators/validate.ts'
+} from '@/shared/validators/validate.ts'
 
 export const AddressFields = observer(
   ({
     address,
     onUpdate,
     onSetDefault,
+    isDefault = false,
   }: {
-    address: AddressWithCustomFileds
+    isDefault: boolean
+    address: AddressWithCustomFields
     onUpdate: (field: string, value: string) => void
-    onSetPrimary: () => void
-    onDelete: () => void
-    onSetDefault: (id: string) => void
-    isPrimary: boolean
-    index: number
+    onSetDefault: () => void
   }) => {
     const [country, setCountry] = useState('')
     const { form } = useRegisterFormContext()
@@ -129,7 +127,8 @@ export const AddressFields = observer(
           <Row>
             <Col offset={2} span={24}>
               <Checkbox
-                onClick={() => onSetDefault(address?.id ?? '')}
+                checked={isDefault}
+                onClick={onSetDefault}
               >
                 Mark as default
               </Checkbox>

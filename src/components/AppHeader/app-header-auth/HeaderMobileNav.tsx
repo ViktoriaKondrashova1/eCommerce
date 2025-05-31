@@ -3,6 +3,7 @@ import { MenuOutlined } from '@ant-design/icons'
 import { Divider, Drawer, Flex } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AppButton } from '@/components/AppButton'
 import { HeaderMenu } from '@/components/AppHeader/HeaderMenu/HeaderMenu'
 import { customerStore } from '@/entities/customer/model/customer.store'
@@ -10,17 +11,18 @@ import { ROUTES } from '@/shared/constants'
 
 export const HeaderMobileNav = observer(() => {
   const { firstName } = customerStore.customer || {}
+  const navigate = useNavigate()
+
   const menuItems: MenuItem[] = [
     { key: ROUTES.main, label: 'MAIN' },
-    { key: '/about', label: 'ABOUT' },
-    { key: '/catalog', label: 'CATALOG' },
-    { key: '/cart', label: 'CART' },
+    { key: ROUTES.about, label: 'ABOUT' },
+    { key: ROUTES.catalog.default, label: 'CATALOG' },
+    { key: ROUTES.cart, label: 'CART' },
   ]
 
   const profileMenuItems: MenuItem[] = [
     { key: ROUTES.profile.info, label: 'PERSONAL INFO' },
-    { key: ROUTES.profile.shipping, label: 'SHIPPING ADDRESSES' },
-    { key: ROUTES.profile.billing, label: 'BILLING ADDRESSES' },
+    { key: ROUTES.profile.addresses, label: 'ADDRESSES' },
     { key: ROUTES.profile.security, label: 'SECURITY' },
   ]
 
@@ -56,7 +58,14 @@ export const HeaderMobileNav = observer(() => {
           <Divider />
 
           <Flex justify="end" align="center" gap={16}>
-            <AppButton color="danger" variant="outlined" onClick={() => customerStore.logout()}>
+            <AppButton
+              color="danger"
+              variant="outlined"
+              onClick={() => {
+                customerStore.logout()
+                navigate(ROUTES.main)
+              }}
+            >
               LOGOUT
             </AppButton>
           </Flex>

@@ -11,7 +11,7 @@ export const HeaderMobileNav = observer(() => {
   const menuItems: MenuItem[] = [
     { key: ROUTES.main, label: 'MAIN' },
     { key: '/about', label: 'ABOUT' },
-    { key: '/catalog', label: 'CATALOG' },
+    { key: ROUTES.catalog.default, label: 'CATALOG' },
     { key: '/cart', label: 'CART' },
   ]
 

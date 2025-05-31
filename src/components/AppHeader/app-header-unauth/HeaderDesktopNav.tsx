@@ -1,12 +1,13 @@
 import type { MenuItem } from '@/components/AppHeader/types'
 import { ShoppingCartOutlined } from '@ant-design/icons'
 import { HeaderMenu } from '@/components/AppHeader/HeaderMenu/HeaderMenu'
+import { ROUTES } from '@/shared/constants.ts'
 
 export function HeaderDesktopNav() {
   const menuItems: MenuItem[] = [
-    { key: '/', label: 'MAIN' },
+    { key: ROUTES.main, label: 'MAIN' },
     { key: '/about', label: 'ABOUT' },
-    { key: '/catalog', label: 'CATALOG' },
+    { key: ROUTES.catalog.default, label: 'CATALOG' },
     { key: '/login', label: 'LOG IN', color: 'primary' },
     { key: '/register', label: 'SIGN UP', color: 'primary' },
     { key: '/cart', label: 'CART', icon: <ShoppingCartOutlined style={{ fontSize: '18px' }} /> },

@@ -2,7 +2,6 @@ import type { FC } from 'react'
 import type { IFilterForm, TFilterItemValue } from '@/pages/CatalogPage/use-filter-form.ts'
 import type { BaseComponent } from '@/shared/types/common.types'
 import { Drawer, Flex, Grid } from 'antd'
-import { useState } from 'react'
 import { useFilter } from '@/entities/filter/api/useFilter'
 import { AppButton } from '../AppButton'
 import { AppSkeleton } from '../AppSkeleton/AppSkeleton'
@@ -16,14 +15,26 @@ interface Props extends BaseComponent {
   handleChangeFilterForm: ({ key, value }: { key: keyof IFilterForm, value: TFilterItemValue }) => void
   handleAcceptFilters: () => void
   handleResetFilterForm: () => void
+  resetCategory: () => void
+  isNeedReset: boolean
+  setIsNeedReset: (isNeedReset: boolean) => void
 }
 
 const { useBreakpoint } = Grid
 
-export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFiltersVisible, setFiltersVisible, handleAcceptFilters, handleChangeFilterForm, handleResetFilterForm }) => {
+export const CatalogSidebar: FC<Props> = ({
+  testId = 'catalog-sidebar',
+  isFiltersVisible,
+  setFiltersVisible,
+  handleAcceptFilters,
+  handleChangeFilterForm,
+  handleResetFilterForm,
+  resetCategory,
+  isNeedReset,
+  setIsNeedReset,
+}) => {
   const { isLoading, filterData } = useFilter()
   const screens = useBreakpoint()
-  const [isNeedReset, setIsNeedReset] = useState<boolean>(false)
 
   if (isLoading || !filterData) {
     return <AppSkeleton />
@@ -127,6 +138,7 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
             onClick={() => {
               handleAcceptFilters()
               setFiltersVisible(false)
+              resetCategory()
             }}
           >
             Accept
@@ -137,6 +149,7 @@ export const CatalogSidebar: FC<Props> = ({ testId = 'catalog-sidebar', isFilter
               handleResetFilterForm()
               setIsNeedReset(true)
               setFiltersVisible(false)
+              resetCategory()
             }}
           >
             Reset

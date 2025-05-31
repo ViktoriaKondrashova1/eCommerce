@@ -1,4 +1,4 @@
-import type { ClientResponse, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
+import type { Category, ClientResponse, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
 import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form'
 import { categoryStore } from '@/entities/category/model/category.store'
 import { commerceApi } from '@/shared/configs/commerce-client'
@@ -8,6 +8,7 @@ interface Props {
   page?: number
   deferredQuery?: string
   filters?: IFilterForm
+  selectedCategory?: Category | undefined
 }
 
 interface queryProps {
@@ -23,6 +24,7 @@ export async function fetchProducts({
   page,
   deferredQuery,
   filters,
+  selectedCategory,
 }: Props): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
   try {
     const MAX_LIMIT = 500
@@ -32,6 +34,10 @@ export async function fetchProducts({
     const queryArgs: queryProps = {
       limit,
       where: 'published=true',
+    }
+
+    if (selectedCategory !== undefined) {
+      queryArgs.filter = [`categories.id:"${selectedCategory.id}"`]
     }
 
     if (deferredQuery !== undefined && deferredQuery?.trim() !== '') {

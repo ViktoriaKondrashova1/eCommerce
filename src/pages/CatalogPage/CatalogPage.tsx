@@ -9,18 +9,24 @@ import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { CatalogPagination } from '@/components/CatalogPagination/CatalogPagination'
 import { CatalogSearch } from '@/components/CatalogSearch/CatalogSearch'
 import { CatalogSidebar } from '@/components/CatalogSidebar/CatalogSidebar'
+import { CategoriesNavigation } from '@/components/CategoriesNavigation/CategoriesNavigation'
 import { ProductList } from '@/components/ProductList/ProductList'
 import { useCatalogPage } from '@/pages/CatalogPage/use-catalog-page.ts'
 import { useFilterForm } from '@/pages/CatalogPage/use-filter-form'
 import { useProducts } from '@/pages/CatalogPage/use-products.ts'
 import { useSearch } from '@/pages/CatalogPage/use-search.ts'
 import { catalogPageLimit } from '@/shared/constants'
+import { useCategories } from '../MainPage/use-categories'
+import { useCategoriesNav } from './use-categories-nav'
 
 const { useBreakpoint } = Grid
 
 export const CatalogPage: FC = () => {
   const { currentPage, handlePageChange } = useCatalogPage()
   const { deferredQuery, handleSetQuery } = useSearch()
+  const [isNeedReset, setIsNeedReset] = useState<boolean>(false)
+
+  useCategories()
 
   const {
     isNeedApplyFilters,
@@ -31,7 +37,9 @@ export const CatalogPage: FC = () => {
     handleResetFilterForm,
   } = useFilterForm()
 
-  const { productsData, isLoading, isError } = useProducts({ currentPage, deferredQuery, filters: filterForm, isNeedApplyFilters })
+  const { categories, selectedCategory, handleCategoryChange, resetCategory } = useCategoriesNav()
+
+  const { productsData, isLoading, isError } = useProducts({ currentPage, deferredQuery, filters: filterForm, isNeedApplyFilters, selectedCategory })
 
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false)
   const screens = useBreakpoint()
@@ -76,13 +84,25 @@ export const CatalogPage: FC = () => {
         <AppBreadcrumb />
         <CatalogSearch onChange={handleSetQuery} />
       </Flex>
-      <Flex gap="large" style={{ marginTop: 40 }}>
+      <CategoriesNavigation
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onChange={(e) => {
+          handleResetFilterForm()
+          setIsNeedReset(true)
+          handleCategoryChange(e)
+        }}
+      />
+      <Flex gap="large" style={{ marginTop: 20 }}>
         <CatalogSidebar
           isFiltersVisible={filterDrawerVisible}
           setFiltersVisible={setFilterDrawerVisible}
           handleChangeFilterForm={handleChangeFilterForm}
           handleAcceptFilters={handleAcceptFilters}
           handleResetFilterForm={handleResetFilterForm}
+          resetCategory={resetCategory}
+          isNeedReset={isNeedReset}
+          setIsNeedReset={setIsNeedReset}
         />
         {Content}
       </Flex>

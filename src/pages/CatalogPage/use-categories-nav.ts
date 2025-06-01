@@ -3,6 +3,7 @@ import type { RadioChangeEvent } from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getAllCategories } from '@/entities/category/api/get-all-categories'
+import { useNotify } from '@/shared/hooks/use-notify'
 
 export function useCategoriesNav() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -10,6 +11,7 @@ export function useCategoriesNav() {
   const navigate = useNavigate()
   const location = useLocation()
   const params = useParams()
+  const { showErrorNotify } = useNotify()
 
   useEffect(() => {
     if (params.categorySlug !== undefined && categories.length > 0) {
@@ -30,8 +32,8 @@ export function useCategoriesNav() {
         const data = await getAllCategories()
         setCategories(data.body.results)
       }
-      catch (error) {
-        console.error('Failed to load categories', error)
+      catch {
+        showErrorNotify('Failed to load categories')
       }
     }
 

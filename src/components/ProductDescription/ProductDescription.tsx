@@ -57,8 +57,6 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
                   )}
             </Space>
 
-            <AppTitle className="title-name" level={3}>Characteristics</AppTitle>
-
             <Flex vertical gap="small">
               <Flex align="center" gap="middle">
                 <AppText className="category-name">Category:</AppText>
@@ -90,9 +88,8 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
               </Flex>
             </Flex>
 
-            <AppTitle level={3} className="title-name">Description</AppTitle>
+            <Divider />
             <div className="description-text">{description}</div>
-
             <Divider />
 
             <Flex gap="middle" align="center">

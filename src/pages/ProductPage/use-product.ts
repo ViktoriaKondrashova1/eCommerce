@@ -12,32 +12,30 @@ export function useProductBySlug() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (slug === undefined) {
-      return
+    if (slug !== undefined) {
+      const loadProduct = async () => {
+        try {
+          setIsLoading(true)
+          setIsError(false)
+          setError(null)
+
+          const response = await fetchProductBySlug(slug)
+          const [adaptedProduct] = importProductAdapter(response.body.results)
+
+          setProduct(adaptedProduct)
+        }
+        catch (err) {
+          setIsError(true)
+          setError(err instanceof Error ? err.message : 'Failed to load product')
+          return null
+        }
+        finally {
+          setIsLoading(false)
+        }
+      }
+
+      void loadProduct()
     }
-
-    const loadProduct = async () => {
-      try {
-        setIsLoading(true)
-        setIsError(false)
-        setError(null)
-
-        const response = await fetchProductBySlug(slug)
-        const [adaptedProduct] = importProductAdapter(response.body.results)
-
-        setProduct(adaptedProduct)
-      }
-      catch (err) {
-        setIsError(true)
-        setError(err instanceof Error ? err.message : 'Failed to load product')
-        return null
-      }
-      finally {
-        setIsLoading(false)
-      }
-    }
-
-    void loadProduct()
   }, [slug])
 
   return { product, isLoading, isError, error }

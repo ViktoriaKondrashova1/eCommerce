@@ -33,7 +33,15 @@ export const CategoriesNavigation: FC<Props> = ({ testId = 'categories-navigatio
         onChange={onChange}
         value={selectedCategory?.slug['en-US']}
         className="categories-group"
-        style={{ display: 'flex', flexDirection: 'column', gap: 'small' }}
+        style={
+          !screens.md
+            ? {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }
+            : undefined
+        }
       />
     </Flex>
   )

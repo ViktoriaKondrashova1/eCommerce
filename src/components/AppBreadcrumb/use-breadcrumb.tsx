@@ -31,12 +31,21 @@ export function useBreadcrumb() {
     ]
 
     if (params.categorySlug !== undefined) {
-      const category = categoryStore.getCategoryBySlug(params.categorySlug)
+      const checkCategory = () => {
+        const category = categoryStore.getCategoryBySlug(params.categorySlug!)
 
-      setBreadcrumbItems([
-        ...baseItems,
-        { key: 'category', title: category?.name['en-US'] },
-      ])
+        if (category) {
+          setBreadcrumbItems([
+            ...baseItems,
+            { key: 'category', title: category.name['en-US'] },
+          ])
+        }
+        else {
+          setTimeout(checkCategory, 100)
+        }
+      }
+
+      checkCategory()
     }
     else {
       setBreadcrumbItems(baseItems)

@@ -46,6 +46,12 @@ class CategoryStore {
 
     return foundCategory !== undefined && foundCategory?.slug ? foundCategory?.slug['en-US'] : null
   }
+
+  getCategoryBySlug(slug: string): Category | null {
+    const foundCategory = this.categories.find(category => category.slug['en-US'] === slug)
+
+    return foundCategory !== undefined ? foundCategory : null
+  }
 }
 
 export const categoryStore = new CategoryStore()

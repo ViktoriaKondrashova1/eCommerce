@@ -41,7 +41,8 @@ export const CatalogPage: FC = () => {
 
   const { productsData, isLoading, isError } = useProducts({ currentPage, deferredQuery, filters: filterForm, isNeedApplyFilters, selectedCategory })
 
-  const [filterDrawerVisible, setFilterDrawerVisible] = useState(false)
+  const [filterDrawerVisible, setFilterDrawerVisible] = useState<boolean>(false)
+  const [categoriesDrawerVisible, setCategoriesDrawerVisible] = useState<boolean>(false)
   const screens = useBreakpoint()
 
   useEffect(() => {
@@ -56,6 +57,16 @@ export const CatalogPage: FC = () => {
 
     return (
       <Flex vertical gap="large" style={{ width: '100%' }}>
+        {!screens.md
+          ? (
+              <AppButton
+                onClick={() => setCategoriesDrawerVisible(true)}
+                style={{ width: '100px' }}
+              >
+                Categories
+              </AppButton>
+            )
+          : null}
         {!screens.md
           ? (
               <AppButton
@@ -91,7 +102,10 @@ export const CatalogPage: FC = () => {
           handleResetFilterForm()
           setIsNeedReset(true)
           handleCategoryChange(e)
+          setCategoriesDrawerVisible(false)
         }}
+        categoriesDrawerVisible={categoriesDrawerVisible}
+        setCategoriesDrawerVisible={setCategoriesDrawerVisible}
       />
       <Flex gap="large" style={{ marginTop: 20 }}>
         <CatalogSidebar

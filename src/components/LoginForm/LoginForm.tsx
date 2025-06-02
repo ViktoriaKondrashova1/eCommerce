@@ -9,6 +9,7 @@ import { loginCustomer } from '@/entities/customer/api/sign-in'
 import { customerStore } from '@/entities/customer/model/customer.store'
 import { globalStore } from '@/entities/global/model/global.store'
 import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
+import { ROUTES } from '@/shared/constants.ts'
 import { useNotify } from '@/shared/hooks/use-notify'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
 import { isType } from '@/shared/types/is-type'
@@ -44,7 +45,7 @@ export const LoginForm: FC = () => {
               }
             })
             customerStore.setIsAuth(true)
-            navigate('/')
+            navigate(ROUTES.main)
           }
         })
         .catch((res) => {

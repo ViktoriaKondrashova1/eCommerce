@@ -20,22 +20,15 @@ export const Billing = observer(() => {
         <AppText>Use shipping address for billing</AppText>
       </Form.Item>
       {!formStore.formData.isUseShippingForBilling && (
-        <>
-          {formStore.formData.billingAddresses.map((address, index) => (
-            <div key={address.id}>
-              <AddressFields
-                onSetDefault={id => formStore.setPrimaryShippingAddress(id)}
-                address={address}
-                onUpdate={(field, value) =>
-                  formStore.updateBillingAddress(address.id, field, value)}
-                onSetPrimary={() => formStore.setPrimaryBillingAddress(address.id)}
-                onDelete={() => formStore.removeBillingAddress(address.id)}
-                isPrimary={address.custom.fields.isPrimary}
-                index={index}
-              />
-            </div>
-          ))}
-        </>
+        <div>
+          <AddressFields
+            isDefault={formStore.formData.billingAddress.custom.fields.isPrimary}
+            onSetDefault={() => formStore.togglePrimaryAddress('billingAddress')}
+            address={formStore.formData.billingAddress}
+            onUpdate={(field, value) =>
+              formStore.updateAddress(field, value, 'billingAddress')}
+          />
+        </div>
       )}
     </>
   )

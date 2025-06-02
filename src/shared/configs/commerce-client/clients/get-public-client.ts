@@ -9,9 +9,7 @@ let commerceApiClient: ByProjectKeyRequestBuilder | null = null
 
 export function getCommerceClientPublic(
 ): ByProjectKeyRequestBuilder {
-  if (commerceApiClient) {
-    return commerceApiClient
-  }
+  commerceApiClient = null
 
   const authMiddlewareOptions = getAuthMiddlewareOptions()
   const httpMiddlewareOptions: HttpMiddlewareOptions = getHttpMiddlewareOptions()

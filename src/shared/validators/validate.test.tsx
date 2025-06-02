@@ -30,8 +30,12 @@ describe('password validation', () => {
 
 describe('confirm password validation', () => {
   it('rule should be required', () => {
-    expect(confirmPasswordValidationRules[0]).toHaveProperty('required', true)
-    expect(confirmPasswordValidationRules[0]).toHaveProperty('message')
+    const x = confirmPasswordValidationRules()[0]
+
+    if (typeof x === 'object') {
+      expect(x).toHaveProperty('required', true)
+      expect(x).toHaveProperty('message')
+    }
   })
 })
 

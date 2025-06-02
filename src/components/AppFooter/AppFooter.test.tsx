@@ -35,7 +35,6 @@ describe('appFooter positive', () => {
 
   it('should render developers list with correct links', () => {
     render(<MemoryRouter><AppFooter /></MemoryRouter>)
-
     const developers = [
       { name: 'lnrzhkv', link: 'https://github.com/lnrzhkv' },
       { name: 'EvgenKham', link: 'https://github.com/EvgenKham' },

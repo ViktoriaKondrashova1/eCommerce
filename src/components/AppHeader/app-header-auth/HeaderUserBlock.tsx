@@ -14,7 +14,14 @@ export const HeaderUserBlock = observer(() => {
       <AppButton color="default" variant="text" onClick={() => navigate(ROUTES.profile.info)}>
         PROFILE
       </AppButton>
-      <AppButton color="default" variant="text" onClick={() => customerStore.logout()}>
+      <AppButton
+        color="default"
+        variant="text"
+        onClick={() => {
+          customerStore.logout()
+          navigate(ROUTES.main)
+        }}
+      >
         LOG OUT
       </AppButton>
     </Flex>

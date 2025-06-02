@@ -1,37 +1,49 @@
 import type { FC } from 'react'
 import { Card, Flex, Tabs } from 'antd'
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint'
 import { observer } from 'mobx-react-lite'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
-import { Billing } from '@/components/Profile/ui/billing/Billing.tsx'
+import { Addresses } from '@/components/Profile/ui/addresses/Addresses.tsx'
 import { PersonalInfo } from '@/components/Profile/ui/personalInfo/PersonalInfo.tsx'
 import { Security } from '@/components/Profile/ui/security/Security.tsx'
-import { Shipping } from '@/components/Profile/ui/shipping/Shipping.tsx'
 import './Profile.scss'
 
-type ChapterKey = 'info' | 'shipping' | 'billing' | 'security'
+type ChapterKey = 'info' | 'addresses' | 'security'
 
 const CHAPTERS: Record<ChapterKey, string> = {
   info: 'Personal Info',
-  shipping: 'Shipping addresses',
-  billing: 'Billing addresses',
+  addresses: 'Addresses',
   security: 'Security settings',
 } as const
 
 export const Profile: FC = observer(() => {
   const { chapter } = useParams()
   const navigate = useNavigate()
+  const screens = useBreakpoint()
+
+  const isMobile = screens.md === false
 
   const getContent = (chapterKey: ChapterKey | string) => {
     switch (chapterKey) {
       case 'info': return <PersonalInfo />
-      case 'shipping': return <Shipping />
-      case 'billing': return <Billing />
+      case 'addresses': return <Addresses />
       case 'security': return <Security />
 
       default:
         return null
     }
+  }
+
+  if (isMobile) {
+    return (
+      <Flex vertical gap={24} className="profile">
+        <Card>
+          <AppTitle level={2}>My Profile</AppTitle>
+          {typeof chapter === 'string' && getContent(chapter)}
+        </Card>
+      </Flex>
+    )
   }
 
   return (
@@ -50,6 +62,7 @@ export const Profile: FC = observer(() => {
             children: getContent(key),
           }))}
         />
+
       </Card>
     </Flex>
   )

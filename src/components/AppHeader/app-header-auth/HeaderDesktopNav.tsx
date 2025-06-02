@@ -4,12 +4,13 @@ import { Flex } from 'antd'
 import { AppButton } from '@/components/AppButton'
 import { HeaderUserBlock } from '@/components/AppHeader/app-header-auth/HeaderUserBlock'
 import { HeaderMenu } from '@/components/AppHeader/HeaderMenu/HeaderMenu'
+import { ROUTES } from '@/shared/constants.ts'
 
 export function HeaderDesktopNav() {
   const menuItems: MenuItem[] = [
     { key: '/', label: 'MAIN' },
     { key: '/about', label: 'ABOUT' },
-    { key: '/catalog', label: 'CATALOG' },
+    { key: ROUTES.catalog.default, label: 'CATALOG' },
   ]
 
   return (

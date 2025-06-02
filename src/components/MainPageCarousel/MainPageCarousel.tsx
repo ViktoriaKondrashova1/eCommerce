@@ -40,7 +40,7 @@ export const MainPageCarousel: FC<Props> = ({ testId = 'main-page-carousel' }) =
   return (
     <Flex vertical gap="large" data-testid={testId}>
       <AppTitle level={3}>CHOOSE YOUR STYLE</AppTitle>
-      <Carousel autoplay draggable>
+      <Carousel autoplay draggable style={{ width: '100%' }}>
         {slides.map(slide => (
           <div key={slide.id}>
             <Flex gap="large" justify={screens.xs ? 'center' : 'space-between'}>

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Grid } from 'antd'
+import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
 import { MainPageCarousel } from './MainPageCarousel'
 
@@ -44,7 +45,11 @@ describe('mainPageCarousel', () => {
 
   const setup = (breakpoints = { xs: true, sm: true, md: true, lg: true }) => {
     vi.mocked(Grid.useBreakpoint).mockReturnValue(breakpoints)
-    return render(<MainPageCarousel />)
+    return render(
+      <MemoryRouter>
+        <MainPageCarousel />
+      </MemoryRouter>,
+    )
   }
 
   it('should render carousel and title correctly', () => {

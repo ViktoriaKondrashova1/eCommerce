@@ -1,14 +1,19 @@
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { CarouselCard } from './CarouselCard'
 
 const mockProps = {
-  title: 'Test Card Title',
+  title: 'TEST CARD TITLE',
   image: 'https://example.com/test-image.jpg',
 }
 
 describe('carouselCard', () => {
   it('should render correctly with provided props', () => {
-    render(<CarouselCard {...mockProps} />)
+    render(
+      <MemoryRouter>
+        <CarouselCard {...mockProps} />
+      </MemoryRouter>,
+    )
 
     const card = screen.getByTestId('carousel-card')
     expect(card).toBeInTheDocument()
@@ -23,14 +28,22 @@ describe('carouselCard', () => {
   })
 
   it('should have hoverable effect', () => {
-    render(<CarouselCard {...mockProps} />)
+    render(
+      <MemoryRouter>
+        <CarouselCard {...mockProps} />
+      </MemoryRouter>,
+    )
 
     const card = screen.getByTestId('carousel-card')
     expect(card).toHaveClass('ant-card-hoverable')
   })
 
   it('should render AppTitle component inside Meta', () => {
-    render(<CarouselCard {...mockProps} />)
+    render(
+      <MemoryRouter>
+        <CarouselCard {...mockProps} />
+      </MemoryRouter>,
+    )
 
     const titleElement = screen.getByText(mockProps.title)
     expect(titleElement.tagName).toBe('H4')

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { getAllCategories } from '@/entities/category/api/get-all-categories'
 import { session } from '@/shared/lib/storage'
 import { filterStore } from '../model/filter.store'
-import { getAbvRange } from './get-abv-range'
 import { getAllBreweries } from './get-breweries-list'
 import { getCountriesList } from './get-countries-list'
 import { getPriceRange } from './get-price-range'
@@ -14,7 +13,7 @@ async function getData() {
     getAllBreweries(),
     getCountriesList(),
     getPriceRange(),
-    getAbvRange(),
+    // getAbvRange(),
   ])
 }
 
@@ -28,14 +27,14 @@ export function useFilter(): { isLoading: boolean, filterData: FilterData | null
         setIsLoading(true)
 
         try {
-          const [categories, breweries, countries, price, abv] = await getData()
+          const [categories, breweries, countries, price] = await getData()
 
           const data: FilterData = {
             categories: categories.body.results,
             breweries,
             countries,
             priceRange: price,
-            abvRange: abv,
+            // abvRange: abv,
           }
 
           filterStore.setFilterData(data)

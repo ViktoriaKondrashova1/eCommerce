@@ -5,5 +5,5 @@ export interface FilterData {
   breweries: string[] | undefined
   countries: string[] | undefined
   priceRange: { min: number, max: number }
-  abvRange: { min: number, max: number }
+  // abvRange: { min: number, max: number }
 }

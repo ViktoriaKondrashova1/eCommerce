@@ -45,7 +45,7 @@ export const CatalogSidebar: FC<Props> = ({
     breweries,
     countries,
     priceRange,
-    abvRange,
+    // abvRange,
   } = filterData
 
   const sortByPriceArr = ['Price: high - low', 'Price: low - high', 'Name']
@@ -121,7 +121,7 @@ export const CatalogSidebar: FC<Props> = ({
           }}
           shouldUpdate={isNeedReset}
         />
-        <RangeFilter
+        {/* <RangeFilter
           title="ABV, %"
           icon="%"
           minValue={abvRange.min}
@@ -131,7 +131,7 @@ export const CatalogSidebar: FC<Props> = ({
             handleChangeFilterForm({ key: 'ABV', value })
           }}
           shouldUpdate={isNeedReset}
-        />
+        /> */}
         <Flex vertical gap="small">
           <AppButton
             type="primary"

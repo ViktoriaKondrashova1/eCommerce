@@ -1,17 +1,16 @@
 import type { CSSProperties, FC, ReactNode } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
 
 import './Backdrop.scss'
 
-interface Props extends BaseComponent {
+interface Props {
   children: ReactNode
   className?: string
   style?: CSSProperties
 }
 
-export const Backdrop: FC<Props> = ({ testId = 'backdrop', className = 'backdrop', children, style, ...rest }) => {
+export const Backdrop: FC<Props> = ({ className = 'backdrop', children, style, ...rest }) => {
   return (
-    <div {...rest} data-testid={testId} className={className} style={style}>
+    <div {...rest} className={className} style={style}>
       {children}
     </div>
   )

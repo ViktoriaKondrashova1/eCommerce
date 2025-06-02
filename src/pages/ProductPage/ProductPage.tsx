@@ -1,4 +1,8 @@
 import type { FC } from 'react'
+import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons'
+import { Flex } from 'antd'
+import { useLayoutEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
@@ -6,10 +10,6 @@ import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { ProductDescription } from '@/components/ProductDescription/ProductDescription'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
 import { useRelatedProducts } from '@/pages/ProductPage/use-related-products'
-import { ArrowLeftOutlined, HomeOutlined, UnorderedListOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
-import { useLayoutEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useProductBySlug } from './use-product'
 
 export const ProductPage: FC = () => {
@@ -34,10 +34,7 @@ export const ProductPage: FC = () => {
       ) },
     { href: '/catalog/1', title:
       (
-        <>
-          <UnorderedListOutlined />
-          <span>Catalog</span>
-        </>
+        <span>Catalog</span>
       ) },
     {
       title: product?.title,

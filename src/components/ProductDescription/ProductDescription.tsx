@@ -1,6 +1,6 @@
+import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
-import type { FC } from 'react'
 import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Col, Divider, Flex, Row, Space, Tooltip } from 'antd'
 import { useState } from 'react'
@@ -87,12 +87,9 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
                 <AppText className="description-text">{IBU}</AppText>
               </Flex>
             </Flex>
-
             <Divider />
             <div className="description-text">{description}</div>
-            <Divider />
-
-            <Flex gap="middle" align="center">
+            <Flex gap="middle" align="center" style={{ margin: '20px 0 60px' }}>
               <AppButton
                 type="primary"
                 shape="round"
@@ -115,7 +112,6 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
                 />
               </Flex>
             </Flex>
-            <Divider />
           </Space>
         </Col>
       </Row>

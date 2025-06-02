@@ -37,7 +37,7 @@ export const PromocodeSection: FC<Props> = ({ testId = 'promocode' }) => {
           <AppText strong style={{ fontSize: 18, backgroundColor: 'white', padding: '4px 10px', borderRadius: 4 }}>
             {promocode}
           </AppText>
-          <AppButton type="primary" onClick={copyPromocode}>Copy Code</AppButton>
+          <AppButton type="primary" onClick={copyPromocode} style={{ height: 'auto' }}>Copy Code</AppButton>
         </Flex>
       </Space>
     </Card>

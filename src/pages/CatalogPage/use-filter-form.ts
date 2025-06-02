@@ -33,10 +33,12 @@ export function useFilterForm() {
 
   const handleResetFilterForm = () => {
     setFilterForm(initialForm)
+    setIsNeedApplyFilters(prev => !prev)
   }
 
   const handleAcceptFilters = () => {
-    setIsNeedApplyFilters(true)
+    setIsNeedApplyFilters(prev => !prev)
   }
+
   return { filterForm, isNeedApplyFilters, handleChangeFilterForm, handleResetFilterForm, handleAcceptFilters }
 }

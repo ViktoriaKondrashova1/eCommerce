@@ -1,6 +1,6 @@
 import type { ICleanProduct } from '@/entities/product/model/product.types'
-import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
 import { useEffect, useState } from 'react'
+import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
 
 export function useRelatedProducts(title: string, category: string | null) {
   const [relatedProducts, setRelatedProducts] = useState<ICleanProduct[]>([])

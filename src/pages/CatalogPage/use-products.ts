@@ -1,3 +1,4 @@
+import type { Category } from '@commercetools/platform-sdk'
 import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
 import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form.ts'
 import { useCallback } from 'react'
@@ -10,21 +11,22 @@ interface Props {
   deferredQuery: string
   filters: IFilterForm
   isNeedApplyFilters: boolean
+  selectedCategory: Category | undefined
 }
 
-export function useProducts({ currentPage, deferredQuery, filters, isNeedApplyFilters }: Props) {
+export function useProducts({ currentPage, deferredQuery, filters, isNeedApplyFilters, selectedCategory }: Props) {
   const fetchProductsForPage = useCallback(async (): Promise<{
     products: ICleanProduct[]
     total: number
   }> => {
-    const response = await fetchProducts({ page: currentPage, deferredQuery, filters })
+    const response = await fetchProducts({ page: currentPage, deferredQuery, filters, selectedCategory })
     const total = response.body.total ?? 0
 
     return {
       products: importProductAdapter(response.body.results),
       total,
     }
-  }, [currentPage, deferredQuery, isNeedApplyFilters])
+  }, [currentPage, deferredQuery, isNeedApplyFilters, selectedCategory])
 
   const {
     data: productsData,

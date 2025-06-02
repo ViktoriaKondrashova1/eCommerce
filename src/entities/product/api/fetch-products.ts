@@ -36,10 +36,6 @@ export async function fetchProducts({
       where: 'published=true',
     }
 
-    if (selectedCategory !== undefined) {
-      queryArgs.filter = [`categories.id:"${selectedCategory.id}"`]
-    }
-
     if (deferredQuery !== undefined && deferredQuery?.trim() !== '') {
       queryArgs['text.en-US'] = `${deferredQuery?.trim()}`
       queryArgs.fuzzy = true
@@ -107,6 +103,11 @@ export async function fetchProducts({
       queryArgs.filter = filterConditions
       queryArgs.offset = undefined
       queryArgs.limit = MAX_LIMIT
+    }
+
+    if (selectedCategory !== undefined) {
+      queryArgs.offset = undefined
+      queryArgs.filter = [`categories.id:"${selectedCategory.id}"`]
     }
 
     const response = await commerceApi.client

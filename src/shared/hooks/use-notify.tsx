@@ -4,12 +4,11 @@ import { notification } from 'antd'
 
 export function useNotify() {
   notification.config({
-    bottom: 240,
+    top: 76,
     duration: 2,
-    placement: 'bottomRight',
+    placement: 'topRight',
     pauseOnHover: true,
   })
-
   const showErrorNotify = (msg?: string): void => {
     notification.open({
       type: 'error',

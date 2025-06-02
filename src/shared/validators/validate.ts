@@ -96,7 +96,7 @@ export const cityValidationRules: Rule[] = [
   },
 ]
 
-export const postalCodeValidationRules: (country: string) => Rule[] = (country) => {
+export const postalCodeDependOnAddressValidationRules: (country?: string | null) => Rule[] = (country) => {
   const selectedCountry = countries.find(c => c.value === country)
   if (!selectedCountry) {
     return [{ required: true, message: 'Select a country' }]
@@ -119,6 +119,18 @@ export const postalCodeValidationRules: (country: string) => Rule[] = (country) 
 
   return rules
 }
+
+export const postalCodeValidationRules = [
+  {
+    required: true,
+    message: 'Please type your postal code',
+    whitespace: true,
+  },
+  {
+    pattern: /^\d+$/,
+    message: 'Postal code must contain only digits',
+  },
+]
 
 export const streetValidationRules: Rule[] = [
   {

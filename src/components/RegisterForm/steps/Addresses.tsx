@@ -9,7 +9,7 @@ import { countries } from '@/shared/validators/countries.ts'
 import {
   cityValidationRules,
   countryValidationRules,
-  postalCodeValidationRules,
+  postalCodeDependOnAddressValidationRules,
   streetValidationRules,
 } from '@/shared/validators/validate.ts'
 
@@ -92,14 +92,13 @@ export const AddressFields = observer(
             <Form.Item
               name={`postalCode-${address.id}`}
               label="Postal code"
-              rules={postalCodeValidationRules(country)}
+              rules={postalCodeDependOnAddressValidationRules(country)}
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}
               required
 
             >
               <AppInput
-                maxLength={7}
                 placeholder={postalCodePlaceholder}
                 onChange={e => onUpdate('postalCode', e.target.value)}
                 value={address.postalCode}

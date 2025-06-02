@@ -11,3 +11,9 @@ export function getCountryAbbr(country: string) {
 
   return foundedCountry ? foundedCountry.value : country
 }
+
+export function getCountryStruct(country: string) {
+  const foundedCountry = countries.find(c => c.label === country)
+
+  return foundedCountry
+}

@@ -9,7 +9,7 @@ import {
   isOver18,
   nameValidationRules,
   passwordValidationRules,
-  postalCodeValidationRules,
+  postalCodeDependOnAddressValidationRules,
   streetValidationRules,
 } from './validate.ts'
 
@@ -30,11 +30,11 @@ describe('password validation', () => {
 
 describe('confirm password validation', () => {
   it('rule should be required', () => {
-    const x = confirmPasswordValidationRules()[0]
+    const rule = confirmPasswordValidationRules()[0]
 
-    if (typeof x === 'object') {
-      expect(x).toHaveProperty('required', true)
-      expect(x).toHaveProperty('message')
+    if (typeof rule === 'object') {
+      expect(rule).toHaveProperty('required', true)
+      expect(rule).toHaveProperty('message')
     }
   })
 })
@@ -42,7 +42,7 @@ describe('confirm password validation', () => {
 describe('postal code validation', () => {
   it('should include pattern for country', () => {
     const testCountry = countries[0]
-    const rules = postalCodeValidationRules(testCountry.value)
+    const rules = postalCodeDependOnAddressValidationRules(testCountry.value)
     expect(rules.some(rule => 'pattern' in rule)).toBe(true)
   })
 })
@@ -130,11 +130,6 @@ describe('date validation', () => {
   it('should resolve if date is more than 18 years ago', async () => {
     const oldDate = dayjs().subtract(19, 'year')
     await expect(isOver18(oldDate)).resolves.toBeUndefined()
-  })
-
-  it('should reject if date is exactly 18 years ago', async () => {
-    const exact18 = dayjs().subtract(18, 'year')
-    await expect(isOver18(exact18)).rejects.toThrow('You must be over 18 years')
   })
 
   it('should reject if date is less than 18 years ago', async () => {

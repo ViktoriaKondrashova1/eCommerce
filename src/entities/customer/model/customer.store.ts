@@ -5,8 +5,10 @@ import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
 import { TOKEN_STORAGE_KEY } from '@/shared/constants'
 import { local } from '@/shared/lib/storage'
 
+type Customer = CustomerSignInResult['customer']
+
 class CustomerStore {
-  public customer: CustomerSignInResult['customer'] | null
+  public customer: Customer | null
   public isAuth: boolean
 
   constructor() {
@@ -21,7 +23,7 @@ class CustomerStore {
     this.isAuth = isAuth
   }
 
-  public setCustomer(customer: CustomerSignInResult['customer']) {
+  public setCustomer(customer: Customer) {
     this.customer = customer
   }
 

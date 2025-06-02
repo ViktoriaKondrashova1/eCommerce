@@ -1,7 +1,7 @@
 import type { Rule } from 'antd/es/form'
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
-import { countries } from './model/countries'
+import { countries } from './countries.ts'
 
 export const passwordValidationRules: Rule[] = [
   {
@@ -19,17 +19,19 @@ export const passwordValidationRules: Rule[] = [
   },
 ]
 
-export const confirmPasswordValidationRules: Rule[] = [
-  { required: true, message: 'Please type your Password' },
-  ({ getFieldValue }) => ({
-    async validator(_, value) {
-      if (getFieldValue('password') === value) {
-        return Promise.resolve()
-      }
-      return Promise.reject(new Error('Your passwords doesn\'t match'))
-    },
-  }),
-]
+export function confirmPasswordValidationRules(fieldName: string = 'password'): Rule[] {
+  return [
+    { required: true, message: 'Please confirm your password' },
+    ({ getFieldValue }) => ({
+      async validator(_, value) {
+        if (getFieldValue(fieldName) === value) {
+          return Promise.resolve()
+        }
+        return Promise.reject(new Error('Your passwords don\'t match'))
+      },
+    }),
+  ]
+}
 
 export const emailValidationRules: Rule[] = [
   {

@@ -5,11 +5,11 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { AppInput } from '@/components/AppInput/AppInput'
 import { emailValidationRules } from '@/components/LoginForm'
-import { formStore } from '../model/form-store'
 import {
   confirmPasswordValidationRules,
   passwordValidationRules,
-} from '../validate'
+} from '@/shared/validators/validate.ts'
+import { formStore } from '../model/form-store'
 
 interface Props extends BaseComponent {}
 
@@ -56,7 +56,7 @@ export const Passwords: FC<Props> = observer(({ testId = 'cardPassword', ...rest
         name="confirmPassword"
         label="Confirm password"
         dependencies={['password']}
-        rules={confirmPasswordValidationRules}
+        rules={confirmPasswordValidationRules('password')}
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >

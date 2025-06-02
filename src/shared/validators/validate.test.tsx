@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { countries } from './model/countries'
+import { countries } from './countries.ts'
 import {
   cityValidationRules,
   confirmPasswordValidationRules,
@@ -11,7 +11,7 @@ import {
   passwordValidationRules,
   postalCodeValidationRules,
   streetValidationRules,
-} from './validate'
+} from './validate.ts'
 
 describe('password validation', () => {
   it('should have correct number of rules', () => {
@@ -30,8 +30,12 @@ describe('password validation', () => {
 
 describe('confirm password validation', () => {
   it('rule should be required', () => {
-    expect(confirmPasswordValidationRules[0]).toHaveProperty('required', true)
-    expect(confirmPasswordValidationRules[0]).toHaveProperty('message')
+    const x = confirmPasswordValidationRules()[0]
+
+    if (typeof x === 'object') {
+      expect(x).toHaveProperty('required', true)
+      expect(x).toHaveProperty('message')
+    }
   })
 })
 
@@ -128,10 +132,10 @@ describe('date validation', () => {
     await expect(isOver18(oldDate)).resolves.toBeUndefined()
   })
 
-  // it('should reject if date is exactly 18 years ago', async () => {
-  //   const exact18 = dayjs().subtract(18, 'year')
-  //   await expect(isOver18(exact18)).rejects.toThrow('You must be over 18 years')
-  // })
+  it('should reject if date is exactly 18 years ago', async () => {
+    const exact18 = dayjs().subtract(18, 'year')
+    await expect(isOver18(exact18)).rejects.toThrow('You must be over 18 years')
+  })
 
   it('should reject if date is less than 18 years ago', async () => {
     const recentDate = dayjs().subtract(17, 'year').add(1, 'day')

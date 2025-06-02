@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { App as AntApp, Grid } from 'antd'
 import { vi } from 'vitest'
 import { promocode, promocodeText } from '@/shared/constants'
@@ -56,7 +56,9 @@ describe('promocodeSection', () => {
     setup()
 
     const button = screen.getByRole('button', { name: 'Copy Code' })
-    fireEvent.click(button)
+    act(() => {
+      fireEvent.click(button)
+    })
 
     await waitFor(() => {
       expect(writeTextMock).toHaveBeenCalledWith(promocode)

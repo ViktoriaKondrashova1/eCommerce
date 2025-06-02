@@ -1,5 +1,5 @@
-import type { AddressWithCustomFileds } from '@/components/RegisterForm/model/form-store'
-import { fireEvent, render, screen } from '@testing-library/react'
+import type { AddressWithCustomFields } from '@/components/RegisterForm/model/form-store.ts'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { Form } from 'antd'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
@@ -21,7 +21,7 @@ describe('appAddressFields positive', () => {
         isPrimary: false,
       },
     },
-  } satisfies AddressWithCustomFileds
+  } satisfies AddressWithCustomFields
 
   const mockHandlers = {
     onUpdate: vi.fn(),
@@ -45,8 +45,7 @@ describe('appAddressFields positive', () => {
         <TestWrapper>
           <AddressFields
             address={mockAddress}
-            index={0}
-            isPrimary={false}
+            isDefault={false}
             {...mockHandlers}
           />
         </TestWrapper>
@@ -65,15 +64,16 @@ describe('appAddressFields positive', () => {
         <TestWrapper>
           <AddressFields
             address={mockAddress}
-            index={0}
-            isPrimary={false}
+            isDefault={false}
             {...mockHandlers}
           />
         </TestWrapper>
       </MemoryRouter>,
     )
 
-    fireEvent.change(screen.getByLabelText('City'), { target: { value: 'Minsk' } })
+    act(() => {
+      fireEvent.change(screen.getByLabelText('City'), { target: { value: 'Minsk' } })
+    })
     expect(mockHandlers.onUpdate).toHaveBeenCalledWith('city', 'Minsk')
   })
 })

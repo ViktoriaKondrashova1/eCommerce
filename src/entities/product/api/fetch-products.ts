@@ -1,5 +1,5 @@
-import type { ClientResponse, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
 import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form'
+import type { ClientResponse, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import { catalogPageLimit } from '@/shared/constants'
 
@@ -81,5 +81,30 @@ export async function fetchPublishedProductsById(categoryId: string, settings?: 
   }
   catch {
     throw new Error('Failed to fetch filtered published products')
+  }
+}
+
+export async function fetchProductBySlug(slug: string, locale: string = 'en-US'):
+Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
+  try {
+    const response = await commerceApi.client
+      .productProjections()
+      .get({
+        queryArgs: {
+          where: `slug(${locale}="${slug}")`,
+          limit: 1,
+          staged: true,
+        },
+      })
+      .execute()
+
+    if (response.body.results.length === 0) {
+      throw new Error(`Product with slug "${slug}" not found`)
+    }
+
+    return response
+  }
+  catch {
+    throw new Error('Failed to fetch product by slug')
   }
 }

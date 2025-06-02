@@ -1,6 +1,6 @@
-import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
+import type { FC } from 'react'
 import { PlusOutlined } from '@ant-design/icons'
 import { Card, Flex, Tooltip } from 'antd'
 import Meta from 'antd/es/card/Meta'

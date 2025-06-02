@@ -16,12 +16,8 @@ export function HeaderDesktopNav() {
   return (
     <Flex>
       <HeaderMenu items={menuItems} />
-      {/* cart */}
       <Flex justify="space-between" align="center" gap={16}>
-        <AppButton color="default" variant="text" icon={<ShoppingCartOutlined style={{ fontSize: '18px' }} />}>
-          CART
-        </AppButton>
-
+        <AppButton color="default" variant="text" icon={<ShoppingCartOutlined style={{ fontSize: '18px' }} />} />
         <HeaderUserBlock />
       </Flex>
     </Flex>

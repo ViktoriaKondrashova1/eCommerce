@@ -10,7 +10,7 @@ export function HeaderDesktopNav() {
     { key: ROUTES.catalog.default, label: 'CATALOG' },
     { key: '/login', label: 'LOG IN', color: 'primary' },
     { key: '/register', label: 'SIGN UP', color: 'primary' },
-    { key: '/cart', label: 'CART', icon: <ShoppingCartOutlined style={{ fontSize: '18px' }} /> },
+    { key: '/cart', icon: <ShoppingCartOutlined style={{ fontSize: '18px' }} /> },
   ]
 
   return <HeaderMenu items={menuItems} />

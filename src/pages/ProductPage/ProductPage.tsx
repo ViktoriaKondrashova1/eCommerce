@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { ArrowLeftOutlined, HomeOutlined, UnorderedListOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
 import { useLayoutEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -34,10 +34,7 @@ export const ProductPage: FC = () => {
       ) },
     { href: '/catalog/1', title:
       (
-        <>
-          <UnorderedListOutlined />
-          <span>Catalog</span>
-        </>
+        <span>Catalog</span>
       ) },
     {
       title: product?.title,

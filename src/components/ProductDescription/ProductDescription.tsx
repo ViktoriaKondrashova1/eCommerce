@@ -87,12 +87,9 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
                 <AppText className="description-text">{IBU}</AppText>
               </Flex>
             </Flex>
-
             <Divider />
             <div className="description-text">{description}</div>
-            <Divider />
-
-            <Flex gap="middle" align="center">
+            <Flex gap="middle" align="center" style={{ margin: '20px 0 60px' }}>
               <AppButton
                 type="primary"
                 shape="round"
@@ -115,7 +112,6 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
                 />
               </Flex>
             </Flex>
-            <Divider />
           </Space>
         </Col>
       </Row>

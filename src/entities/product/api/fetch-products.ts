@@ -154,7 +154,6 @@ Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
         queryArgs: {
           where: `slug(${locale}="${slug}")`,
           limit: 1,
-          staged: true,
         },
       })
       .execute()

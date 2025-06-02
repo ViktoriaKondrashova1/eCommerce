@@ -11,6 +11,7 @@ interface Props extends BaseComponent {
   isMultiple?: boolean
   onChange: (value: string[]) => void
   shouldUpdate: boolean
+  initialValue: (string | number)[] | []
 }
 
 export const SortingSelect: FC<Props> = ({
@@ -20,9 +21,9 @@ export const SortingSelect: FC<Props> = ({
   isMultiple = true,
   onChange,
   shouldUpdate,
+  initialValue,
 }) => {
-  const initialValue: string[] = []
-  const [value, setValue] = useState<string[]>(initialValue)
+  const [value, setValue] = useState<(string | number)[] | []>(initialValue)
 
   useEffect(() => {
     if (shouldUpdate) {
@@ -45,7 +46,7 @@ export const SortingSelect: FC<Props> = ({
       style={{ width: '100%' }}
       options={options}
       className="sorting-select"
-      value={value}
+      value={value?.map(item => String(item))}
     />
   )
 }

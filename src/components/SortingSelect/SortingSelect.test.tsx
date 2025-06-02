@@ -9,7 +9,7 @@ describe('sortingSelect', () => {
   ]
 
   it('should render the sorting select component correctly', () => {
-    render(<SortingSelect title="Select an option" options={mockOptions} onChange={() => {}} shouldUpdate={false} />)
+    render(<SortingSelect initialValue={[]} title="Select an option" options={mockOptions} onChange={() => {}} shouldUpdate={false} />)
 
     const sortingSelect = screen.getByTestId('sorting-select')
 

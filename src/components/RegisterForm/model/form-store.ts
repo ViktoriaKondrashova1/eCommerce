@@ -64,13 +64,6 @@ export class FormStore {
   }
 
   togglePrimaryAddress = (type: 'billingAddress' | 'shippingAddress') => {
-    // if (type === 'shippingAddresses') {
-    //   this.formData.isShippingAddressAsDefault = !this.formData.isShippingAddressAsDefault
-    // }
-    // else {
-    //   this.formData.isBillingAddressAsDefault = !this.formData.isBillingAddressAsDefault
-    // }
-
     const currentAddress = this.formData[type]
 
     this.formData[type] = {

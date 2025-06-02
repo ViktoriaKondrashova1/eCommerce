@@ -12,9 +12,10 @@ interface Props {
   filters: IFilterForm
   isNeedApplyFilters: boolean
   selectedCategory: Category | undefined
+  isInitCategories: boolean
 }
 
-export function useProducts({ currentPage, deferredQuery, filters, isNeedApplyFilters, selectedCategory }: Props) {
+export function useProducts({ isInitCategories, currentPage, deferredQuery, filters, isNeedApplyFilters, selectedCategory }: Props) {
   const fetchProductsForPage = useCallback(async (): Promise<{
     products: ICleanProduct[]
     total: number
@@ -26,7 +27,7 @@ export function useProducts({ currentPage, deferredQuery, filters, isNeedApplyFi
       products: importProductAdapter(response.body.results),
       total,
     }
-  }, [currentPage, deferredQuery, isNeedApplyFilters, selectedCategory])
+  }, [currentPage, deferredQuery, isNeedApplyFilters, selectedCategory, isInitCategories])
 
   const {
     data: productsData,

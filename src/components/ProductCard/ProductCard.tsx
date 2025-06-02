@@ -17,7 +17,7 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
 
   return (
     <Card
-      onClick={() => navigate(`/catalog/product/${product.slug}`)}
+      onClick={() => navigate(`/catalog/${product.category}/${product.slug}`)}
       data-testid={testId}
       hoverable
       className="product-card"
@@ -25,11 +25,20 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
         product.images
         && <img alt={product.title} src={product.images[0].url} />
       )}
+
     >
       <Meta
-        title={<AppTitle level={4} className="product-title">{product.title}</AppTitle>}
+        title={(
+          <AppTitle
+            level={4}
+            style={{ whiteSpace: 'break-spaces' }}
+            className="product-title"
+          >
+            {product.title}
+          </AppTitle>
+        )}
         description={(
-          <div className="product-description">
+          <Flex className="product-description">
             <div className="brewery">{product.brewery}</div>
             <div className="category">{product.category}</div>
             <Flex justify="space-between" align="center" className="price-section">
@@ -45,7 +54,7 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
               </div>
               <AddToCartButton />
             </Flex>
-          </div>
+          </Flex>
         )}
       />
     </Card>

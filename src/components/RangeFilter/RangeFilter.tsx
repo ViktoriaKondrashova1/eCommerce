@@ -14,6 +14,7 @@ interface Props extends BaseComponent {
   maxValue: number
   onChange: (value: Tuple) => void
   shouldUpdate: boolean
+  initialValue: number[] | []
 }
 
 function useRange({ defaultMin, defaultMax, onChange, shouldUpdate }: { defaultMin: number, defaultMax: number, onChange: (value: Tuple) => void, shouldUpdate: boolean }): {
@@ -52,12 +53,12 @@ function useRange({ defaultMin, defaultMax, onChange, shouldUpdate }: { defaultM
   }
 }
 
-export const RangeFilter: FC<Props> = ({ testId = 'range-filter', title, icon, minValue, maxValue, onChange, shouldUpdate }) => {
+export const RangeFilter: FC<Props> = ({ testId = 'range-filter', title, icon, minValue, maxValue, initialValue, onChange, shouldUpdate }) => {
   const isPrice = icon === '$'
 
   const { valueRange, handleChangeRange, handleSliderChange } = useRange({
-    defaultMin: minValue,
-    defaultMax: maxValue,
+    defaultMin: initialValue?.[0] ?? minValue,
+    defaultMax: initialValue?.[1] ?? maxValue,
     onChange,
     shouldUpdate,
   })

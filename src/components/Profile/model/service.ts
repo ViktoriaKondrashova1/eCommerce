@@ -26,6 +26,29 @@ export const profileService = {
     })
   },
 
+  resetIsPrimaryAddress: async ({ version, address }: { version: number, address: FormDataAddress }) => {
+    return updateMe({
+      version,
+      actions: [{
+        action: 'changeAddress',
+        addressId: address.id,
+        address: {
+          ...address,
+          custom: {
+            fields: {
+              isPrimary: false,
+            },
+            type: {
+              // User-defined unique identifier of the referenced Type. Required if id is absent.
+              // @ts-expect-error - Нужно отключить, чтобы правильно обновить адрес когда нет id
+              key: 'address-custom-field',
+            },
+          },
+        },
+      }],
+    })
+  },
+
   addAddress: async ({ version, address }: { version: number, address: FormDataAddress }) => {
     return updateMe({
       version,

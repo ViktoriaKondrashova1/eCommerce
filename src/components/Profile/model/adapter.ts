@@ -8,6 +8,13 @@ export const profileAdapter = {
   exportUpdateAddress: (formState: FormDataAddress, controllerValues: FormDataAddress): FormDataAddress => {
     return {
       ...formState,
+      isPrimary: controllerValues.isPrimary,
+      custom: {
+        type: { key: 'address-custom-field' },
+        fields: {
+          isPrimary: Boolean(controllerValues.isPrimary),
+        },
+      },
       country: getCountryAbbr(controllerValues.country),
     } satisfies FormDataAddress
   },

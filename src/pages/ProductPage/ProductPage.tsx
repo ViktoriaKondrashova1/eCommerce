@@ -9,11 +9,13 @@ import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { ProductDescription } from '@/components/ProductDescription/ProductDescription'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { useCategories } from '@/pages/MainPage/use-categories.ts'
 import { useRelatedProducts } from '@/pages/ProductPage/use-related-products'
 import { useProductBySlug } from './use-product'
 
 export const ProductPage: FC = () => {
   const navigate = useNavigate()
+  useCategories()
   const { product, isLoading, isError } = useProductBySlug()
 
   const { title = '', category = '' } = product || {}
@@ -22,7 +24,7 @@ export const ProductPage: FC = () => {
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
-  })
+  }, [window.location.href])
 
   const breadcrumbItems = [
     { href: '/', title:
@@ -36,42 +38,37 @@ export const ProductPage: FC = () => {
       (
         <span>Catalog</span>
       ) },
+    { href: `/catalog/category/${category}`, title: <span>{category}</span> },
     {
       title: product?.title,
     },
-  ]
+  ].map(crumb => ({ ...crumb, href: crumb?.href?.toLowerCase() }))
 
-  if (!product)
+  if ((!product && !isLoading) || isError)
+    return <AppEmpty />
+  if (isLoading)
+    return <AppSkeleton />
+  if (isError)
     return <AppEmpty />
 
-  return (
-    <>
-      {isLoading
-        ? (
-            <AppSkeleton />
-          )
-        : isError
-          ? (
-              <AppEmpty />
-            )
-          : (
-              <>
-                <Flex justify="space-between" style={{ marginBottom: '40px' }}>
-                  <AppBreadcrumb items={breadcrumbItems} />
-                  <AppButton
-                    type="text"
-                    icon={<ArrowLeftOutlined />}
-                    iconPosition="start"
-                    onClick={() => navigate('/catalog/1')}
-                    style={{ margin: '0' }}
-                  >
-                    Back To Catalog
-                  </AppButton>
-                </Flex>
-                <ProductDescription product={product} />
-                <RelatedProducts title="Related products" products={relatedProducts} showButton={false} />
-              </>
-            )}
-    </>
-  )
+  if (product && !isLoading) {
+    return (
+      <>
+        <Flex justify="space-between" style={{ marginBottom: '40px' }}>
+          <AppBreadcrumb items={breadcrumbItems} />
+          <AppButton
+            type="text"
+            icon={<ArrowLeftOutlined />}
+            iconPosition="start"
+            onClick={() => navigate('/catalog/1')}
+            style={{ margin: '0' }}
+          >
+            Back To Catalog
+          </AppButton>
+        </Flex>
+        <ProductDescription product={product} />
+        <RelatedProducts title="Related products" products={relatedProducts} showButton={false} />
+      </>
+    )
+  }
 }

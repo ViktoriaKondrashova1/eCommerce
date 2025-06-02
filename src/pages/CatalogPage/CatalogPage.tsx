@@ -22,11 +22,11 @@ import { useCategoriesNav } from './use-categories-nav'
 const { useBreakpoint } = Grid
 
 export const CatalogPage: FC = () => {
+  const isInitCategories = useCategories()
+
   const { currentPage, handlePageChange } = useCatalogPage()
   const { deferredQuery, handleSetQuery } = useSearch()
   const [isNeedReset, setIsNeedReset] = useState<boolean>(false)
-
-  useCategories()
 
   const {
     isNeedApplyFilters,
@@ -39,7 +39,7 @@ export const CatalogPage: FC = () => {
 
   const { categories, selectedCategory, handleCategoryChange, resetCategory } = useCategoriesNav()
 
-  const { productsData, isLoading, isError } = useProducts({ currentPage, deferredQuery, filters: filterForm, isNeedApplyFilters, selectedCategory })
+  const { productsData, isLoading, isError } = useProducts({ isInitCategories, currentPage, deferredQuery, filters: filterForm, isNeedApplyFilters, selectedCategory })
 
   const [filterDrawerVisible, setFilterDrawerVisible] = useState<boolean>(false)
   const [categoriesDrawerVisible, setCategoriesDrawerVisible] = useState<boolean>(false)
@@ -57,27 +57,23 @@ export const CatalogPage: FC = () => {
 
     return (
       <Flex vertical gap="large" style={{ width: '100%' }}>
-        {!screens.md
-          ? (
-              <AppButton
-                onClick={() => setCategoriesDrawerVisible(true)}
-                style={{ width: '100px' }}
-              >
-                Categories
-              </AppButton>
-            )
-          : null}
-        {!screens.md
-          ? (
-              <AppButton
-                icon={<FilterOutlined />}
-                onClick={() => setFilterDrawerVisible(true)}
-                style={{ width: '100px' }}
-              >
-                Filters
-              </AppButton>
-            )
-          : null}
+        {!screens.md && (
+          <AppButton
+            onClick={() => setCategoriesDrawerVisible(true)}
+            style={{ width: '100px' }}
+          >
+            Categories
+          </AppButton>
+        )}
+        {!screens.md && (
+          <AppButton
+            icon={<FilterOutlined />}
+            onClick={() => setFilterDrawerVisible(true)}
+            style={{ width: '100px' }}
+          >
+            Filters
+          </AppButton>
+        )}
         <ProductList products={productsData?.products || []} />
         <CatalogPagination
           total={productsData?.total !== undefined ? productsData.total : 0}
@@ -103,6 +99,7 @@ export const CatalogPage: FC = () => {
           setIsNeedReset(true)
           handleCategoryChange(e)
           setCategoriesDrawerVisible(false)
+          handlePageChange(1)
         }}
         categoriesDrawerVisible={categoriesDrawerVisible}
         setCategoriesDrawerVisible={setCategoriesDrawerVisible}

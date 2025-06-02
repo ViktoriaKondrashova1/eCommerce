@@ -2,7 +2,10 @@ import type { FC } from 'react'
 import type { IFilterForm, TFilterItemValue } from '@/pages/CatalogPage/use-filter-form.ts'
 import type { BaseComponent } from '@/shared/types/common.types'
 import { Drawer, Flex, Grid } from 'antd'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useFilter } from '@/entities/filter/api/useFilter'
+import { convertQueryFromStringToObj } from '@/pages/CatalogPage/query-parser.ts'
+import { isType } from '@/shared/types/is-type.ts'
 import { AppButton } from '../AppButton'
 import { AppSkeleton } from '../AppSkeleton/AppSkeleton'
 import { Backdrop } from '../Backdrop/Backdrop'
@@ -22,6 +25,14 @@ interface Props extends BaseComponent {
 
 const { useBreakpoint } = Grid
 
+function getSafelyInitialValue<T,>(data: (string | number)[] | undefined): T[] | [] {
+  if (!Array.isArray(data) || !isType<T[]>(data)) {
+    return []
+  }
+
+  return Array.isArray(data) ? data : []
+}
+
 export const CatalogSidebar: FC<Props> = ({
   testId = 'catalog-sidebar',
   isFiltersVisible,
@@ -33,8 +44,11 @@ export const CatalogSidebar: FC<Props> = ({
   isNeedReset,
   setIsNeedReset,
 }) => {
+  const navigate = useNavigate()
   const { isLoading, filterData } = useFilter()
   const screens = useBreakpoint()
+  const [searchParams] = useSearchParams()
+  const parsedQuery = convertQueryFromStringToObj(searchParams.toString())
 
   if (isLoading || !filterData) {
     return <AppSkeleton />
@@ -69,11 +83,11 @@ export const CatalogSidebar: FC<Props> = ({
     label: country,
     value: country,
   })) || []
-
   const filtersContent = (
     <Backdrop style={{ margin: '0' }}>
       <Flex vertical gap="middle" data-testid={testId} style={{ width: 200 }}>
         <SortingSelect
+          initialValue={getSafelyInitialValue<string>(parsedQuery?.sorting)}
           title="Sorting"
           options={sortByPriceOptions}
           isMultiple={false}
@@ -85,6 +99,7 @@ export const CatalogSidebar: FC<Props> = ({
         />
         <SortingSelect
           title="Style"
+          initialValue={getSafelyInitialValue<string>(parsedQuery?.style)}
           options={sortByStyleOptions}
           onChange={(value) => {
             setIsNeedReset(false)
@@ -93,6 +108,7 @@ export const CatalogSidebar: FC<Props> = ({
           shouldUpdate={isNeedReset}
         />
         <SortingSelect
+          initialValue={getSafelyInitialValue<string>(parsedQuery?.brewery)}
           title="Brewery"
           options={sortByBreweryOptions}
           onChange={(value) => {
@@ -103,6 +119,7 @@ export const CatalogSidebar: FC<Props> = ({
         />
         <SortingSelect
           title="Country"
+          initialValue={getSafelyInitialValue<string>(parsedQuery?.country)}
           options={sortByCountryOptions}
           onChange={(value) => {
             setIsNeedReset(false)
@@ -111,6 +128,7 @@ export const CatalogSidebar: FC<Props> = ({
           shouldUpdate={isNeedReset}
         />
         <RangeFilter
+          initialValue={getSafelyInitialValue<number>(parsedQuery?.price)}
           title="Price, $"
           icon="$"
           minValue={priceRange.min}
@@ -150,6 +168,7 @@ export const CatalogSidebar: FC<Props> = ({
               setIsNeedReset(true)
               setFiltersVisible(false)
               resetCategory()
+              navigate('/catalog/1')
             }}
           >
             Reset

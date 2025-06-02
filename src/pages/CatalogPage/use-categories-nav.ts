@@ -15,13 +15,13 @@ export function useCategoriesNav() {
 
   useEffect(() => {
     if (params.categorySlug !== undefined && categories.length > 0) {
-      const category = categories.find(c => c.slug['en-US'] === params.categorySlug)
+      const category = categories.find(c => c.slug['en-US'] === params.categorySlug?.replaceAll(' ', '-'))
       setSelectedCategory(category)
     }
   }, [params.categorySlug, categories])
 
   useEffect(() => {
-    if (location.pathname === '/catalog/1' || location.pathname === '/catalog/2') {
+    if (!location.pathname.includes('/category')) {
       setSelectedCategory(undefined)
     }
   }, [location.pathname])
@@ -48,7 +48,6 @@ export function useCategoriesNav() {
 
   const resetCategory = () => {
     setSelectedCategory(undefined)
-    navigate('/catalog/1')
   }
 
   return { categories, selectedCategory, handleCategoryChange, resetCategory }

@@ -41,7 +41,7 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
         </Col>
 
         <Col xs={24} md={12} className="descripion-container">
-          <Space direction="vertical" size="middle">
+          <Space direction="vertical">
             <AppTitle level={2} style={{ margin: '0' }}>{title}</AppTitle>
 
             <Space size="middle" align="baseline">

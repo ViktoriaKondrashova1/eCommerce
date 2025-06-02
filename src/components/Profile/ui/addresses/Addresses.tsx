@@ -2,7 +2,7 @@ import type { ErrorResponse } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
 import type { FormDataAddress } from '@/components/Profile/model/types.ts'
 import { DeleteOutlined, EditOutlined, EnvironmentOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Card, Checkbox, Col, Form, Input, List, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from 'antd'
+import { Button, Card, Checkbox, Col, Form, List, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { AppButton } from '@/components/AppButton'
@@ -16,7 +16,11 @@ import { customerStore } from '@/entities/customer/model/customer.store.ts'
 import { useNotify } from '@/shared/hooks/use-notify.tsx'
 import { isNullable } from '@/shared/types/is-nullable.ts'
 import { countries } from '@/shared/validators/countries.ts'
-import { cityValidationRules, countryValidationRules } from '@/shared/validators/validate.ts'
+import {
+  cityValidationRules,
+  countryValidationRules,
+  postalCodeValidationRules,
+} from '@/shared/validators/validate.ts'
 
 interface Props {}
 
@@ -37,7 +41,6 @@ export const Addresses: FC<Props> = observer(() => {
 
   const handleAddressEdit = (address: FormDataAddress) => {
     setSelectedAddress(address)
-
     const selectedCountry = countries.find(item => item.value === address.country)
     formController.setFieldsValue({
       type: address.type,
@@ -50,63 +53,96 @@ export const Addresses: FC<Props> = observer(() => {
     setAddressEditMode('edit')
   }
 
-  const handleAddressSave = async () => {
-    const currentVersion = customerStore?.customer?.version
+  const updateAddressAndSyncStore = async (version: number, address: FormDataAddress) => {
+    const res = await profileService.updateAddress({ version, address })
+    customerStore.setCustomer(res.body)
+    formController.resetFields()
+    setAddressEditMode(null)
+  }
 
-    if (isNullable(currentVersion)) {
-      throw new Error('Customer version is not defined')
+  const updateExistAddress = async (currentVersion: number, values: FormDataAddress) => {
+    if (selectedAddress === null) {
+      throw new Error('Selected addres is not defiend')
     }
+    const address = profileAdapter.exportUpdateAddress(selectedAddress, values)
 
-    const values = await formController.validateFields()
+    if (values.isPrimary) {
+      const currentPrimaryAddr = addresses
+        .filter(addr => values?.type === values.type && addr.id !== values.id)
+        .find(addr => addr.custom.fields.isPrimary)
 
-    if (selectedAddress) {
-      const address = profileAdapter.exportUpdateAddress(selectedAddress, values)
+      if (!currentPrimaryAddr) {
+        throw new Error('Address is not found')
+      }
 
-      profileService.updateAddress({ version: currentVersion, address })
-        .then((res) => {
-          if (res.statusCode === 200) {
-            customerStore.setCustomer(res.body)
-            formController.resetFields()
-            showSuccessNotify('Address updated successfully')
-            setAddressEditMode(null)
-          }
-        })
-        .catch((errorRes: ErrorResponse) => {
-          showErrorNotify(errorRes.message)
-        })
+      const data = await profileService.resetIsPrimaryAddress({ version: currentVersion, address: currentPrimaryAddr })
+      await updateAddressAndSyncStore(data.body.version, address)
+      showSuccessNotify('Address updated successfully')
     }
     else {
-      const address = profileAdapter.exportAddAddress(values)
-
-      profileService.addAddress({ version: currentVersion, address })
-        .then((createAddrRes) => {
-          if (createAddrRes.statusCode === 200) {
-            const createdAddr = createAddrRes.body.addresses.at(-1)
-
-            if (isNullable(createdAddr) || isNullable(createdAddr.id)) {
-              throw new Error('New address is not founded')
-            }
-
-            profileService.addAddressIdByType({ version: createAddrRes.body.version, type: address.type, id: createdAddr.id })
-              .then((result) => {
-                if (result.statusCode === 200) {
-                  customerStore.setCustomer(result.body)
-                  showSuccessNotify('Address successfully created')
-                  formController.resetFields()
-                  setAddressEditMode(null)
-                }
-              })
-              .catch((errorRes: ErrorResponse) => {
-                showErrorNotify(errorRes.message)
-              })
-          }
-        })
-        .catch((errorRes: ErrorResponse) => {
-          if (errorRes.message !== undefined) {
-            showErrorNotify(errorRes.message)
-          }
-        })
+      await updateAddressAndSyncStore(currentVersion, address)
     }
+  }
+
+  const createNewAddress = async (currentVersion: number, values: FormDataAddress) => {
+    const address = profileAdapter.exportAddAddress(values)
+
+    if (values.isPrimary) {
+      const currentPrimaryAddr = addresses
+        .filter(addr => values?.type === values.type && addr.id !== values.id)
+        .find(addr => addr.custom.fields.isPrimary)
+
+      if (!currentPrimaryAddr) {
+        throw new Error('Address is not found')
+      }
+
+      const removePrimaryRes = await profileService.resetIsPrimaryAddress({ version: currentVersion, address: currentPrimaryAddr })
+      const createAddressRes = await profileService.addAddress({ version: removePrimaryRes.body.version, address })
+
+      const createdAddr = createAddressRes.body.addresses.at(-1)
+
+      if (!isNullable(createdAddr) && !isNullable(createdAddr.id)) {
+        const updatedRes = await profileService.addAddressIdByType({ version: createAddressRes.body.version, type: address.type, id: createdAddr.id })
+
+        customerStore.setCustomer(updatedRes.body)
+        showSuccessNotify('Address successfully created')
+        formController.resetFields()
+        setAddressEditMode(null)
+      }
+    }
+    else {
+      const createAddressRes = await profileService.addAddress({ version: currentVersion, address })
+
+      const createdAddr = createAddressRes.body.addresses.at(-1)
+
+      if (!isNullable(createdAddr) && !isNullable(createdAddr.id)) {
+        const updatedRes = await profileService.addAddressIdByType({ version: createAddressRes.body.version, type: address.type, id: createdAddr.id })
+
+        customerStore.setCustomer(updatedRes.body)
+        showSuccessNotify('Address successfully created')
+        formController.resetFields()
+        setAddressEditMode(null)
+      }
+    }
+  }
+
+  const handleAddressSave = async () => {
+    try {
+      const currentVersion = customerStore?.customer?.version
+      if (isNullable(currentVersion)) {
+        throw new Error('Customer version is not defined')
+      }
+
+      const values = await formController.validateFields()
+
+      if (selectedAddress) {
+        await updateExistAddress(currentVersion, values)
+      }
+      else {
+        await createNewAddress(currentVersion, values)
+      }
+    }
+    catch {}
   }
 
   const handleAddressDelete = (addressId: FormDataAddress['id']) => {
@@ -232,7 +268,7 @@ export const Addresses: FC<Props> = observer(() => {
           <AppButton key="cancel" onClick={handleCancel}>
             Cancel
           </AppButton>,
-          <AppButton key="save" type="primary" onClick={() => void handleAddressSave}>
+          <AppButton key="save" type="primary" onClick={() => void handleAddressSave()}>
             Save
           </AppButton>,
         ]}
@@ -286,8 +322,9 @@ export const Addresses: FC<Props> = observer(() => {
               <Form.Item
                 name="postalCode"
                 label="Postal Code"
+                rules={postalCodeValidationRules}
               >
-                <Input placeholder="Postal Code" />
+                <AppInput placeholder="Postal Code" />
               </Form.Item>
             </Col>
 

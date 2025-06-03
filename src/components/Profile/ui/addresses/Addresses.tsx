@@ -58,11 +58,15 @@ export const Addresses: FC<Props> = observer(() => {
     customerStore.setCustomer(res.body)
     formController.resetFields()
     setAddressEditMode(null)
+
+    if (res.statusCode === 200) {
+      showSuccessNotify('Address updated successfully')
+    }
   }
 
   const updateExistAddress = async (currentVersion: number, values: FormDataAddress) => {
     if (selectedAddress === null) {
-      throw new Error('Selected addres is not defiend')
+      throw new Error('Selected address is not defined')
     }
     const address = profileAdapter.exportUpdateAddress(selectedAddress, values)
 
@@ -71,13 +75,12 @@ export const Addresses: FC<Props> = observer(() => {
         .filter(addr => values?.type === values.type && addr.id !== values.id)
         .find(addr => addr.custom.fields.isPrimary)
 
-      if (!currentPrimaryAddr) {
-        throw new Error('Address is not found')
+      if (currentPrimaryAddr) {
+        const data = await profileService.resetIsPrimaryAddress({ version: currentVersion, address: currentPrimaryAddr })
+        await updateAddressAndSyncStore(data.body.version, address)
       }
 
-      const data = await profileService.resetIsPrimaryAddress({ version: currentVersion, address: currentPrimaryAddr })
-      await updateAddressAndSyncStore(data.body.version, address)
-      showSuccessNotify('Address updated successfully')
+      await updateAddressAndSyncStore(currentVersion, address)
     }
     else {
       await updateAddressAndSyncStore(currentVersion, address)
@@ -86,24 +89,21 @@ export const Addresses: FC<Props> = observer(() => {
 
   const createNewAddress = async (currentVersion: number, values: FormDataAddress) => {
     const address = profileAdapter.exportAddAddress(values)
-
     if (values.isPrimary) {
       const currentPrimaryAddr = addresses
         .filter(addr => values?.type === values.type && addr.id !== values.id)
         .find(addr => addr.custom.fields.isPrimary)
 
-      if (!currentPrimaryAddr) {
-        throw new Error('Address is not found')
+      if (currentPrimaryAddr) {
+        const removePrimaryRes = await profileService.resetIsPrimaryAddress({ version: currentVersion, address: currentPrimaryAddr })
+        await profileService.addAddress({ version: removePrimaryRes.body.version, address })
       }
 
-      const removePrimaryRes = await profileService.resetIsPrimaryAddress({ version: currentVersion, address: currentPrimaryAddr })
-      const createAddressRes = await profileService.addAddress({ version: removePrimaryRes.body.version, address })
-
+      const createAddressRes = await profileService.addAddress({ version: currentVersion, address })
       const createdAddr = createAddressRes.body.addresses.at(-1)
 
       if (!isNullable(createdAddr) && !isNullable(createdAddr.id)) {
         const updatedRes = await profileService.addAddressIdByType({ version: createAddressRes.body.version, type: address.type, id: createdAddr.id })
-
         customerStore.setCustomer(updatedRes.body)
         showSuccessNotify('Address successfully created')
         formController.resetFields()
@@ -112,12 +112,10 @@ export const Addresses: FC<Props> = observer(() => {
     }
     else {
       const createAddressRes = await profileService.addAddress({ version: currentVersion, address })
-
       const createdAddr = createAddressRes.body.addresses.at(-1)
 
       if (!isNullable(createdAddr) && !isNullable(createdAddr.id)) {
         const updatedRes = await profileService.addAddressIdByType({ version: createAddressRes.body.version, type: address.type, id: createdAddr.id })
-
         customerStore.setCustomer(updatedRes.body)
         showSuccessNotify('Address successfully created')
         formController.resetFields()

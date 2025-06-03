@@ -7,15 +7,19 @@ import { getCountryAbbr } from '@/components/Profile/model/lib.ts'
 export const profileAdapter = {
   exportUpdateAddress: (formState: FormDataAddress, controllerValues: FormDataAddress): FormDataAddress => {
     return {
-      ...formState,
+      id: formState.id,
+      type: controllerValues.type,
+      streetName: controllerValues.streetName,
+      postalCode: controllerValues.postalCode,
+      city: controllerValues.city,
       isPrimary: controllerValues.isPrimary,
+      country: getCountryAbbr(controllerValues.country),
       custom: {
         type: { key: 'address-custom-field' },
         fields: {
           isPrimary: Boolean(controllerValues.isPrimary),
         },
       },
-      country: getCountryAbbr(controllerValues.country),
     } satisfies FormDataAddress
   },
 

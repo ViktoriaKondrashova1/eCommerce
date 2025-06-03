@@ -79,8 +79,8 @@ export const PersonalInfo: FC<Props> = observer(() => {
         if (res.statusCode === 200) {
           customerStore.setCustomer(res.body)
           setIsNeedFormChanged(true)
-          showSuccessNotify('Personal info successfully updated')
           setMode('view')
+          showSuccessNotify('Personal info successfully updated')
         }
       })
       .catch((error) => {

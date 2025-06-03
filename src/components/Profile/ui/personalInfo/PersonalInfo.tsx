@@ -34,7 +34,7 @@ export const PersonalInfo: FC<Props> = observer(() => {
   const { chapter } = useParams()
   const [formData, setFormData] = useState<StatePersonalInfo>(initialState)
   const [form] = Form.useForm<StatePersonalInfo>()
-  const { showErrorNotify } = useNotify()
+  const { showErrorNotify, showSuccessNotify } = useNotify()
 
   const [viewData, setViewData] = useState<StatePersonalInfo>(initialState)
   const [isNeedFormChanged, setIsNeedFormChanged] = useState<boolean>(true)
@@ -79,6 +79,8 @@ export const PersonalInfo: FC<Props> = observer(() => {
         if (res.statusCode === 200) {
           customerStore.setCustomer(res.body)
           setIsNeedFormChanged(true)
+          setMode('view')
+          showSuccessNotify('Personal info successfully updated')
         }
       })
       .catch((error) => {

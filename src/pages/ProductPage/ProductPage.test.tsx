@@ -2,6 +2,7 @@ import type { ICleanProduct } from '@/entities/product/model/product.types'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { vi } from 'vitest'
+import { categoryStore } from '@/entities/category/model/category.store'
 import { ProductPage } from './ProductPage'
 import { useProductBySlug } from './use-product'
 
@@ -36,6 +37,17 @@ describe('productPage', () => {
     slug: 'test-product',
   }
 
+  const mockCategory = {
+    id: '1',
+    name: { 'en-US': 'Lager' },
+    slug: { 'en-US': 'lager' },
+    version: 1,
+    createdAt: 'test',
+    lastModifiedAt: 'test',
+    ancestors: [],
+    orderHint: 'test',
+  }
+
   beforeEach(() => {
     vi.mocked(useNavigate).mockReturnValue(mockNavigate)
     vi.mocked(useParams).mockReturnValue({ slug: 'test-product' })
@@ -52,6 +64,7 @@ describe('productPage', () => {
       isError: false,
       error: null,
     })
+    vi.spyOn(categoryStore, 'getCategoryByName').mockReturnValue(mockCategory)
   })
 
   afterEach(() => {

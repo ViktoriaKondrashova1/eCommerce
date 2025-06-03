@@ -9,12 +9,19 @@ import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { ProductDescription } from '@/components/ProductDescription/ProductDescription'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { categoryStore } from '@/entities/category/model/category.store'
 import { useRelatedProducts } from '@/pages/ProductPage/use-related-products'
+import { useCategories } from '../MainPage/use-categories'
 import { useProductBySlug } from './use-product'
 
 export const ProductPage: FC = () => {
   const navigate = useNavigate()
+
+  useCategories()
+
   const { product, isLoading, isError } = useProductBySlug()
+
+  const productCategory = (categoryStore.getCategoryByName(product?.category ?? ''))
 
   const { title = '', category = '' } = product || {}
 
@@ -25,24 +32,20 @@ export const ProductPage: FC = () => {
   })
 
   const breadcrumbItems = [
-    { href: '/', title:
+    { key: 'home', href: '/', title:
       (
         <>
           <HomeOutlined />
           <span>Home</span>
         </>
       ) },
-    { href: '/catalog/1', title:
-      (
-        <span>Catalog</span>
-      ) },
-    {
-      title: product?.title,
-    },
+    { key: 'catalog', href: '/catalog/1', title: (<span>Catalog</span>) },
+    { key: 'category', href: `/catalog/category/${productCategory?.slug['en-US']}`, title: (<span>{productCategory?.name['en-US']}</span>) },
+    { key: 'product', title: (<span>{product?.title}</span>) },
   ]
 
-  if (!product)
-    return <AppEmpty />
+  if (!product || !productCategory)
+    return <AppSkeleton />
 
   return (
     <>

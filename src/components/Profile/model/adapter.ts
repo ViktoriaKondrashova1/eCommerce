@@ -47,7 +47,6 @@ export const profileAdapter = {
           = addr.custom?.fields.isPrimary !== undefined
             ? Boolean(addr.custom?.fields.isPrimary)
             : false
-
       return {
         ...addr,
         type: isBillingAddress ? 'billing' : 'shipping',

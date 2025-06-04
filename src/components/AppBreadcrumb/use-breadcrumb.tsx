@@ -1,13 +1,8 @@
+import type { CustomBreadcrumbItem } from './AppBreadcrumb'
 import { HomeOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { categoryStore } from '@/entities/category/model/category.store'
-
-interface CustomBreadcrumbItem {
-  key: string
-  href?: string
-  title: React.ReactNode
-}
 
 export function useBreadcrumb() {
   const params = useParams()

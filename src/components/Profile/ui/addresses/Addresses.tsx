@@ -66,7 +66,7 @@ export const Addresses: FC<Props> = observer(() => {
 
   const updateExistAddress = async (currentVersion: number, values: FormDataAddress) => {
     if (selectedAddress === null) {
-      throw new Error('Select address is not defined')
+      throw new Error('Selected address is not defined')
     }
     const address = profileAdapter.exportUpdateAddress(selectedAddress, values)
 

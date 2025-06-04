@@ -72,7 +72,7 @@ export const ProductPage: FC = () => {
                   </AppButton>
                 </Flex>
                 <ProductDescription product={product} />
-                <RelatedProducts title="Related products" products={relatedProducts} showButton={false} />
+                <RelatedProducts title="RELATED PRODUCTS" products={relatedProducts} showButton={false} />
               </>
             )}
     </>

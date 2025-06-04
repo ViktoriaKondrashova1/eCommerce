@@ -25,7 +25,7 @@ export const RelatedProducts: FC<Props> = ({ testId = 'related-products', title,
           <AppButton type="text" icon={<ArrowRightOutlined />} iconPosition="end" onClick={() => navigate('/catalog/1')}>Go To Catalog</AppButton>
         )}
       </Flex>
-      <Flex wrap="wrap" justify="space-around" gap="large">
+      <Flex wrap="wrap" justify="space-around" gap="small">
         {products.map(card =>
           <ProductCard key={card.id} product={card} />,
         )}

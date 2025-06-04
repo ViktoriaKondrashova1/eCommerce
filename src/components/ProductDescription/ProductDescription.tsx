@@ -1,12 +1,12 @@
 import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
-import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined } from '@ant-design/icons'
 import { Col, Divider, Flex, Row, Space, Tooltip } from 'antd'
-import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
+import { Incrementer } from '../Incrementer/Incrementer'
 import { ProductImageGallery } from '../ProductImageGallery/ProductImageGallery'
 import './ProductDescription.scss'
 
@@ -16,17 +16,6 @@ interface Props extends BaseComponent {
 
 export const ProductDescription: FC<Props> = ({ testId = 'product-info', product, ...rest }) => {
   const { title, category, country, brewery, ABV, IBU, price: { amount, discount }, description, images } = product
-  const [quantity, setQuantity] = useState(1)
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1)
-    }
-  }
-
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1)
-  }
 
   return (
     <Flex
@@ -97,20 +86,7 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
               >
                 Add to Cart
               </AppButton>
-              <Flex gap="small" align="center">
-                <AppButton
-                  shape="circle"
-                  icon={<MinusOutlined />}
-                  onClick={decreaseQuantity}
-                  disabled={quantity <= 1}
-                />
-                <AppText>{quantity}</AppText>
-                <AppButton
-                  shape="circle"
-                  icon={<PlusOutlined />}
-                  onClick={increaseQuantity}
-                />
-              </Flex>
+              <Incrementer />
             </Flex>
           </Space>
         </Col>

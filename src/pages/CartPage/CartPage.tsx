@@ -1,6 +1,8 @@
 import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
+import { ClearOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
+import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { AppTitle } from '@/components/AppTitle/AppTitle'
@@ -64,7 +66,10 @@ export const CartPage: FC = () => {
 
   return (
     <Flex vertical style={{ width: '80%', margin: 'auto' }}>
-      <AppTitle level={2}>CART</AppTitle>
+      <Flex justify="space-between">
+        <AppTitle level={2}>CART</AppTitle>
+        <AppButton type="primary" icon={<ClearOutlined />}>Clear Shopping Cart</AppButton>
+      </Flex>
       <CartTable tableData={data} />
       <CartPromocode />
       <CartTotal quantity={3} total={10.60} />

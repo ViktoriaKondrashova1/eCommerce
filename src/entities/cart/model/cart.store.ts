@@ -7,8 +7,10 @@ import { makeAutoObservable } from 'mobx'
  * 2. используем makeAutoObservable для обновления корзины
  * 3. setCart - устанавливаем данные корзины
  * 4. getCartId - возвращаем айди корзины, если она есть, а иначе null
- * 5. updateCart - обновляем данные, объединяя старую корзину с новыми изменениями
+ * 5. getCartVersion - возвращаем версию корзины, если она есть, а иначе null
+ * 6. updateCart - обновляем данные, объединяя старую корзину с новыми изменениями
  */
+
 class CartStore {
   cart: Cart | null
   constructor() {
@@ -26,6 +28,13 @@ class CartStore {
       return null
     }
     return this.cart.id
+  }
+
+  getCartVersion() {
+    if (!this.cart) {
+      return null
+    }
+    return this.cart.version
   }
 
   updateCart(cart: Partial<Cart>) {

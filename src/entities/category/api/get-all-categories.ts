@@ -17,6 +17,6 @@ export async function getAllCategories(): Promise<ClientResponse<CategoryPagedQu
     return response
   }
   catch {
-    throw new Error('Failed to login customer')
+    throw new Error('Failed to get categories')
   }
 }

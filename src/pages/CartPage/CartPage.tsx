@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks-extra/no-direct-set-state-in-use-effect */
-import type { Cart } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
-import type { CartDataType } from '@/entities/cart/model/cart.types'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import { ClearOutlined } from '@ant-design/icons'
 import { Flex, Popconfirm } from 'antd'
-import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react-lite'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
@@ -20,26 +17,18 @@ import { useRequest } from '@/shared/hooks/use-request'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
 import { adaptCartData } from './adapt-cart-data'
 
-export const CartPage: FC = () => {
+export const CartPage: FC = observer(() => {
   const {
     data: popularProducts,
     isLoading,
     isError,
   } = useRequest<ICleanProduct[]>(getFourRandomProducts)
 
-  const [cart, setCart] = useState<Cart | null>(null)
-  const [cartData, setCartData] = useState<CartDataType[] | null>(null)
-
-  useEffect(() => {
-    const currentCart = cartStore.getCart()
-    if (currentCart) {
-      setCart(currentCart)
-      setCartData(adaptCartData(currentCart.lineItems))
-    }
-  }, [cart])
+  const cart = cartStore.getCart()
+  const cartData = cart ? adaptCartData(cart.lineItems) : null
 
   const handleClearCart = () => {
-    setCartData([])
+    cartStore.clearCart()
   }
 
   const totalQuantity = cart?.lineItems.reduce((sum, item) => sum + item.quantity, 0) ?? 0
@@ -78,4 +67,4 @@ export const CartPage: FC = () => {
             )}
     </Flex>
   )
-}
+})

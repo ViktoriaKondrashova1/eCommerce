@@ -1,5 +1,8 @@
 import type { Cart } from '@commercetools/platform-sdk'
 import { makeAutoObservable } from 'mobx'
+import { CART_STORAGE_KEY } from '@/shared/constants'
+import { local } from '@/shared/lib/storage'
+import { isNonNullable } from '@/shared/types/is-non-nullable'
 import { isCart } from './cart.types'
 
 /**
@@ -13,58 +16,57 @@ import { isCart } from './cart.types'
  */
 
 class CartStore {
-  cart: Cart | null
+  cart: Cart | null = null
+  public doesCartExist: boolean = false
 
   constructor() {
-    this.cart = null
-
     makeAutoObservable(this)
+    this.loadCart()
   }
 
   setCart(cart: Cart): void {
     this.cart = cart
+    local.set(CART_STORAGE_KEY, cart)
+    this.doesCartExist = true
   }
 
   getCart(): Cart | null {
-    if (!this.cart)
-      return null
-    try {
-      const parsedCart = JSON.parse(JSON.stringify(this.cart))
-      if (isCart(parsedCart)) {
-        return parsedCart
-      }
-      console.error('Invalid cart structure:', parsedCart)
-      return null
-    }
-    catch (error) {
-      console.error('Error parsing cart:', error)
-      return null
-    }
+    return this.cart
   }
 
   getCartId(): string | null {
-    if (!this.cart) {
-      return null
-    }
-    return this.cart.id
+    return this.cart?.id ?? null
   }
 
   getCartVersion(): number | null {
-    if (!this.cart) {
-      return null
-    }
-    return this.cart.version
+    return this.cart?.version ?? null
   }
 
   updateCart(cart: Partial<Cart>): void {
-    if (!this.cart) {
+    if (!this.cart)
       return
-    }
     this.cart = { ...this.cart, ...cart }
+    local.set(CART_STORAGE_KEY, this.cart)
   }
 
   clearCart(): void {
     this.cart = null
+    this.doesCartExist = false
+    local.remove(CART_STORAGE_KEY)
+  }
+
+  private loadCart(): void {
+    const savedCart = local.get(CART_STORAGE_KEY)
+
+    if (isNonNullable(savedCart) && isCart(savedCart)) {
+      this.cart = savedCart
+      this.doesCartExist = true
+    }
+    else {
+      this.doesCartExist = false
+      if (isNonNullable(savedCart))
+        local.remove(CART_STORAGE_KEY)
+    }
   }
 }
 

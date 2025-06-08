@@ -8,6 +8,8 @@ export const catalogPageLimit = 20
 
 export const TOKEN_STORAGE_KEY = 'ctp_token_cache' as const
 
+export const CART_STORAGE_KEY = 'cart'
+
 export const ROUTES = {
   main: '/',
   profile: {

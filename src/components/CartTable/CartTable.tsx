@@ -5,14 +5,18 @@ import type { CartDataType } from '@/entities/cart/model/cart.types'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Popconfirm, Table } from 'antd'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { updateCart } from '@/entities/cart/api/update-cart'
 import { isNullable } from '@/shared/types/is-nullable'
+import { AppButton } from '../AppButton'
+import { AppEmpty } from '../AppEmpty/AppEmpty'
 
 interface Props {
   tableData: CartDataType[] | null
 }
 
 export const CartTable: FC<Props> = ({ tableData }) => {
+  const navigate = useNavigate()
   const [dataSource, setDataSource] = useState<CartDataType[] | null>(tableData)
 
   const handleDelete = async (key: React.Key, record: CartDataType): Promise<void> => {
@@ -59,6 +63,11 @@ export const CartTable: FC<Props> = ({ tableData }) => {
     <Table<CartDataType>
       columns={columns}
       dataSource={dataSource ?? []}
+      locale={{ emptyText: (
+        <AppEmpty>
+          <AppButton type="primary" onClick={() => navigate('/catalog/1')}>Continue shopping</AppButton>
+        </AppEmpty>
+      ) }}
     />
   )
 }

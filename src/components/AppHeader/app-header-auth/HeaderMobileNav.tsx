@@ -43,10 +43,8 @@ export const HeaderMobileNav = observer(() => {
   return (
     <Flex>
 
-      {/* hamburger */}
       <AppButton variant="text" color="default" icon={<MenuOutlined />} onClick={showDrawer} />
 
-      {/* drawer */}
       <Drawer
         onClose={onClose}
         open={isDrawerOpen}

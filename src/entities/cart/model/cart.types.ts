@@ -2,9 +2,15 @@ import type { Cart } from '@commercetools/platform-sdk'
 
 export interface CartDataType {
   key: React.Key
-  product: React.ReactNode
+  product: React.ReactElement<{
+    productId: string
+  }>
   price: string
-  quantity: React.ReactNode
+  quantity: React.ReactElement<{
+    productId: string
+    lineItemId: string
+    quantity: number
+  }>
   subtotal: string
 }
 

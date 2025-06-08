@@ -5,6 +5,7 @@ import type { CartDataType } from '@/entities/cart/model/cart.types'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Popconfirm, Table } from 'antd'
 import { useEffect, useState } from 'react'
+import { updateCart } from '@/entities/cart/api/update-cart'
 import { isNullable } from '@/shared/types/is-nullable'
 
 interface Props {
@@ -14,10 +15,16 @@ interface Props {
 export const CartTable: FC<Props> = ({ tableData }) => {
   const [dataSource, setDataSource] = useState<CartDataType[] | null>(tableData)
 
-  const handleDelete = (key: React.Key): void => {
+  const handleDelete = async (key: React.Key, record: CartDataType): Promise<void> => {
     if (!isNullable(dataSource)) {
       const newData = dataSource.filter(item => item.key !== key)
       setDataSource(newData)
+      await updateCart({
+        action: 'removeLineItem',
+        productId: record.quantity.props.productId,
+        lineItemId: record.quantity.props.lineItemId,
+        quantity: record.quantity.props.quantity,
+      })
     }
   }
 
@@ -35,7 +42,12 @@ export const CartTable: FC<Props> = ({ tableData }) => {
       render: (_, record) =>
         !isNullable(dataSource) && dataSource.length >= 1
           ? (
-              <Popconfirm title="Remove item from cart?" onConfirm={() => handleDelete(record.key)}>
+              <Popconfirm
+                title="Remove item from cart?"
+                onConfirm={() => {
+                  handleDelete(record.key, record).catch(console.error)
+                }}
+              >
                 <DeleteOutlined />
               </Popconfirm>
             )

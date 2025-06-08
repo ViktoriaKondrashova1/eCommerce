@@ -5,8 +5,12 @@ import { useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 
-export const Incrementer: FC = () => {
-  const [quantity, setQuantity] = useState(1)
+interface Props {
+  quantity?: number
+}
+
+export const Incrementer: FC<Props> = ({ quantity = 1 }) => {
+  const [newQuantity, setQuantity] = useState<number>(quantity)
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -26,7 +30,7 @@ export const Incrementer: FC = () => {
         onClick={decreaseQuantity}
         disabled={quantity <= 1}
       />
-      <AppText>{quantity}</AppText>
+      <AppText>{newQuantity}</AppText>
       <AppButton
         shape="circle"
         icon={<PlusOutlined />}

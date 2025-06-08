@@ -1,6 +1,23 @@
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { AddToCartButton } from './AddToCartButton'
 
+const mockProduct = {
+  ABV: '5%',
+  IBU: 'N/D',
+  brewery: 'Brewery Name',
+  country: 'USA',
+  category: 'IPA',
+  title: 'Beer Name',
+  description: 'Test',
+  slug: 'Test',
+  id: 'Test',
+  price: {
+    amount: '$5.30',
+    discount: '$4.60',
+  },
+  images: [{ url: 'https://i.pinimg.com/736x/32/97/4c/32974cc6f4b9c772671cc2fa81bcf206.jpg', dimensions: { w: 100, h: 150 } }],
+}
+
 vi.mock('@ant-design/icons', () => ({
   PlusOutlined: () => <span data-testid="plus-icon">+</span>,
   CheckOutlined: () => <span data-testid="check-icon">✓</span>,
@@ -17,7 +34,7 @@ describe('addToCartButton', () => {
   })
 
   it('should render correctly with default props', () => {
-    render(<AddToCartButton />)
+    render(<AddToCartButton product={mockProduct} />)
 
     const button = screen.getByRole('button')
 
@@ -27,7 +44,7 @@ describe('addToCartButton', () => {
   })
 
   it('should show check icon when clicked and revert after timeout', async () => {
-    render(<AddToCartButton />)
+    render(<AddToCartButton product={mockProduct} />)
 
     fireEvent.click(screen.getByRole('button'))
 
@@ -46,7 +63,7 @@ describe('addToCartButton', () => {
     const handleParentClick = vi.fn()
     render(
       <div onClick={handleParentClick}>
-        <AddToCartButton />
+        <AddToCartButton product={mockProduct} />
       </div>,
     )
 

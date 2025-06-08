@@ -1,61 +1,24 @@
+/* eslint-disable react-hooks-extra/no-direct-set-state-in-use-effect */
+import type { Cart } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
+import type { CartDataType } from '@/entities/cart/model/cart.types'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import { ClearOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
+import { Flex, Popconfirm } from 'antd'
+import { useEffect, useState } from 'react'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { AppTitle } from '@/components/AppTitle/AppTitle'
 import { CartPromocode } from '@/components/CartPromocode/CartPromocode'
 import { CartTable } from '@/components/CartTable/CartTable'
-import { CartTableProduct } from '@/components/CartTableProduct/CartTableProduct'
 import { CartTotal } from '@/components/CartTotal/CartTotal'
-import { Incrementer } from '@/components/Incrementer/Incrementer'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { cartStore } from '@/entities/cart/model/cart.store'
 import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
 import { useRequest } from '@/shared/hooks/use-request'
-
-const mockProduct = {
-  ABV: '5%',
-  IBU: 'N/D',
-  brewery: 'Brewery Name',
-  country: 'USA',
-  category: 'IPA',
-  title: 'Beer Name',
-  description: 'Test',
-  slug: 'Test',
-  id: 'Test',
-  price: {
-    amount: '$5.30',
-    discount: '$4.60',
-  },
-  images: [{ url: 'https://i.pinimg.com/736x/32/97/4c/32974cc6f4b9c772671cc2fa81bcf206.jpg', dimensions: { w: 100, h: 150 } }],
-}
-
-export interface DataType {
-  key: React.Key
-  product: React.ReactNode
-  price: string
-  quantity: React.ReactNode
-  subtotal: string
-}
-
-const data: DataType[] = [
-  {
-    key: '1',
-    product: (<CartTableProduct product={mockProduct} />),
-    price: mockProduct.price.amount,
-    quantity: (<Incrementer />),
-    subtotal: '$10.60',
-  },
-  {
-    key: '2',
-    product: (<CartTableProduct product={mockProduct} />),
-    price: mockProduct.price.amount,
-    quantity: (<Incrementer />),
-    subtotal: '$10.60',
-  },
-]
+import { isNonNullable } from '@/shared/types/is-non-nullable'
+import { adaptCartData } from './adapt-cart-data'
 
 export const CartPage: FC = () => {
   const {
@@ -64,15 +27,44 @@ export const CartPage: FC = () => {
     isError,
   } = useRequest<ICleanProduct[]>(getFourRandomProducts)
 
+  const [cart, setCart] = useState<Cart | null>(null)
+  const [cartData, setCartData] = useState<CartDataType[] | null>(null)
+
+  useEffect(() => {
+    const currentCart = cartStore.getCart()
+    if (currentCart) {
+      setCart(currentCart)
+      setCartData(adaptCartData(currentCart.lineItems))
+    }
+  }, [])
+
+  const handleClearCart = () => {
+    setCartData([])
+  }
+
+  const totalQuantity = cart?.lineItems.reduce((sum, item) => sum + item.quantity, 0) ?? 0
+  const totalAmount = cart !== null && isNonNullable(cart?.totalPrice.centAmount) ? cart.totalPrice.centAmount / 100 : 0
+
   return (
     <Flex vertical style={{ width: '80%', margin: 'auto' }}>
       <Flex justify="space-between">
         <AppTitle level={2}>CART</AppTitle>
-        <AppButton type="primary" icon={<ClearOutlined />}>Clear Shopping Cart</AppButton>
+        <Popconfirm title="Your shopping cart will be emptied. Continue?" onConfirm={handleClearCart}>
+          <AppButton
+            type="primary"
+            icon={<ClearOutlined />}
+          >
+            Clear Shopping Cart
+          </AppButton>
+        </Popconfirm>
+
       </Flex>
-      <CartTable tableData={data} />
+      <CartTable tableData={cartData} />
       <CartPromocode />
-      <CartTotal quantity={3} total={10.60} />
+      <CartTotal
+        quantity={totalQuantity}
+        total={totalAmount}
+      />
       {isLoading
         ? (
             <AppSkeleton />

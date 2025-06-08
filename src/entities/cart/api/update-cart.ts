@@ -1,3 +1,4 @@
+import type { Cart, ClientResponse } from '@commercetools/platform-sdk'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import { isNullable } from '@/shared/types/is-nullable'
 import { cartStore } from '../model/cart.store'
@@ -10,7 +11,7 @@ interface Props {
   quantity: number
 }
 
-export async function updateCart({ action, productId, quantity }: Props) {
+export async function updateCart({ action, productId, quantity }: Props): Promise<ClientResponse<Cart>> {
   const cartId = cartStore.getCartId()
   const cartVersion = cartStore.getCartVersion()
 

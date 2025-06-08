@@ -1,32 +1,39 @@
+/* eslint-disable react-hooks-extra/no-direct-set-state-in-use-effect */
 import type { TableColumnsType } from 'antd'
 import type { FC } from 'react'
-import type { DataType } from '@/pages/CartPage/CartPage'
+import type { CartDataType } from '@/entities/cart/model/cart.types'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Popconfirm, Table } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { isNullable } from '@/shared/types/is-nullable'
 
 interface Props {
-  tableData: DataType[]
+  tableData: CartDataType[] | null
 }
 
 export const CartTable: FC<Props> = ({ tableData }) => {
-  const [dataSource, setDataSource] = useState<DataType[]>(tableData)
+  const [dataSource, setDataSource] = useState<CartDataType[] | null>(tableData)
 
   const handleDelete = (key: React.Key): void => {
-    const newData = dataSource.filter(item => item.key !== key)
-    setDataSource(newData)
+    if (!isNullable(dataSource)) {
+      const newData = dataSource.filter(item => item.key !== key)
+      setDataSource(newData)
+    }
   }
 
-  const columns: TableColumnsType<DataType> = [
-    { title: 'Product', dataIndex: 'product', key: 'product' },
+  useEffect(() => {
+    setDataSource(tableData)
+  }, [tableData])
+
+  const columns: TableColumnsType<CartDataType> = [
+    { title: 'Product', key: 'product', render: (_, record) => record.product },
     { title: 'Price', dataIndex: 'price', key: 'price' },
-    { title: 'Quantity', dataIndex: 'quantity', key: 'quantity' },
+    { title: 'Quantity', key: 'quantity', render: (_, record) => record.quantity },
     { title: 'Subtotal', dataIndex: 'subtotal', key: 'subtotal' },
     {
-      dataIndex: 'delete',
       key: 'delete',
       render: (_, record) =>
-        dataSource.length >= 1
+        !isNullable(dataSource) && dataSource.length >= 1
           ? (
               <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
                 <DeleteOutlined />
@@ -37,9 +44,9 @@ export const CartTable: FC<Props> = ({ tableData }) => {
   ]
 
   return (
-    <Table<DataType>
+    <Table<CartDataType>
       columns={columns}
-      dataSource={dataSource}
+      dataSource={dataSource ?? []}
     />
   )
 }

@@ -1,5 +1,6 @@
 import type { Cart } from '@commercetools/platform-sdk'
 import { makeAutoObservable } from 'mobx'
+import { isCart } from './cart.types'
 
 /**
  * стор корзины:
@@ -13,35 +14,57 @@ import { makeAutoObservable } from 'mobx'
 
 class CartStore {
   cart: Cart | null
+
   constructor() {
     this.cart = null
 
     makeAutoObservable(this)
   }
 
-  setCart(cart: Cart) {
+  setCart(cart: Cart): void {
     this.cart = cart
   }
 
-  getCartId() {
+  getCart(): Cart | null {
+    if (!this.cart)
+      return null
+    try {
+      const parsedCart = JSON.parse(JSON.stringify(this.cart))
+      if (isCart(parsedCart)) {
+        return parsedCart
+      }
+      console.error('Invalid cart structure:', parsedCart)
+      return null
+    }
+    catch (error) {
+      console.error('Error parsing cart:', error)
+      return null
+    }
+  }
+
+  getCartId(): string | null {
     if (!this.cart) {
       return null
     }
     return this.cart.id
   }
 
-  getCartVersion() {
+  getCartVersion(): number | null {
     if (!this.cart) {
       return null
     }
     return this.cart.version
   }
 
-  updateCart(cart: Partial<Cart>) {
+  updateCart(cart: Partial<Cart>): void {
     if (!this.cart) {
       return
     }
     this.cart = { ...this.cart, ...cart }
+  }
+
+  clearCart(): void {
+    this.cart = null
   }
 }
 

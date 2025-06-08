@@ -1,4 +1,4 @@
-import type { Category, ClientResponse, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
+import type { Category, ClientResponse, ProductProjection, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
 import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form'
 import { categoryStore } from '@/entities/category/model/category.store'
 import { commerceApi } from '@/shared/configs/commerce-client'
@@ -143,6 +143,24 @@ export async function fetchPublishedProductsById(categoryId: string, settings?: 
   }
   catch {
     throw new Error('Failed to fetch filtered published products')
+  }
+}
+
+export async function getProductById(id: string): Promise<ClientResponse<ProductProjection>> {
+  try {
+    const response = await commerceApi.client
+      .productProjections()
+      .withId({ ID: id })
+      .get()
+      .execute()
+
+    return response
+  }
+  catch (error: unknown) {
+    if (error instanceof Error && 'statusCode' in error && error.statusCode === 404) {
+      throw new Error(`Product with id "${id}" not found`)
+    }
+    throw new Error(`Failed to fetch product: ${error instanceof Error ? error.message : 'Unknown error'}`)
   }
 }
 

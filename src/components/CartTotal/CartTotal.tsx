@@ -20,7 +20,7 @@ export const CartTotal: FC<Props> = ({ quantity, total }) => {
         <AppTitle level={5}>Total:</AppTitle>
         <AppText>
           $
-          {total}
+          {total.toFixed(2)}
         </AppText>
       </Flex>
       <AppButton type="primary" style={{ width: 250, marginTop: 20 }}>Checkout</AppButton>

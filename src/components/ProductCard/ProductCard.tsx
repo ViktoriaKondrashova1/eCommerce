@@ -43,7 +43,7 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
                     )
                   : product.price.amount}
               </div>
-              <AddToCartButton />
+              <AddToCartButton product={product} />
             </Flex>
           </div>
         )}

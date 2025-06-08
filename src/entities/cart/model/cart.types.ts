@@ -17,3 +17,12 @@ export function isCart(cart: unknown): cart is Cart {
     && 'lineItems' in cart
   )
 };
+
+type ActionType = 'addLineItem' | 'removeLineItem' | 'changeLineItemQuantity'
+
+export interface updateCartProps {
+  action: ActionType
+  productId: string
+  lineItemId?: string
+  quantity: number
+}

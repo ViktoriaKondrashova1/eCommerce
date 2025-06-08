@@ -9,10 +9,10 @@ import { MainPageCarousel } from '@/components/MainPageCarousel/MainPageCarousel
 import { MainPageGrid } from '@/components/MainPageGrid/MainPageGrid'
 import { PromocodeSection } from '@/components/PromocodeSection/PromocodeSection'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
-import { createCart } from '@/entities/cart/api/create-cart'
 import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
 import { appName } from '@/shared/constants'
 import { useRequest } from '@/shared/hooks/use-request'
+import { getOrCreateCart } from './getOrCreateCart'
 import { useCategories } from './use-categories'
 
 export const MainPage: FC = () => {
@@ -26,7 +26,7 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     const fn = async () => {
-      await createCart()
+      await getOrCreateCart()
     }
 
     void fn()

@@ -70,7 +70,17 @@ export const router = createBrowserRouter([
         element: <UserProfilePage />,
         loader: async () => {
           if (!customerStore.isAuth) {
-            return redirect('/')
+            return redirect('/login')
+          }
+          return null
+        },
+      },
+      {
+        path: 'profile',
+        element: <UserProfilePage />,
+        loader: async () => {
+          if (!customerStore.isAuth) {
+            return redirect('/login')
           }
           return null
         },

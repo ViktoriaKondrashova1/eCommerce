@@ -86,7 +86,7 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
               >
                 Add to Cart
               </AppButton>
-              <Incrementer />
+              <Incrementer productId={product.id} />
             </Flex>
           </Space>
         </Col>

@@ -36,7 +36,7 @@ export const CartPage: FC = () => {
       setCart(currentCart)
       setCartData(adaptCartData(currentCart.lineItems))
     }
-  }, [])
+  }, [cart])
 
   const handleClearCart = () => {
     setCartData([])

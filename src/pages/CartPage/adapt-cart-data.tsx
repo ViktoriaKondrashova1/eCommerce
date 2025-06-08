@@ -11,7 +11,7 @@ export function adaptCartData(items: LineItem[]): CartDataType[] {
       key: item.id,
       product: <CartTableProduct productId={item.productId} />,
       price: `$${(price / 100).toFixed(2)}`,
-      quantity: <Incrementer quantity={item.quantity} />,
+      quantity: <Incrementer quantity={item.quantity} lineItemId={item.id} productId={item.productId} />,
       subtotal: `$${((price * item.quantity) / 100).toFixed(2)}`,
     })
   },

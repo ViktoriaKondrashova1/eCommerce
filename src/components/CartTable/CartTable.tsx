@@ -35,7 +35,7 @@ export const CartTable: FC<Props> = ({ tableData }) => {
       render: (_, record) =>
         !isNullable(dataSource) && dataSource.length >= 1
           ? (
-              <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+              <Popconfirm title="Remove item from cart?" onConfirm={() => handleDelete(record.key)}>
                 <DeleteOutlined />
               </Popconfirm>
             )

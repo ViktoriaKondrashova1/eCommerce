@@ -1,17 +1,18 @@
 import type { FC } from 'react'
-import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
 import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import { useState } from 'react'
 import { AppButton } from '@/components/AppButton/AppButton'
 import { updateCart } from '@/entities/cart/api/update-cart'
+import { isNonNullable } from '@/shared/types/is-non-nullable'
 
 interface Props extends BaseComponent {
-  product: ICleanProduct
+  productId: string
+  lineItemId?: string | null
 }
 
-export const AddToCartButton: FC<Props> = ({ testId = 'add-to-cart', product }) => {
+export const AddToCartButton: FC<Props> = ({ testId = 'add-to-cart', productId, lineItemId }) => {
   const [isChecked, setIsChecked] = useState(false)
 
   const handleAddToCart = (e: React.MouseEvent): void => {
@@ -19,19 +20,24 @@ export const AddToCartButton: FC<Props> = ({ testId = 'add-to-cart', product }) 
     setIsChecked(true)
     setTimeout(() => setIsChecked(false), 1000)
 
-    updateCart({ action: 'addLineItem', productId: product.id, quantity: 1 })
+    updateCart({
+      action: 'addLineItem',
+      productId,
+      quantity: 1,
+    })
       .catch((error) => {
         console.error('Failed to add to cart:', error)
       })
   }
 
   return (
-    <Tooltip data-testid={testId} title="Add to Cart">
+    <Tooltip data-testid={testId} title={isNonNullable(lineItemId) ? 'Already in Cart' : 'Add to Cart'}>
       <AppButton
         type="primary"
         shape="circle"
         icon={isChecked ? <CheckOutlined /> : <PlusOutlined />}
         onClick={handleAddToCart}
+        disabled={isNonNullable(lineItemId)}
       />
     </Tooltip>
   )

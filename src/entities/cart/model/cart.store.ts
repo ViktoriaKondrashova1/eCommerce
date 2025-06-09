@@ -49,6 +49,22 @@ class CartStore {
     local.set(CART_STORAGE_KEY, this.cart)
   }
 
+  getProductLineItemId(productId: string): string | null {
+    if (!this.cart)
+      return null
+
+    const item = this.cart.lineItems.find(item => item.productId === productId)
+    return item ? item.id : null
+  }
+
+  getProductQuantityInCart(productId: string): number {
+    if (!this.cart)
+      return 0
+
+    const item = this.cart.lineItems.find(item => item.productId === productId)
+    return item ? item.quantity : 0
+  }
+
   clearCart(): void {
     this.cart = null
     this.doesCartExist = false

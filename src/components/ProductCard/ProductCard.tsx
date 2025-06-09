@@ -3,7 +3,9 @@ import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { BaseComponent } from '@/shared/types/common.types'
 import { Card, Flex } from 'antd'
 import Meta from 'antd/es/card/Meta'
+import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
+import { cartStore } from '@/entities/cart/model/cart.store'
 import { AddToCartButton } from '../AddToCartButton/AddToCartButton'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './ProductCard.scss'
@@ -12,8 +14,10 @@ interface Props extends BaseComponent {
   product: ICleanProduct
 }
 
-export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => {
+export const ProductCard: FC<Props> = observer(({ testId = 'product-card', product }) => {
   const navigate = useNavigate()
+
+  const lineItemId = cartStore.getProductLineItemId(product.id)
 
   return (
     <Card
@@ -43,11 +47,11 @@ export const ProductCard: FC<Props> = ({ testId = 'product-card', product }) => 
                     )
                   : product.price.amount}
               </div>
-              <AddToCartButton product={product} />
+              <AddToCartButton productId={product.id} lineItemId={lineItemId} />
             </Flex>
           </div>
         )}
       />
     </Card>
   )
-}
+})

@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
 import { Flex, Image } from 'antd'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { getProductById } from '@/entities/product/api/fetch-products'
 import { importProductAdapter } from '@/shared/adapters/import/product.adapter'
 import { isNullable } from '@/shared/types/is-nullable'
@@ -15,6 +16,7 @@ interface Props {
 
 export const CartTableProduct: FC<Props> = ({ productId }) => {
   const [product, setProduct] = useState<ICleanProduct | null>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -42,7 +44,7 @@ export const CartTableProduct: FC<Props> = ({ productId }) => {
         <Image width={100} height={150} src={firstImage.url} />
       )}
       <Flex vertical>
-        <AppTitle level={4}>{product.title}</AppTitle>
+        <AppTitle level={4} style={{ cursor: 'pointer' }} onClick={() => navigate(`/catalog/product/${product.slug}`)}>{product.title}</AppTitle>
         <AppText>{product.brewery}</AppText>
         <AppText>
           {product.category}

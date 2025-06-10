@@ -35,6 +35,10 @@ export const CartPage: FC = observer(() => {
   }
 
   const totalAmount = cart !== null && isNonNullable(cart?.totalPrice.centAmount) ? cart.totalPrice.centAmount / 100 : 0
+  const withDiscount = cart !== null
+    && cart?.discountOnTotalPrice?.discountedAmount?.centAmount !== undefined
+    ? cart.discountOnTotalPrice.discountedAmount.centAmount / 100
+    : 0
 
   return (
     <Flex vertical style={{ width: '80%', margin: 'auto' }}>
@@ -55,6 +59,7 @@ export const CartPage: FC = observer(() => {
       <CartTotal
         quantity={cart?.totalLineItemQuantity ?? 0}
         total={totalAmount}
+        withDiscount={withDiscount}
       />
       {isLoading
         ? (

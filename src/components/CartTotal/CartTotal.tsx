@@ -7,9 +7,10 @@ import { AppTitle } from '../AppTitle/AppTitle'
 interface Props {
   quantity: number
   total: number
+  withDiscount: number
 }
 
-export const CartTotal: FC<Props> = ({ quantity, total }) => {
+export const CartTotal: FC<Props> = ({ quantity, total, withDiscount }) => {
   return (
     <Flex vertical align="end" style={{ margin: '40px 0 100px 0' }}>
       <Flex justify="space-between" style={{ width: 250 }}>
@@ -18,10 +19,27 @@ export const CartTotal: FC<Props> = ({ quantity, total }) => {
       </Flex>
       <Flex justify="space-between" style={{ width: 250 }}>
         <AppTitle level={5}>Total:</AppTitle>
-        <AppText>
-          $
-          {total.toFixed(2)}
-        </AppText>
+        {
+          withDiscount > 0
+            ? (
+                <Flex gap="small">
+                  <AppText style={{ textDecoration: 'line-through' }}>
+                    $
+                    {total.toFixed(2)}
+                  </AppText>
+                  <AppText style={{ color: '#E84B1A' }}>
+                    $
+                    {(total - withDiscount).toFixed(2)}
+                  </AppText>
+                </Flex>
+              )
+            : (
+                <AppText>
+                  $
+                  {total.toFixed(2)}
+                </AppText>
+              )
+        }
       </Flex>
       <AppButton type="primary" style={{ width: 250, marginTop: 20 }}>Checkout</AppButton>
     </Flex>

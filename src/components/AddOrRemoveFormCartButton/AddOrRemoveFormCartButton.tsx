@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import type { BaseComponent } from '@/shared/types/common.types'
 import { ShoppingCartOutlined } from '@ant-design/icons'
-import { updateCart } from '@/entities/cart/api/update-cart'
+import { updateOrCreateCart } from '@/entities/cart/api/update-or-create-cart'
 import { useNotify } from '@/shared/hooks/use-notify'
 import { isNullable } from '@/shared/types/is-nullable'
 import { AppButton } from '../AppButton'
@@ -20,7 +20,7 @@ export const AddOrRemoveFormCartButton: FC<Props> = ({ testId = 'add-remove-cart
   const handleClick = (): void => {
     const successMessage = isNullable(lineItemId) ? 'added to' : 'removed from'
 
-    updateCart({
+    updateOrCreateCart({
       action: clickAction,
       productId,
       ...(!isNullable(lineItemId) && { lineItemId }),

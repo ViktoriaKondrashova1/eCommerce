@@ -3,7 +3,7 @@ import type { BaseComponent } from '@/shared/types/common.types'
 import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import { AppButton } from '@/components/AppButton/AppButton'
-import { updateCart } from '@/entities/cart/api/update-cart'
+import { updateOrCreateCart } from '@/entities/cart/api/update-or-create-cart'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
 
 interface Props extends BaseComponent {
@@ -15,7 +15,7 @@ export const AddToCartButton: FC<Props> = ({ testId = 'add-to-cart', productId, 
   const handleAddToCart = (e: React.MouseEvent): void => {
     e.stopPropagation()
 
-    updateCart({
+    updateOrCreateCart({
       action: 'addLineItem',
       productId,
     })

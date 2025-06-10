@@ -1,4 +1,5 @@
 import type { ClientResponse, CustomerSignInResult, MyCustomerSignin } from '@commercetools/platform-sdk'
+import { cartStore } from '@/entities/cart/model/cart.store'
 import { commerceApi } from '@/shared/configs/commerce-client'
 
 export async function loginCustomer(loginData: MyCustomerSignin): Promise<ClientResponse<CustomerSignInResult>> {
@@ -10,6 +11,10 @@ export async function loginCustomer(loginData: MyCustomerSignin): Promise<Client
         body: loginData,
       })
       .execute()
+
+    if (response.body.cart) {
+      cartStore.setCart(response.body.cart)
+    }
 
     return response
   }

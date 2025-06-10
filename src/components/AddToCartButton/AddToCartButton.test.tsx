@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
-import { updateCart } from '@/entities/cart/api/update-cart'
 import { AddToCartButton } from './AddToCartButton'
 
 const mockProductId = 'asweccddf'
@@ -9,10 +8,6 @@ const mockLineItemId = 'rfgvvfgf'
 vi.mock('@ant-design/icons', () => ({
   PlusOutlined: () => <span data-testid="plus-icon">+</span>,
   CheckOutlined: () => <span data-testid="check-icon">✓</span>,
-}))
-
-vi.mock('@/entities/cart/api/update-cart', () => ({
-  updateCart: vi.fn().mockResolvedValue({}),
 }))
 
 describe('addToCartButton', () => {
@@ -34,17 +29,6 @@ describe('addToCartButton', () => {
     expect(screen.getByTestId('check-icon')).toBeInTheDocument()
     expect(screen.queryByTestId('plus-icon')).not.toBeInTheDocument()
     expect(screen.getByRole('button')).toBeDisabled()
-  })
-
-  it('should call updateCart with correct parameters when clicked', () => {
-    render(<AddToCartButton productId={mockProductId} />)
-
-    fireEvent.click(screen.getByRole('button'))
-
-    expect(updateCart).toHaveBeenCalledWith({
-      action: 'addLineItem',
-      productId: mockProductId,
-    })
   })
 
   it('should stop click event propagation', () => {

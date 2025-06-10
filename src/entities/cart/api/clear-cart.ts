@@ -14,6 +14,7 @@ export async function clearCart(): Promise<ClientResponse<Cart>> {
 
   try {
     const response = await commerceApi.client
+      .me()
       .carts()
       .withId({ ID: cart.id })
       .post({

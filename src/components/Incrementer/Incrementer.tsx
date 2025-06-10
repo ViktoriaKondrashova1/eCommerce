@@ -3,7 +3,7 @@ import type { ICleanProduct } from '@/entities/product/model/product.types'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
 import { useEffect, useState } from 'react'
-import { updateCart } from '@/entities/cart/api/update-cart'
+import { updateOrCreateCart } from '@/entities/cart/api/update-or-create-cart'
 import { getProductById } from '@/entities/product/api/fetch-products'
 import { importProductAdapter } from '@/shared/adapters/import/product.adapter'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
@@ -40,7 +40,7 @@ export const Incrementer: FC<Props> = ({ quantity = 1, productId, lineItemId }) 
 
   const updateCartItem = async (action: 'addLineItem' | 'removeLineItem', quantity: number) => {
     try {
-      await updateCart({
+      await updateOrCreateCart({
         action,
         productId,
         ...(isNonNullable(lineItemId) && { lineItemId }),

@@ -5,11 +5,12 @@ import { cartStore } from '../model/cart.store'
 export async function createCart(): Promise<ClientResponse<Cart>> {
   try {
     const response = await commerceApi.client
+      .me()
       .carts()
       .post({
         body: {
           currency: 'USD',
-          deleteDaysAfterLastModification: 30,
+          deleteDaysAfterLastModification: 5,
         },
       })
       .execute()

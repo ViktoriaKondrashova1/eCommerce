@@ -3,7 +3,7 @@ import type { TableColumnsType } from 'antd'
 import type { FC } from 'react'
 import type { CartDataType } from '@/entities/cart/model/cart.types'
 import { DeleteOutlined } from '@ant-design/icons'
-import { Popconfirm, Table } from 'antd'
+import { Popconfirm, Table, Tooltip } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { updateCart } from '@/entities/cart/api/update-cart'
@@ -25,9 +25,7 @@ export const CartTable: FC<Props> = ({ tableData }) => {
       setDataSource(newData)
       await updateCart({
         action: 'removeLineItem',
-        productId: record.quantity.props.productId,
         lineItemId: record.quantity.props.lineItemId,
-        quantity: record.quantity.props.quantity,
       })
     }
   }
@@ -46,14 +44,16 @@ export const CartTable: FC<Props> = ({ tableData }) => {
       render: (_, record) =>
         !isNullable(dataSource) && dataSource.length >= 1
           ? (
-              <Popconfirm
-                title="Remove item from cart?"
-                onConfirm={() => {
-                  handleDelete(record.key, record).catch(console.error)
-                }}
-              >
-                <DeleteOutlined />
-              </Popconfirm>
+              <Tooltip title="Remove item">
+                <Popconfirm
+                  title="Remove item from cart?"
+                  onConfirm={() => {
+                    handleDelete(record.key, record).catch(console.error)
+                  }}
+                >
+                  <DeleteOutlined />
+                </Popconfirm>
+              </Tooltip>
             )
           : null,
     },
@@ -63,6 +63,10 @@ export const CartTable: FC<Props> = ({ tableData }) => {
     <Table<CartDataType>
       columns={columns}
       dataSource={dataSource ?? []}
+      pagination={{
+        pageSize: 4,
+        showSizeChanger: false,
+      }}
       locale={{ emptyText: (
         <AppEmpty>
           <AppButton type="primary" onClick={() => navigate('/catalog/1')}>Continue shopping</AppButton>

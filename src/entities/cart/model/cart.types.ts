@@ -24,11 +24,11 @@ export function isCart(cart: unknown): cart is Cart {
   )
 };
 
-type ActionType = 'addLineItem' | 'removeLineItem' | 'changeLineItemQuantity'
+type ActionType = 'addLineItem' | 'removeLineItem'
 
 export interface updateCartProps {
   action: ActionType
-  productId: string
+  productId?: string
   lineItemId?: string
-  quantity: number
+  quantity?: number
 }

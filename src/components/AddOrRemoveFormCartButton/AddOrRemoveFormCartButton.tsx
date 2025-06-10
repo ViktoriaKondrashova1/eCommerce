@@ -26,12 +26,13 @@ export const AddOrRemoveFormCartButton: FC<Props> = ({ testId = 'add-remove-cart
       ...(!isNullable(lineItemId) && { lineItemId }),
       quantity,
     })
+      .then(() =>
+        showSuccessNotify(`The product has been ${successMessage} the cart`),
+      )
       .catch((error) => {
         console.error(`Failed to ${buttonText.toLowerCase()}:`, error)
         showErrorNotify(`Failed to ${buttonText.toLowerCase()}`)
       })
-
-    showSuccessNotify(`The product has been ${successMessage} the cart`)
   }
 
   return (

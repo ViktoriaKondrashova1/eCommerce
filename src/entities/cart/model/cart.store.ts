@@ -59,10 +59,10 @@ class CartStore {
 
   getProductQuantityInCart(productId: string): number {
     if (!this.cart)
-      return 0
+      return 1
 
     const item = this.cart.lineItems.find(item => item.productId === productId)
-    return item ? item.quantity : 0
+    return item ? item.quantity : 1
   }
 
   clearCart(): void {

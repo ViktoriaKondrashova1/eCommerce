@@ -1,7 +1,6 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { App as AntApp, Grid } from 'antd'
 import { vi } from 'vitest'
-import { promocode, promocodeText } from '@/shared/constants'
 import { PromocodeSection } from './PromocodeSection'
 
 vi.mock('antd', async (importOriginal) => {
@@ -20,6 +19,9 @@ vi.mock('antd', async (importOriginal) => {
   }
 })
 
+const mockPromocode = 'TESTPROMOCODE'
+const mockPromocodeText = 'Test promo code text'
+
 beforeEach(() => {
   Object.defineProperty(navigator, 'clipboard', {
     value: {
@@ -36,7 +38,7 @@ afterEach(() => {
 describe('promocodeSection', () => {
   const setup = (breakpoints = { md: true }) => {
     vi.mocked(Grid.useBreakpoint).mockReturnValue(breakpoints)
-    return render(<PromocodeSection />)
+    return render(<PromocodeSection promocode={mockPromocode} promocodeText={mockPromocodeText} />)
   }
 
   it('should render correctly with default props', () => {
@@ -45,8 +47,8 @@ describe('promocodeSection', () => {
     const promocodeSection = screen.getByTestId('promocode')
 
     expect(promocodeSection).toBeInTheDocument()
-    expect(screen.getByText(promocodeText)).toBeInTheDocument()
-    expect(screen.getByText(promocode)).toBeInTheDocument()
+    expect(screen.getByText(mockPromocodeText)).toBeInTheDocument()
+    expect(screen.getByText(mockPromocode)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Copy Code' })).toBeInTheDocument()
   })
 
@@ -61,7 +63,7 @@ describe('promocodeSection', () => {
     })
 
     await waitFor(() => {
-      expect(writeTextMock).toHaveBeenCalledWith(promocode)
+      expect(writeTextMock).toHaveBeenCalledWith(mockPromocode)
       expect(writeTextMock).toHaveBeenCalledTimes(1)
       expect(AntApp.useApp().message.success).toHaveBeenCalledWith('Promocode has been copied')
     })

@@ -6,6 +6,7 @@ import { cartStore } from '@/entities/cart/model/cart.store'
 import { AppButton } from '../AppButton'
 import { AppInput } from '../AppInput/AppInput'
 import { AppTitle } from '../AppTitle/AppTitle'
+import { getDiscountCodes } from './get-cart-discount'
 
 export const CartPromocode: FC = () => {
   const [promoCode, setPromoCode] = useState<string>('')
@@ -15,6 +16,8 @@ export const CartPromocode: FC = () => {
   const cart = cartStore.getCart()
 
   const handleApply = async () => {
+    const discountCodes = await getDiscountCodes()
+
     if (!cart?.lineItems && cart?.lineItems.length === 0) {
       setError('The cart is empty')
       return
@@ -25,10 +28,20 @@ export const CartPromocode: FC = () => {
       return
     }
 
-    if (cart?.discountOnTotalPrice?.discountedAmount?.centAmount !== undefined
-      && cart.discountOnTotalPrice.discountedAmount.centAmount > 0) {
-      setError('The promo code has been already applied')
-      return
+    if (cart?.discountCodes !== undefined && cart.discountCodes.length > 0) {
+      const discountCodeIds = new Set(
+        discountCodes.body.results.map(item => item.id),
+      )
+
+      const index = discountCodes.body.results.findIndex(item =>
+        discountCodeIds.has(item.id)
+        && cart?.discountCodes?.some(cartItem => cartItem.discountCode.id === item.id),
+      )
+
+      if (discountCodes.body.results[index].code === promoCode.trim()) {
+        setError('The promo code has been already applied')
+        return
+      }
     }
 
     setIsLoading(true)

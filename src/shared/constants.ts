@@ -1,8 +1,12 @@
 export const appName = 'BREWPORT'
 
-export const promocode = 'BEER2025'
+export const promocode15 = 'BEER2025'
 
-export const promocodeText = 'SPECIAL OFFER: Get 15% off your first order'
+export const promocode20 = 'BREWPORT'
+
+export const promocodeText15 = 'SPECIAL OFFER: Get 15% off your first order'
+
+export const promocodeText20 = 'SPECIAL OFFER: Get 20% off your first order'
 
 export const catalogPageLimit = 20
 

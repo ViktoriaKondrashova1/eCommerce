@@ -123,29 +123,6 @@ export async function fetchProducts({
   }
 }
 
-export async function fetchPublishedProductsById(categoryId: string, settings?: { limit: number, offset: number, sort: string }): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
-  const { limit = 38, offset = 0, sort = 'ASC' } = settings ?? {}
-
-  try {
-    const response = await commerceApi.client
-      .productProjections()
-      .get({
-        queryArgs: {
-          where: `categories(id="${categoryId}") AND published=true`,
-          limit,
-          offset,
-          sort,
-        },
-      })
-      .execute()
-
-    return response
-  }
-  catch {
-    throw new Error('Failed to fetch filtered published products')
-  }
-}
-
 export async function getProductById(id: string): Promise<ClientResponse<ProductProjection>> {
   try {
     const response = await commerceApi.client

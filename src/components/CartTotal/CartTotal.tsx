@@ -25,11 +25,11 @@ export const CartTotal: FC<Props> = ({ quantity, total, withDiscount }) => {
                 <Flex gap="small">
                   <AppText style={{ textDecoration: 'line-through' }}>
                     $
-                    {total.toFixed(2)}
+                    {(total + withDiscount).toFixed(2)}
                   </AppText>
                   <AppText style={{ color: '#E84B1A' }}>
                     $
-                    {(total - withDiscount).toFixed(2)}
+                    {total.toFixed(2)}
                   </AppText>
                 </Flex>
               )

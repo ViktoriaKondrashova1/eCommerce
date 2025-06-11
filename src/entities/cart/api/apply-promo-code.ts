@@ -27,6 +27,6 @@ export async function applyPromoCode(promoCode: string): Promise<void> {
     cartStore.updateCart(response.body)
   }
   catch {
-    throw new Error(`Failed to apply promocode`)
+    throw new Error(`The promo code doesn\'t exist or is invalid`)
   }
 }

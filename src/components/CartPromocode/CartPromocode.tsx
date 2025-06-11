@@ -15,28 +15,34 @@ export const CartPromocode: FC = () => {
   const cart = cartStore.getCart()
 
   const handleApply = async () => {
-    if (cart?.lineItems && cart.lineItems.length > 0) {
-      if (!promoCode.trim()) {
-        setError('Please enter a promo code')
-        return
-      }
-
-      setIsLoading(true)
-      setError('')
-
-      try {
-        await applyPromoCode(promoCode.trim())
-        setPromoCode('')
-      }
-      catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to apply promo code')
-      }
-      finally {
-        setIsLoading(false)
-      }
-    }
-    else {
+    if (!cart?.lineItems && cart?.lineItems.length === 0) {
       setError('The cart is empty')
+      return
+    }
+
+    if (!promoCode.trim()) {
+      setError('Please enter a promo code')
+      return
+    }
+
+    if (cart?.discountOnTotalPrice?.discountedAmount?.centAmount !== undefined
+      && cart.discountOnTotalPrice.discountedAmount.centAmount > 0) {
+      setError('The promo code has been already applied')
+      return
+    }
+
+    setIsLoading(true)
+    setError('')
+
+    try {
+      await applyPromoCode(promoCode.trim())
+      setPromoCode('')
+    }
+    catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to apply promo code')
+    }
+    finally {
+      setIsLoading(false)
     }
   }
 

@@ -1,0 +1,62 @@
+.about-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.header {
+  margin: 0;
+}
+
+.description {
+  font-size: 16px;
+}
+
+.carousel-container {
+  margin: 40px 0;
+  width: 100%;
+}
+
+.carousel-image {
+  height: 640px;
+  min-width: 420px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  position: relative;
+}
+
+.team-section {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.team-grid {
+  padding: 0 16px;
+}
+
+.development-journey {
+  max-width: 800px;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 15px;
+  border: 1px dashed #d9d9d9;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.rs-school-link {
+  color: #0f1188;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.rs-logo {
+  height: 40px;
+}
+
+.badge {
+  font-size: 14px;
+}

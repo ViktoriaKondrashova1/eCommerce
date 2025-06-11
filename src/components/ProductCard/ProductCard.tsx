@@ -47,7 +47,10 @@ export const ProductCard: FC<Props> = observer(({ testId = 'product-card', produ
                     )
                   : product.price.amount}
               </div>
-              <AddToCartButton productId={product.id} lineItemId={lineItemId} />
+              <AddToCartButton
+                productId={product.id}
+                lineItemId={lineItemId}
+              />
             </Flex>
           </div>
         )}

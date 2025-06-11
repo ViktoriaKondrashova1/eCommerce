@@ -6,35 +6,32 @@ import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
 import { aboutPageContent, carouselImages, teamMembers } from '@/pages/AboutPage/constructor.ts'
 import { TeamMemberCard } from '@/pages/AboutPage/MemberCards.tsx'
 import { appName } from '@/shared/constants.ts'
+import styles from './AboutPage.module.scss'
 
 export const AboutPage: FC = () => {
   return (
 
-    <div>
-      <Flex justify="center" style={{ textAlign: 'center' }}>
+    <div className={styles['about-page']}>
+      <Flex justify="center">
         <div>
-          <AppTitle level={1} style={{ margin: 0 }}>
+          <AppTitle level={1} className={styles.title}>
             {`Welcome to ${appName}`}
           </AppTitle>
           <Divider />
           <Flex vertical gap={12}>
-            <AppText style={{ fontSize: 16 }}>
+            <AppText className={styles.description}>
               {aboutPageContent.description1}
             </AppText>
-            <AppText style={{ fontSize: 16 }}>
+            <AppText className={styles.description}>
               {aboutPageContent.description2}
             </AppText>
           </Flex>
         </div>
       </Flex>
 
-      <div style={{
-        margin: '40px 0',
-        width: '100%',
-      }}
-      >
+      <div className={styles['carousel-container']}>
         <Carousel
-          style={{ width: '90%' }}
+          className={styles.carousel}
           autoplay
           autoplaySpeed={3000}
           effect="fade"
@@ -42,15 +39,9 @@ export const AboutPage: FC = () => {
         >
           {carouselImages.map((img, index) => (
             <div key={index}>
-              <div style={{
-                height: '640px',
-                minWidth: '420px',
-                backgroundImage: `url(${img})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '8px',
-                position: 'relative',
-              }}
+              <div
+                className={styles['carousel-image']}
+                style={{ backgroundImage: `url(${img})` }}
               >
               </div>
             </div>
@@ -60,28 +51,28 @@ export const AboutPage: FC = () => {
 
       <Flex vertical>
         <Divider orientation="center">
-          <AppTitle level={2} style={{ padding: 0 }}>
+          <AppTitle level={2}>
             <TeamOutlined />
             {' '}
             Meet Our Team
           </AppTitle>
         </Divider>
-        <Flex vertical gap={12} style={{ marginBottom: 40, textAlign: 'center' }}>
-          <AppText style={{ fontSize: 16 }}>
+        <Flex vertical gap={12} className={styles['team-section']}>
+          <AppText className={styles.description}>
             {aboutPageContent.teamDescription1}
           </AppText>
-          <AppText style={{ fontSize: 16 }}>
+          <AppText className={styles.description}>
             {aboutPageContent.teamDescription2}
           </AppText>
         </Flex>
 
         <Row
           gutter={[24, 24]}
-          style={{ padding: '0 16px' }}
+          className={styles['team-grid']}
           justify="center"
         >
           {teamMembers.map(member => (
-            <Col key={member.bio} xs={22} sm={15} md={12} xl={8}>
+            <Col key={member.bio} xs={22} sm={20} md={12} xl={8}>
               <TeamMemberCard member={member} />
             </Col>
           ))}
@@ -92,15 +83,7 @@ export const AboutPage: FC = () => {
         <Flex
           vertical
           align="center"
-          style={{
-            maxWidth: 800,
-            padding: 30,
-            background: '#f9f9f9',
-            borderRadius: 15,
-            border: '1px dashed #d9d9d9',
-            margin: '20px auto',
-            textAlign: 'center',
-          }}
+          className={styles['development-journey']}
         >
           <AppTitle level={3}>
             <CodeOutlined />
@@ -115,7 +98,7 @@ export const AboutPage: FC = () => {
               <Tag
                 key={badge}
                 color="orange"
-                style={{ fontSize: 14 }}
+                className={styles.badge}
               >
                 {badge}
               </Tag>
@@ -128,25 +111,18 @@ export const AboutPage: FC = () => {
         <Row justify="center">
           <Col>
             <AppText style={{ textAlign: 'center' }}>
-              This project was created as part of the
-              <a style={{ color: '#0f1188' }} className="school-link" href="https://rs.school/" target="_blank">
-                {' '}
-                RS
-                School
-                {' '}
-              </a>
-              curriculum, an educational program that provides free high-quality education in web development.
+              This project was created as part of the RS School curriculum, an educational program that provides free high-quality education in web development.
             </AppText>
           </Col>
         </Row>
 
         <Row justify="center" align="middle">
           <Col>
-            <a href="https://rs.school/" target="_blank" rel="noopener noreferrer">
+            <a href="https://rs.school/" target="_blank">
               <img
                 src="https://rs.school/_next/static/media/rss-logo.c19ce1b4.svg"
                 alt="RS School"
-                style={{ height: 40 }}
+                className={styles['rs-logo']}
               />
             </a>
           </Col>

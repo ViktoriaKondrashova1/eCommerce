@@ -2,23 +2,16 @@ import type { FC } from 'react'
 import type { teamMembers } from '@/pages/AboutPage/constructor.ts'
 import { FileTextOutlined, GithubOutlined, RocketOutlined } from '@ant-design/icons'
 import { Avatar, Card, Flex, List } from 'antd'
-import React, { useState } from 'react'
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint'
 
+import React, { useState } from 'react'
 import { AppButton } from '@/components/AppButton'
 import { AppText } from '@/components/AppText/AppText.tsx'
 import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
 
 export const TeamMemberCard: FC<{ member: typeof teamMembers[0] }> = ({ member }) => {
   const [hovered, setHovered] = useState(false)
-
-  const cardStyle: React.CSSProperties = {
-    height: '100%',
-    boxShadow: '0 5px 15px rgba(0,0,0,0.08)',
-    transition: 'all 0.3s ease',
-    transform: hovered ? 'translateY(-10px)' : 'none',
-    display: 'flex',
-    flexDirection: 'column',
-  }
+  const screens = useBreakpoint()
 
   const avatarStyle: React.CSSProperties = {
     width: 140,
@@ -32,11 +25,16 @@ export const TeamMemberCard: FC<{ member: typeof teamMembers[0] }> = ({ member }
 
   return (
     <Card
-      style={cardStyle}
+      style={{
+        padding: screens.xs ? '0px' : '30px 0 20px',
+        boxShadow: '0 5px 15px rgba(0,0,0,0.08)',
+        transition: 'all 0.3s ease',
+        transform: hovered ? 'translateY(-10px)' : 'none',
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Flex justify="center" style={{ padding: '30px 0 20px' }}>
+      <Flex justify="center">
         <Avatar
           size={140}
           src={member.photo}
@@ -47,8 +45,8 @@ export const TeamMemberCard: FC<{ member: typeof teamMembers[0] }> = ({ member }
         </Avatar>
       </Flex>
       <Card.Meta
-        title={<AppText strong style={{ fontSize: 26 }}>{member.name}</AppText>}
-        description={<AppText type="secondary">{member.role}</AppText>}
+        title={<AppText strong style={{ fontSize: 28 }}>{member.name}</AppText>}
+        description={<AppText style={{ fontSize: '16px' }} type="secondary">{member.role}</AppText>}
         style={{ marginBottom: 15 }}
       />
 
@@ -77,7 +75,7 @@ export const TeamMemberCard: FC<{ member: typeof teamMembers[0] }> = ({ member }
         />
       </div>
 
-      <Flex gap={16} style={{ width: '100%' }}>
+      <Flex gap={16} style={{ width: '100%', flexDirection: screens.md ? 'row' : 'column' }}>
         <AppButton
           type="primary"
           icon={<GithubOutlined />}

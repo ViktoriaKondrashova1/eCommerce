@@ -1,9 +1,8 @@
 .about-page {
   text-align: center;
-  padding: 20px;
 }
 
-.header {
+.title {
   margin: 0;
 }
 
@@ -44,17 +43,9 @@
   text-align: center;
 }
 
-.rs-school-link {
-  color: #0f1188;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
 .rs-logo {
   height: 40px;
+  opacity: 0.8;
 }
 
 .badge {

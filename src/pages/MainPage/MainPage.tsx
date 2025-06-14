@@ -9,7 +9,7 @@ import { MainPageGrid } from '@/components/MainPageGrid/MainPageGrid'
 import { PromocodeSection } from '@/components/PromocodeSection/PromocodeSection'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
 import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
-import { appName } from '@/shared/constants'
+import { appName, promocode15, promocode20, promocodeText15, promocodeText20 } from '@/shared/constants'
 import { useRequest } from '@/shared/hooks/use-request'
 import { useCategories } from './use-categories'
 
@@ -36,8 +36,9 @@ export const MainPage: FC = () => {
           : (
               <RelatedProducts title="NEW" products={newProducts || []} />
             )}
-      <PromocodeSection />
+      <PromocodeSection promocode={promocode15} promocodeText={promocodeText15} />
       <MainPageGrid />
+      <PromocodeSection promocode={promocode20} promocodeText={promocodeText20} />
       <MainPageCarousel />
     </Flex>
   )

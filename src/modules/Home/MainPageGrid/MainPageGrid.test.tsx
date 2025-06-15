@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { MainPageGrid } from './MainPageGrid'
+import { MainPageGrid } from './MainPageGrid.tsx'
 
 describe('mainPageGrid', () => {
   it('should render the grid container', () => {

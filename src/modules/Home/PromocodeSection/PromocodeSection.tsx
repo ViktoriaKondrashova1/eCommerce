@@ -1,9 +1,9 @@
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { App as AntApp, Card, Flex, Grid, Space } from 'antd'
-import { AppButton } from '../AppButton'
-import { AppText } from '../AppText/AppText'
-import { AppTitle } from '../AppTitle/AppTitle'
+import { AppButton } from '../../../components/AppButton'
+import { AppText } from '../../../components/AppText/AppText.tsx'
+import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'
 
 interface Props extends BaseComponent {
   promocode: string

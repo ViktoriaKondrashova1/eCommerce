@@ -1,8 +1,8 @@
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Grid, Space } from 'antd'
-import { AppText } from '../AppText/AppText'
-import { AppTitle } from '../AppTitle/AppTitle'
+import { AppText } from '../../../components/AppText/AppText.tsx'
+import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'
 import './HeroSection.scss'
 
 interface Props extends BaseComponent {

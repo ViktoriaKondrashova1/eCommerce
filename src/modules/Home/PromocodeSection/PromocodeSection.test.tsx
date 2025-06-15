@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { App as AntApp, Grid } from 'antd'
 import { vi } from 'vitest'
-import { PromocodeSection } from './PromocodeSection'
+import { PromocodeSection } from './PromocodeSection.tsx'
 
 vi.mock('antd', async (importOriginal) => {
   const actual = await importOriginal<typeof import('antd')>()

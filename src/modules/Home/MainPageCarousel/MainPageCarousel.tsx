@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Carousel, Flex, Grid } from 'antd'
 import { useMemo } from 'react'
-import { carouselData } from '@/components/MainPageCarousel/constructor'
-import { AppTitle } from '../AppTitle/AppTitle'
-import { CarouselCard } from '../CarouselCard/CarouselCard'
+import { carouselData } from '@/modules/Home/MainPageCarousel/constructor.ts'
+import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'
+import { CarouselCard } from '../../../components/CarouselCard/CarouselCard.tsx'
 import './MainPageCarousel.scss'
 
 interface IDataProps {

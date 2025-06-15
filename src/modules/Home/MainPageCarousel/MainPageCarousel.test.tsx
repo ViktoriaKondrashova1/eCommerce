@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { Grid } from 'antd'
 import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
-import { MainPageCarousel } from './MainPageCarousel'
+import { MainPageCarousel } from './MainPageCarousel.tsx'
 
 vi.mock('antd', async (importOriginal) => {
   const actual = await importOriginal<typeof import('antd')>()

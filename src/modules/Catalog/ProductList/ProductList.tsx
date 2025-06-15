@@ -1,8 +1,8 @@
 import type { FC } from 'react'
-import type { ICleanProduct } from '@/entities/product/model/product.types'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Col, Row } from 'antd'
-import { ProductCard } from '../ProductCard/ProductCard'
+import { ProductCard } from '../../../components/ProductCard/ProductCard.tsx'
 import './ProductList.scss'
 
 interface Props extends BaseComponent {

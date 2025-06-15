@@ -1,8 +1,8 @@
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { SearchOutlined } from '@ant-design/icons'
 import { Flex, Input } from 'antd'
-import { AppTitle } from '../AppTitle/AppTitle'
+import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'
 import './CatalogSearch.scss'
 
 interface Props extends BaseComponent {

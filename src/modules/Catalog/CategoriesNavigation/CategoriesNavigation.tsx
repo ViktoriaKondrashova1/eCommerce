@@ -1,7 +1,7 @@
 import type { Category } from '@commercetools/platform-sdk'
 import type { RadioChangeEvent } from 'antd'
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Drawer, Flex, Grid, Radio } from 'antd'
 import './CategoriesNavigation.scss'
 

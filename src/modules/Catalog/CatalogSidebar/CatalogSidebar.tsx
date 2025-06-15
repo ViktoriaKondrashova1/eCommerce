@@ -1,13 +1,13 @@
 import type { FC } from 'react'
-import type { IFilterForm, TFilterItemValue } from '@/pages/CatalogPage/use-filter-form.ts'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { IFilterForm, TFilterItemValue } from '@/modules/Catalog/hooks/use-filter-form.ts'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Drawer, Flex, Grid } from 'antd'
-import { useFilter } from '@/entities/filter/api/useFilter'
-import { AppButton } from '../AppButton'
-import { AppSkeleton } from '../AppSkeleton/AppSkeleton'
-import { Backdrop } from '../Backdrop/Backdrop'
-import { RangeFilter } from '../RangeFilter/RangeFilter'
-import { SortingSelect } from '../SortingSelect/SortingSelect'
+import { useFilter } from '@/entities/filter/api/useFilter.ts'
+import { AppButton } from '../../../components/AppButton'
+import { AppSkeleton } from '../../../components/AppSkeleton/AppSkeleton.tsx'
+import { Backdrop } from '../../../components/Backdrop/Backdrop.tsx'
+import { RangeFilter } from '../../../components/RangeFilter/RangeFilter.tsx'
+import { SortingSelect } from '../../../components/SortingSelect/SortingSelect.tsx'
 
 interface Props extends BaseComponent {
   isFiltersVisible: boolean

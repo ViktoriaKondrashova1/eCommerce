@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, it, vi } from 'vitest'
-import { CatalogSearch } from './CatalogSearch'
+import { CatalogSearch } from './CatalogSearch.tsx'
 
 describe('catalogSearch', () => {
   it('should render the search component correctly', () => {

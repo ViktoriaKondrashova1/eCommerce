@@ -10,7 +10,6 @@ import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
 import { useRelatedProducts } from '@/components/RelatedProducts/use-related-products.ts'
-import { cartStore } from '@/entities/cart/model/cart.store.ts'
 import { categoryStore } from '@/entities/category/model/category.store'
 import { ProductDescription, useProductBySlug } from '@/modules/Product'
 import { useCategories } from '../MainPage/use-categories'
@@ -59,9 +58,6 @@ export const ProductPage: FC = () => {
   if (!product || !productCategory)
     return <AppSkeleton />
 
-  const lineItemId = cartStore.getProductLineItemId(product.id)
-  const quantity = cartStore.getProductQuantityInCart(product.id)
-
   return (
     <>
       {isLoading
@@ -86,7 +82,7 @@ export const ProductPage: FC = () => {
                     Back To Catalog
                   </AppButton>
                 </Flex>
-                <ProductDescription product={product} lineItemId={lineItemId} quantity={quantity} />
+                <ProductDescription product={product} />
                 <RelatedProducts title="RELATED PRODUCTS" products={relatedProducts} showButton={false} />
               </>
             )}

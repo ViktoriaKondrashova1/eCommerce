@@ -2,20 +2,23 @@ import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Col, Divider, Flex, Row, Space, Tooltip } from 'antd'
+import { observer } from 'mobx-react-lite'
 import { AddOrRemoveFormCartButton } from '@/components/AddOrRemoveFormCartButton/AddOrRemoveFormCartButton.tsx'
 import { AppText } from '@/components/AppText/AppText.tsx'
 import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
+import { cartStore } from '@/entities/cart/model/cart.store.ts'
 import { ProductImageGallery } from './../ProductImageGallery/ProductImageGallery.tsx'
 import './ProductDescription.scss'
 
 interface Props extends BaseComponent {
   product: ICleanProduct
-  lineItemId: string | null
-  quantity: number
 }
 
-export const ProductDescription: FC<Props> = ({ testId = 'product-info', product, lineItemId, quantity, ...rest }) => {
+export const ProductDescription: FC<Props> = observer(({ testId = 'product-info', product, ...rest }) => {
   const { title, category, country, brewery, ABV, IBU, price: { amount, discount }, description, images } = product
+
+  const lineItemId = cartStore.getProductLineItemId(product.id)
+  const quantity = cartStore.getProductQuantityInCart(product.id)
 
   return (
     <Flex
@@ -86,4 +89,4 @@ export const ProductDescription: FC<Props> = ({ testId = 'product-info', product
       </Row>
     </Flex>
   )
-}
+})

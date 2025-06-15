@@ -1,8 +1,8 @@
 import type { Address } from '@commercetools/platform-sdk'
-import type { FormDataAddress, StatePersonalInfo } from '@/components/Profile/model/types.ts'
+import type { FormDataAddress, StatePersonalInfo } from '@/modules/Profile/model/types.ts'
 import dayjs from 'dayjs'
 import { nanoid } from 'nanoid'
-import { getCountryAbbr } from '@/components/Profile/model/lib.ts'
+import { getCountryAbbr } from '@/modules/Profile/model/lib.ts'
 
 export const profileAdapter = {
   exportUpdateAddress: (formState: FormDataAddress, controllerValues: FormDataAddress): FormDataAddress => {

@@ -1,11 +1,10 @@
 import type { FC } from 'react'
 import type { BaseComponent } from '@/shared/types/common.types'
+import type { Tuple } from '@/shared/types/tuple.ts'
+
 import { Flex, InputNumber, Slider, Space } from 'antd'
-import { useEffect, useState } from 'react'
-
 import { AppTitle } from '../AppTitle/AppTitle'
-
-type Tuple = [number, number]
+import { useRange } from './useRange.ts'
 
 interface Props extends BaseComponent {
   title: string
@@ -14,42 +13,6 @@ interface Props extends BaseComponent {
   maxValue: number
   onChange: (value: Tuple) => void
   shouldUpdate: boolean
-}
-
-function useRange({ defaultMin, defaultMax, onChange, shouldUpdate }: { defaultMin: number, defaultMax: number, onChange: (value: Tuple) => void, shouldUpdate: boolean }): {
-  valueRange: Tuple
-  handleChangeRange: (index: 0 | 1, value: number | null) => void
-  handleSliderChange: (value: number[]) => void
-} {
-  const [valueRange, setValueRange] = useState<Tuple>([defaultMin, defaultMax])
-
-  useEffect(() => {
-    if (shouldUpdate) {
-      setValueRange([defaultMin, defaultMax])
-    }
-  }, [shouldUpdate])
-
-  const handleChangeRange = (index: 0 | 1, value: number | null): void => {
-    if (value !== null) {
-      const newRange: Tuple = [...valueRange]
-      newRange[index] = value
-      setValueRange(() => newRange)
-      onChange(newRange)
-    }
-  }
-
-  const handleSliderChange = (value: number[]): void => {
-    if (value.length === 2) {
-      setValueRange([value[0], value[1]])
-      onChange([value[0], value[1]])
-    }
-  }
-
-  return {
-    valueRange,
-    handleChangeRange,
-    handleSliderChange,
-  }
 }
 
 export const RangeFilter: FC<Props> = ({ testId = 'range-filter', title, icon, minValue, maxValue, onChange, shouldUpdate }) => {

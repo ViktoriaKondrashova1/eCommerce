@@ -1,9 +1,9 @@
-import type { StateSecurity } from '@/components/Profile/model/types.ts'
+import type { StateSecurity } from '@/modules/Profile/model/types.ts'
 import { render, screen } from '@testing-library/react'
 import { Form } from 'antd'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
-import { SecurityForm } from '@/components/Profile/ui/security/SecurityForm.tsx'
+import { SecurityForm } from '@/modules/Profile/ui/security/SecurityForm.tsx'
 
 const mockData: StateSecurity = {
   currentPassword: '',

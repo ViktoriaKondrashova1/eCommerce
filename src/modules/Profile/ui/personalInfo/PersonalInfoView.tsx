@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { StatePersonalInfo } from '@/components/Profile/model/types.ts'
+import type { StatePersonalInfo } from '@/modules/Profile/model/types.ts'
 import { CalendarOutlined, MailOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
 import dayjs from 'dayjs'

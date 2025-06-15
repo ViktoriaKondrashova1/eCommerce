@@ -1,7 +1,7 @@
 import type { FormInstance } from 'antd'
 import type { Dayjs } from 'dayjs'
 import type { FC } from 'react'
-import type { StatePersonalInfo } from '@/components/Profile/model/types.ts'
+import type { StatePersonalInfo } from '@/modules/Profile/model/types.ts'
 import { DatePicker, Form } from 'antd'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'

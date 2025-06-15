@@ -1,6 +1,6 @@
 import type { FormInstance } from 'antd'
 import type { FC } from 'react'
-import type { StateSecurity } from '@/components/Profile/model/types.ts'
+import type { StateSecurity } from '@/modules/Profile/model/types.ts'
 import { LockOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
 import { useEffect } from 'react'

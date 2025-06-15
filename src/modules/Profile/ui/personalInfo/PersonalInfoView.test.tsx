@@ -1,9 +1,9 @@
-import type { StatePersonalInfo } from '@/components/Profile/model/types.ts'
+import type { StatePersonalInfo } from '@/modules/Profile/model/types.ts'
 import { render, screen } from '@testing-library/react'
 import dayjs from 'dayjs'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
-import { PersonalInfoView } from '@/components/Profile/ui/personalInfo/PersonalInfoView'
+import { PersonalInfoView } from '@/modules/Profile/ui/personalInfo/PersonalInfoView.tsx'
 
 describe('personalInfoView component', () => {
   const mockData: StatePersonalInfo = {

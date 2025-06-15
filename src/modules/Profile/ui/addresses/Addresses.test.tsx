@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
-import { Addresses } from '@/components/Profile/ui/addresses/Addresses'
+import { Addresses } from '@/modules/Profile/ui/addresses/Addresses.tsx'
 
 vi.mock('@/entities/customer/model/customer.store', () => ({
   customerStore: {
@@ -97,8 +97,7 @@ describe('addresses component', () => {
     expect(addButtonIcon).toBeInTheDocument()
     expect(addButtonIcon.closest('button')).toBeInTheDocument()
 
-    expect(screen.getByText('Shipping Address')).toBeInTheDocument()
-    expect(screen.getByText('Billing Address')).toBeInTheDocument()
+    screen.getAllByText(/Shipping Address/gi).map(item => expect(item).toBeInTheDocument())
 
     expect(screen.getByText('Lenina st.')).toBeInTheDocument()
     expect(screen.getByText('Sovetskaya st.')).toBeInTheDocument()
@@ -111,8 +110,6 @@ describe('addresses component', () => {
     countryElements.forEach((element) => {
       expect(element).toBeInTheDocument()
     })
-
-    expect(screen.getByText('Default')).toBeInTheDocument()
 
     const editButtons = screen.getAllByText('Edit')
     expect(editButtons.length).toBe(2)

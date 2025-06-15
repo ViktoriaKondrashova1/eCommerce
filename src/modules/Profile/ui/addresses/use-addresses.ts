@@ -1,7 +1,7 @@
-import type { FormDataAddress } from '@/components/Profile/model/types.ts'
+import type { FormDataAddress } from '@/modules/Profile/model/types.ts'
 import { useEffect, useState } from 'react'
-import { profileAdapter } from '@/components/Profile/model/adapter.ts'
 import { customerStore } from '@/entities/customer/model/customer.store.ts'
+import { profileAdapter } from '@/modules/Profile/model/adapter.ts'
 
 export function useAddresses() {
   const [addresses, setAddresses] = useState<FormDataAddress[] | []>([])

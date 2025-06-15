@@ -1,4 +1,4 @@
-import type { Profile } from '@/components/Profile/model/types.ts'
+import type { Profile } from '@/modules/Profile/model/types.ts'
 import { makeAutoObservable } from 'mobx'
 
 class ProfileStore {

@@ -1,4 +1,4 @@
-import type { FormDataAddress } from '@/components/Profile/model/types.ts'
+import type { FormDataAddress } from '@/modules/Profile/model/types.ts'
 import { updateMe } from '@/entities/customer/api/update-me.ts'
 
 export const profileService = {

@@ -1,8 +1,8 @@
 import type { FC } from 'react'
 import { Flex } from 'antd'
-import { AppButton } from '../AppButton'
-import { AppText } from '../AppText/AppText'
-import { AppTitle } from '../AppTitle/AppTitle'
+import { AppButton } from '../../../components/AppButton'
+import { AppText } from '../../../components/AppText/AppText.tsx'
+import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'
 
 interface Props {
   quantity: number

@@ -1,7 +1,7 @@
 import type { LineItem } from '@commercetools/platform-sdk'
-import type { CartDataType } from '@/entities/cart/model/cart.types'
-import { CartTableProduct } from '@/components/CartTableProduct/CartTableProduct'
-import { Incrementer } from '@/components/Incrementer/Incrementer'
+import type { CartDataType } from '@/entities/cart/model/cart.types.ts'
+import { Incrementer } from '@/components/Incrementer/Incrementer.tsx'
+import { CartTableProduct } from '@/modules/Cart/CartTableProduct/CartTableProduct.tsx'
 
 export function adaptCartData(items: LineItem[]): CartDataType[] {
   return items.map((item) => {

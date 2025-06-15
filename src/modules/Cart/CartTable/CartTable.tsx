@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks-extra/no-direct-set-state-in-use-effect */
 import type { TableColumnsType } from 'antd'
 import type { FC } from 'react'
-import type { CartDataType } from '@/entities/cart/model/cart.types'
+import type { CartDataType } from '@/entities/cart/model/cart.types.ts'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Popconfirm, Table, Tooltip } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { updateCart } from '@/entities/cart/api/update-cart'
-import { isNullable } from '@/shared/types/is-nullable'
-import { AppButton } from '../AppButton'
-import { AppEmpty } from '../AppEmpty/AppEmpty'
+import { updateCart } from '@/entities/cart/api/update-cart.ts'
+import { isNullable } from '@/shared/types/is-nullable.ts'
+import { AppButton } from '../../../components/AppButton'
+import { AppEmpty } from '../../../components/AppEmpty/AppEmpty.tsx'
 
 interface Props {
   tableData: CartDataType[] | null

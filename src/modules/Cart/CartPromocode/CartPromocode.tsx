@@ -1,12 +1,12 @@
 import type { FC } from 'react'
 import { Flex } from 'antd'
 import { useState } from 'react'
-import { applyPromoCode } from '@/entities/cart/api/apply-promo-code'
-import { cartStore } from '@/entities/cart/model/cart.store'
-import { AppButton } from '../AppButton'
-import { AppInput } from '../AppInput/AppInput'
-import { AppTitle } from '../AppTitle/AppTitle'
-import { getDiscountCodes } from './get-cart-discount'
+import { applyPromoCode } from '@/entities/cart/api/apply-promo-code.ts'
+import { cartStore } from '@/entities/cart/model/cart.store.ts'
+import { AppButton } from '../../../components/AppButton'
+import { AppInput } from '../../../components/AppInput/AppInput.tsx'
+import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'
+import { getDiscountCodes } from './get-cart-discount.ts'
 
 export const CartPromocode: FC = () => {
   const [promoCode, setPromoCode] = useState<string>('')

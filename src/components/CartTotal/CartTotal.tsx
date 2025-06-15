@@ -1,18 +1,19 @@
+import type { BaseComponent } from '@/shared/types/common.types'
 import type { FC } from 'react'
 import { Flex } from 'antd'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
 
-interface Props {
+export interface Props extends BaseComponent {
   quantity: number
   total: number
   withDiscount: number
 }
 
-export const CartTotal: FC<Props> = ({ quantity, total, withDiscount }) => {
+export const CartTotal: FC<Props> = ({ testId = 'cart-total', quantity, total, withDiscount }) => {
   return (
-    <Flex vertical align="end" style={{ margin: '40px 0 100px 0' }}>
+    <Flex data-testid={testId} vertical align="end" style={{ margin: '40px 0 100px 0' }}>
       <Flex justify="space-between" style={{ width: 250 }}>
         <AppTitle level={5}>Item(s):</AppTitle>
         <AppText>{quantity}</AppText>

@@ -1,23 +1,24 @@
-import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
-import { useEffect, useState } from 'react'
+import type { BaseComponent } from '@/shared/types/common.types'
+import type { FC } from 'react'
 import { updateOrCreateCart } from '@/entities/cart/api/update-or-create-cart'
 import { getProductById } from '@/entities/product/api/fetch-products'
 import { importProductAdapter } from '@/shared/adapters/import/product.adapter'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
 import { isNullable } from '@/shared/types/is-nullable'
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
+import { Flex } from 'antd'
+import { useEffect, useState } from 'react'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 
-interface Props {
+interface Props extends BaseComponent {
   productId: string
   lineItemId?: string
   quantity?: number
 }
 
-export const Incrementer: FC<Props> = ({ quantity = 1, productId, lineItemId }) => {
+export const Incrementer: FC<Props> = ({ testId = 'incrementer-test-id', quantity = 1, productId, lineItemId }) => {
   const [productQuantity, setProductQuantity] = useState<number>(quantity)
   const [product, setProduct] = useState<ICleanProduct | null>(null)
 
@@ -67,7 +68,7 @@ export const Incrementer: FC<Props> = ({ quantity = 1, productId, lineItemId }) 
   }
 
   return (
-    <Flex gap="small" align="center">
+    <Flex data-testid={testId} gap="small" align="center">
       <AppButton
         shape="circle"
         icon={<MinusOutlined />}

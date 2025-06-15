@@ -8,13 +8,12 @@ import { useBreadcrumb } from '@/components/AppBreadcrumb/use-breadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
-import { ProductDescription } from '@/components/ProductDescription/ProductDescription'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { useRelatedProducts } from '@/components/RelatedProducts/use-related-products.ts'
 import { cartStore } from '@/entities/cart/model/cart.store.ts'
 import { categoryStore } from '@/entities/category/model/category.store'
-import { useRelatedProducts } from '@/pages/ProductPage/use-related-products'
+import { ProductDescription, useProductBySlug } from '@/modules/Product'
 import { useCategories } from '../MainPage/use-categories'
-import { useProductBySlug } from './use-product'
 
 export const ProductPage: FC = () => {
   const navigate = useNavigate()

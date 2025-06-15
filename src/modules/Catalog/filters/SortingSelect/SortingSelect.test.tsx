@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it } from 'vitest'
-import { SortingSelect } from './SortingSelect'
+import { SortingSelect } from './SortingSelect.tsx'
 
 describe('sortingSelect', () => {
   const mockOptions = [

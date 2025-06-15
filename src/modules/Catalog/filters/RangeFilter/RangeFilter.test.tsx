@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { RangeFilter } from './RangeFilter'
+import { RangeFilter } from './RangeFilter.tsx'
 
 describe('rangeFilter', () => {
   const mockOnChange = vi.fn()

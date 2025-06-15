@@ -1,7 +1,7 @@
-import type { ICleanProduct } from '@/entities/product/model/product.types'
+import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { ProductDescription } from './ProductDescription'
+import { ProductDescription } from './ProductDescription.tsx'
 
 const mockProduct: ICleanProduct = {
   id: '1',

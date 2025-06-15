@@ -1,11 +1,11 @@
 import type { FC } from 'react'
-import type { ICleanProduct } from '@/entities/product/model/product.types'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Col, Divider, Flex, Row, Space, Tooltip } from 'antd'
-import { AddOrRemoveFormCartButton } from '../AddOrRemoveFormCartButton/AddOrRemoveFormCartButton'
-import { AppText } from '../AppText/AppText'
-import { AppTitle } from '../AppTitle/AppTitle'
-import { ProductImageGallery } from '../ProductImageGallery/ProductImageGallery'
+import { AddOrRemoveFormCartButton } from '@/components/AddOrRemoveFormCartButton/AddOrRemoveFormCartButton.tsx'
+import { AppText } from '@/components/AppText/AppText.tsx'
+import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
+import { ProductImageGallery } from './../ProductImageGallery/ProductImageGallery.tsx'
 import './ProductDescription.scss'
 
 interface Props extends BaseComponent {

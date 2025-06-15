@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { ProductImageGallery } from './ProductImageGallery'
+import { ProductImageGallery } from './ProductImageGallery.tsx'
 
 describe('productImageGallery', () => {
   const mockImages = [

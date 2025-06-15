@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { AppInput } from '@/components/AppInput/AppInput.tsx'
-import { emailValidationRules } from '@/components/LoginForm'
+import { emailValidationRules } from '@/modules/LoginForm/validation.ts'
 import { dateValidationRules, nameValidationRules } from '@/shared/validators/validate.ts'
 
 interface Props {

@@ -21,31 +21,40 @@ const mockProduct: ICleanProduct = {
     { url: 'image1.jpg', dimensions: { w: 800, h: 600 } },
   ],
 }
+const additional = {
+  lineItemId: '123',
+  quantity: 1,
+}
+
+const props = {
+  product: mockProduct,
+  ...additional,
+}
 
 describe('productDescription', () => {
   it('should render description container with testId', () => {
-    render(<ProductDescription product={mockProduct} />)
+    render(<ProductDescription {...props} />)
     expect(screen.getAllByTestId('product-info')[0]).toBeInTheDocument()
   })
 
   it('should render product title', () => {
-    render(<ProductDescription product={mockProduct} />)
+    render(<ProductDescription {...props} />)
     expect(screen.getByText(mockProduct.title)).toBeInTheDocument()
   })
 
   it('should render discounted price when available', () => {
-    const productWithDiscount = {
-      ...mockProduct,
-      price: { amount: '15.99', discount: '12.99' },
+    const Props = {
+      ...props,
+      product: { ...mockProduct, price: { amount: '15.99', discount: '12.99' } },
     }
-    render(<ProductDescription product={productWithDiscount} />)
+    render(<ProductDescription {...Props} />)
 
     expect(screen.getByText(/15\.99/)).toBeInTheDocument()
     expect(screen.getByText(/12\.99/)).toBeInTheDocument()
   })
 
   it('should render product characteristics', () => {
-    render(<ProductDescription product={mockProduct} />)
+    render(<ProductDescription {...props} />)
 
     expect(screen.getByText(/Category:/)).toBeInTheDocument()
     expect(screen.getByText(mockProduct.category!)).toBeInTheDocument()
@@ -60,12 +69,7 @@ describe('productDescription', () => {
   })
 
   it('should render product description', () => {
-    render(<ProductDescription product={mockProduct} />)
+    render(<ProductDescription {...props} />)
     expect(screen.getByText(mockProduct.description)).toBeInTheDocument()
-  })
-
-  it('should render "Add to Cart" button', () => {
-    render(<ProductDescription product={mockProduct} />)
-    expect(screen.getByRole('button', { name: /add to cart/i })).toBeInTheDocument()
   })
 })

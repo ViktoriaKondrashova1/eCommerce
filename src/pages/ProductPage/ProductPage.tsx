@@ -1,4 +1,8 @@
 import type { FC } from 'react'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Flex } from 'antd'
+import { useLayoutEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
 import { useBreadcrumb } from '@/components/AppBreadcrumb/use-breadcrumb'
 import { AppButton } from '@/components/AppButton'
@@ -6,12 +10,9 @@ import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { ProductDescription } from '@/components/ProductDescription/ProductDescription'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { cartStore } from '@/entities/cart/model/cart.store.ts'
 import { categoryStore } from '@/entities/category/model/category.store'
 import { useRelatedProducts } from '@/pages/ProductPage/use-related-products'
-import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
-import { useLayoutEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import { useCategories } from '../MainPage/use-categories'
 import { useProductBySlug } from './use-product'
 
@@ -26,7 +27,7 @@ export const ProductPage: FC = () => {
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
-  })
+  }, [])
 
   const extendedBreadcrumbItems = [
     ...breadcrumbItems.map((item) => {
@@ -59,6 +60,9 @@ export const ProductPage: FC = () => {
   if (!product || !productCategory)
     return <AppSkeleton />
 
+  const lineItemId = cartStore.getProductLineItemId(product.id)
+  const quantity = cartStore.getProductQuantityInCart(product.id)
+
   return (
     <>
       {isLoading
@@ -83,7 +87,7 @@ export const ProductPage: FC = () => {
                     Back To Catalog
                   </AppButton>
                 </Flex>
-                <ProductDescription product={product} />
+                <ProductDescription product={product} lineItemId={lineItemId} quantity={quantity} />
                 <RelatedProducts title="RELATED PRODUCTS" products={relatedProducts} showButton={false} />
               </>
             )}

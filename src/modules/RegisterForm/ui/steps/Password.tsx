@@ -4,7 +4,7 @@ import { Card, Form } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { AppInput } from '@/components/AppInput/AppInput.tsx'
-import { emailValidationRules } from '@/components/LoginForm'
+import { emailValidationRules } from '@/modules/LoginForm/validation.ts'
 import {
   confirmPasswordValidationRules,
   passwordValidationRules,

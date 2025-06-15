@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { PersonalInfo } from './Info'
+import { PersonalInfo } from './Info.tsx'
 
 describe('appPersonalInfo positive', () => {
   it('should render the card personal info and name of fields', () => {

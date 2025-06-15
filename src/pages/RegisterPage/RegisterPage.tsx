@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { AppText } from '@/components/AppText/AppText'
 import { AppTitle } from '@/components/AppTitle/AppTitle'
-import { RegisterContainer } from '@/components/RegisterForm/RegisterContainer'
+import { RegisterContainer } from '@/modules/RegisterForm'
 
 export const RegisterPage: FC = () => {
   return (

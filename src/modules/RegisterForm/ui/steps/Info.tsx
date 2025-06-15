@@ -1,15 +1,15 @@
 import type { Dayjs } from 'dayjs'
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Card, DatePicker, Form } from 'antd'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
-import { AppInput } from '@/components/AppInput/AppInput'
+import { AppInput } from '@/components/AppInput/AppInput.tsx'
 import {
   dateValidationRules,
   nameValidationRules,
 } from '@/shared/validators/validate.ts'
-import { formStore } from '../model/form-store'
+import { formStore } from '../../model/form-store.ts'
 
 interface Props extends BaseComponent {}
 

@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
-import { Billing } from '@/components/RegisterForm/steps/Billing'
-import { Passwords } from '@/components/RegisterForm/steps/Password'
-import { Shipping } from '@/components/RegisterForm/steps/Shipping'
-import { PersonalInfo } from './Info'
+import { Billing } from '@/modules/RegisterForm/ui/steps/Billing.tsx'
+import { Passwords } from '@/modules/RegisterForm/ui/steps/Password.tsx'
+import { Shipping } from '@/modules/RegisterForm/ui/steps/Shipping.tsx'
+import { PersonalInfo } from './Info.tsx'
 
 export const steps: { title?: string, content: ReactNode }[] = [
   {

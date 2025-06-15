@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { Passwords } from './Password'
+import { Passwords } from './Password.tsx'
 
 describe('appPasswords positive', () => {
   it('should render the card passwords and name of fields', () => {

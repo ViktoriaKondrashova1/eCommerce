@@ -1,15 +1,15 @@
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types'
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Card, Form } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
-import { AppInput } from '@/components/AppInput/AppInput'
+import { AppInput } from '@/components/AppInput/AppInput.tsx'
 import { emailValidationRules } from '@/components/LoginForm'
 import {
   confirmPasswordValidationRules,
   passwordValidationRules,
 } from '@/shared/validators/validate.ts'
-import { formStore } from '../model/form-store'
+import { formStore } from '../../model/form-store.ts'
 
 interface Props extends BaseComponent {}
 

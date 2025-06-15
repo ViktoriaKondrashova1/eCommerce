@@ -1,9 +1,9 @@
-import type { AddressWithCustomFields } from '@/components/RegisterForm/model/form-store.ts'
+import type { AddressWithCustomFields } from '@/modules/RegisterForm/model/form-store.ts'
 import { Card, Checkbox, Col, Form, Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
-import { AppInput } from '@/components/AppInput/AppInput'
-import { useRegisterFormContext } from '@/components/RegisterForm/model/registration-form-context'
+import { AppInput } from '@/components/AppInput/AppInput.tsx'
+import { useRegisterFormContext } from '@/modules/RegisterForm/model/registration-form-context.tsx'
 import { isNonNullable } from '@/shared/types/is-non-nullable.ts'
 import { countries } from '@/shared/validators/countries.ts'
 import {

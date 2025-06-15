@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import { formStore } from '../model/form-store'
-import { AddressFields } from './Addresses'
+import { formStore } from '../../model/form-store.ts'
+import { AddressFields } from './Addresses.tsx'
 
 export const Shipping = observer(() => {
   return (

@@ -1,10 +1,10 @@
 import type { ICleanProduct } from '@/entities/product/model/product.types'
+import { categoryStore } from '@/entities/category/model/category.store'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { vi } from 'vitest'
-import { categoryStore } from '@/entities/category/model/category.store'
+import { useProductBySlug } from './../../modules/Product/hooks/use-product.ts'
 import { ProductPage } from './ProductPage'
-import { useProductBySlug } from './use-product'
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom')
@@ -16,7 +16,7 @@ vi.mock('react-router-dom', async () => {
   }
 })
 
-vi.mock('./use-product')
+vi.mock('./../../modules/Product/hooks/use-product')
 
 describe('productPage', () => {
   const mockNavigate = vi.fn()
@@ -94,6 +94,7 @@ describe('productPage', () => {
       </MemoryRouter>,
     )
 
+    expect(screen.getByText('Back To Catalog')).toBeInTheDocument()
     fireEvent.click(screen.getByText('Back To Catalog'))
     expect(mockNavigate).toHaveBeenCalledWith('/catalog/1')
   })

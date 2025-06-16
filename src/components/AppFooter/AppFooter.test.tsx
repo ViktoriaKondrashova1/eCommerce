@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { theme } from '@/shared/configs/theme'
-import { appName } from '@/shared/constants'
-import { AppFooter } from './AppFooter'
+import { theme } from '@/shared/configs/theme.ts'
+import { appName } from '@/shared/constants.ts'
+import { AppFooter } from './AppFooter.tsx'
 
 describe('appFooter positive', () => {
   it('should render the footer, title and developers list', () => {

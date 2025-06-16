@@ -1,5 +1,5 @@
 import type { Category, ClientResponse, ProductProjection, ProductProjectionPagedQueryResponse, QueryParam } from '@commercetools/platform-sdk'
-import type { IFilterForm } from '@/pages/CatalogPage/use-filter-form'
+import type { IFilterForm } from '@/modules/Catalog/hooks/use-filter-form.ts'
 import { categoryStore } from '@/entities/category/model/category.store'
 import { commerceApi } from '@/shared/configs/commerce-client'
 import { catalogPageLimit } from '@/shared/constants'

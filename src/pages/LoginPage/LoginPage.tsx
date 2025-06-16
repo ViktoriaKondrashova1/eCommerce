@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AppText } from '@/components/AppText/AppText'
 import { AppTitle } from '@/components/AppTitle/AppTitle'
 import { Backdrop } from '@/components/Backdrop/Backdrop'
-import { LoginForm } from '@/components/LoginForm/LoginForm'
+import { LoginForm } from '@/modules/LoginForm/LoginForm'
 
 export const LoginPage: FC = () => {
   return (

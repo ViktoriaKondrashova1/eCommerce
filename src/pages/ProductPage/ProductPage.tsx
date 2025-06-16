@@ -1,19 +1,18 @@
 import type { FC } from 'react'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Flex } from 'antd'
+import { useLayoutEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
 import { useBreadcrumb } from '@/components/AppBreadcrumb/use-breadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
-import { ProductDescription } from '@/components/ProductDescription/ProductDescription'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { useRelatedProducts } from '@/components/RelatedProducts/use-related-products.ts'
 import { categoryStore } from '@/entities/category/model/category.store'
-import { useRelatedProducts } from '@/pages/ProductPage/use-related-products'
-import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
-import { useLayoutEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { ProductDescription, useProductBySlug } from '@/modules/Product'
 import { useCategories } from '../MainPage/use-categories'
-import { useProductBySlug } from './use-product'
 
 export const ProductPage: FC = () => {
   const navigate = useNavigate()
@@ -26,7 +25,7 @@ export const ProductPage: FC = () => {
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
-  })
+  }, [])
 
   const extendedBreadcrumbItems = [
     ...breadcrumbItems.map((item) => {

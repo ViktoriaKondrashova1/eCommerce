@@ -1,4 +1,4 @@
-import { Profile } from '@/components/Profile'
+import { Profile } from '@/modules/Profile'
 
 export function UserProfilePage() {
   return <Profile />

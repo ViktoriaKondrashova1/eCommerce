@@ -7,16 +7,13 @@ import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
 import { AppTitle } from '@/components/AppTitle/AppTitle'
-import { CartPromocode } from '@/components/CartPromocode/CartPromocode'
-import { CartTable } from '@/components/CartTable/CartTable'
-import { CartTotal } from '@/components/CartTotal/CartTotal'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
 import { clearCart } from '@/entities/cart/api/clear-cart'
 import { cartStore } from '@/entities/cart/model/cart.store'
 import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
+import { adaptCartData, CartPromocode, CartTable, CartTotal } from '@/modules/Cart'
 import { useRequest } from '@/shared/hooks/use-request'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
-import { adaptCartData } from './adapt-cart-data'
 
 export const CartPage: FC = observer(() => {
   const {

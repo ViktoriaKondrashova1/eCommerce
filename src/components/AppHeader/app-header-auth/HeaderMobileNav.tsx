@@ -1,11 +1,12 @@
 import type { MenuItem } from '@/components/AppHeader/types'
-import { MenuOutlined } from '@ant-design/icons'
-import { Divider, Drawer, Flex } from 'antd'
+import { MenuOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { Badge, Divider, Drawer, Flex } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppButton } from '@/components/AppButton'
 import { HeaderMenu } from '@/components/AppHeader/HeaderMenu/HeaderMenu'
+import { cartStore } from '@/entities/cart/model/cart.store.ts'
 import { customerStore } from '@/entities/customer/model/customer.store'
 import { ROUTES } from '@/shared/constants'
 
@@ -17,7 +18,6 @@ export const HeaderMobileNav = observer(() => {
     { key: ROUTES.main, label: 'MAIN' },
     { key: ROUTES.about, label: 'ABOUT' },
     { key: ROUTES.catalog.default, label: 'CATALOG' },
-    { key: ROUTES.cart, label: 'CART' },
   ]
 
   const profileMenuItems: MenuItem[] = [
@@ -36,13 +36,15 @@ export const HeaderMobileNav = observer(() => {
     setIsDrawerOpen(false)
   }
 
+  const handleClickCart = () => {
+    navigate(ROUTES.cart)
+    onClose()
+  }
   return (
     <Flex>
 
-      {/* hamburger */}
       <AppButton variant="text" color="default" icon={<MenuOutlined />} onClick={showDrawer} />
 
-      {/* drawer */}
       <Drawer
         onClose={onClose}
         open={isDrawerOpen}
@@ -52,6 +54,11 @@ export const HeaderMobileNav = observer(() => {
       >
         <Flex vertical>
           <HeaderMenu items={menuItems} align="column" itemStyles={{ minWidth: '100%' }} onItemClick={onClose} />
+
+          <AppButton color="default" variant="text" icon={<ShoppingCartOutlined style={{ fontSize: '18px' }} />} onClick={handleClickCart}>
+            <Badge showZero size="small" count={cartStore.cart?.totalLineItemQuantity ?? 0} />
+          </AppButton>
+
           <Divider />
 
           <HeaderMenu items={profileMenuItems} align="column" itemStyles={{ minWidth: '100%' }} onItemClick={onClose} />

@@ -1,0 +1,26 @@
+.cart-total {
+  @media (max-width: 768px) {
+    max-width: 250px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.cart-total-row {
+  width: 250px;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    max-width: 250px;
+    width: 100%;
+  }
+}
+
+.button-checkout {
+  width: 250px;
+  @media (max-width: 768px) {
+    max-width: 250px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+}

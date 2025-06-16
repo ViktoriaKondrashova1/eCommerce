@@ -26,5 +26,6 @@ export default defineConfig({
         drop_console: true,
       },
     },
+
   },
 })

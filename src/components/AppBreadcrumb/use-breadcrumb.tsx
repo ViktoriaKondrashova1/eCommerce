@@ -1,8 +1,8 @@
 import type { CustomBreadcrumbItem } from './AppBreadcrumb'
+import { categoryStore } from '@/entities/category/model/category.store'
 import { HomeOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { categoryStore } from '@/entities/category/model/category.store'
+import { Link, useParams } from 'react-router-dom'
 
 export function useBreadcrumb() {
   const params = useParams()
@@ -12,16 +12,15 @@ export function useBreadcrumb() {
     const baseItems: CustomBreadcrumbItem[] = [
       {
         key: 'home',
-        href: '/',
         title: (
-          <>
+          <Link to="/">
             <HomeOutlined />
             <span>Home</span>
-          </>
+          </Link>
         ),
       },
       params.categorySlug !== undefined
-        ? { key: 'catalog', href: '/catalog/1', title: 'Catalog' }
+        ? { key: 'catalog', title: <Link to="/catalog/1">Catalog</Link> }
         : { key: 'catalog', title: 'Catalog' },
     ]
 

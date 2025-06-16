@@ -1,47 +1,58 @@
 import type { FC } from 'react'
-import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
-import { useLayoutEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
+import { useBreadcrumb } from '@/components/AppBreadcrumb/use-breadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
-import { ProductDescription } from '@/components/ProductDescription/ProductDescription'
 import { RelatedProducts } from '@/components/RelatedProducts/RelatedProducts'
+import { useRelatedProducts } from '@/components/RelatedProducts/use-related-products.ts'
 import { categoryStore } from '@/entities/category/model/category.store'
-import { useRelatedProducts } from '@/pages/ProductPage/use-related-products'
+import { ProductDescription, useProductBySlug } from '@/modules/Product'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Flex } from 'antd'
+import { useLayoutEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useCategories } from '../MainPage/use-categories'
-import { useProductBySlug } from './use-product'
 
 export const ProductPage: FC = () => {
   const navigate = useNavigate()
-
   useCategories()
-
   const { product, isLoading, isError } = useProductBySlug()
-
   const productCategory = (categoryStore.getCategoryByName(product?.category ?? ''))
-
   const { title = '', category = '' } = product || {}
-
   const { relatedProducts } = useRelatedProducts(title, category)
+  const { breadcrumbItems } = useBreadcrumb()
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
-  })
+  }, [])
 
-  const breadcrumbItems = [
-    { key: 'home', href: '/', title:
-      (
-        <>
-          <HomeOutlined />
-          <span>Home</span>
-        </>
-      ) },
-    { key: 'catalog', href: '/catalog/1', title: (<span>Catalog</span>) },
-    { key: 'category', href: `/catalog/category/${productCategory?.slug['en-US']}`, title: (<span>{productCategory?.name['en-US']}</span>) },
-    { key: 'product', title: (<span>{product?.title}</span>) },
+  const extendedBreadcrumbItems = [
+    ...breadcrumbItems.map((item) => {
+      if (item.key === 'catalog') {
+        return {
+          ...item,
+          title: <Link to="/catalog/1">Catalog</Link>,
+        }
+      }
+      return item
+    }),
+    ...(productCategory
+      ? [
+          {
+            key: 'category',
+            title: (
+              <Link to={`/catalog/category/${productCategory.slug['en-US']}`}>
+                {productCategory.name['en-US']}
+              </Link>
+            ),
+          },
+        ]
+      : []),
+    {
+      key: 'product',
+      title: <span>{product?.title}</span>,
+    },
   ]
 
   if (!product || !productCategory)
@@ -60,7 +71,7 @@ export const ProductPage: FC = () => {
           : (
               <>
                 <Flex justify="space-between" style={{ marginBottom: '40px' }}>
-                  <AppBreadcrumb items={breadcrumbItems} />
+                  <AppBreadcrumb items={extendedBreadcrumbItems} />
                   <AppButton
                     type="text"
                     icon={<ArrowLeftOutlined />}
@@ -72,7 +83,7 @@ export const ProductPage: FC = () => {
                   </AppButton>
                 </Flex>
                 <ProductDescription product={product} />
-                <RelatedProducts title="Related products" products={relatedProducts} showButton={false} />
+                <RelatedProducts title="RELATED PRODUCTS" products={relatedProducts} showButton={false} />
               </>
             )}
     </>

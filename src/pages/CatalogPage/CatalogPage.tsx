@@ -1,23 +1,28 @@
 import type { FC } from 'react'
-import { FilterOutlined } from '@ant-design/icons'
-import { Flex, Grid } from 'antd'
-import { useEffect, useState } from 'react'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
-import { CatalogPagination } from '@/components/CatalogPagination/CatalogPagination'
-import { CatalogSearch } from '@/components/CatalogSearch/CatalogSearch'
-import { CatalogSidebar } from '@/components/CatalogSidebar/CatalogSidebar'
-import { CategoriesNavigation } from '@/components/CategoriesNavigation/CategoriesNavigation'
-import { ProductList } from '@/components/ProductList/ProductList'
-import { useCatalogPage } from '@/pages/CatalogPage/use-catalog-page.ts'
-import { useFilterForm } from '@/pages/CatalogPage/use-filter-form'
-import { useProducts } from '@/pages/CatalogPage/use-products.ts'
-import { useSearch } from '@/pages/CatalogPage/use-search.ts'
+import {
+  CatalogPagination,
+  CatalogSearch,
+  CatalogSidebar,
+  CategoriesNavigation,
+  ProductList,
+
+  useCatalogPage,
+  useCategoriesNav,
+  useFilterForm,
+  useProducts,
+  useSearch,
+} from '@/modules/Catalog'
 import { catalogPageLimit } from '@/shared/constants'
+import { FilterOutlined } from '@ant-design/icons'
+
+import { Flex, Grid } from 'antd'
+import { useEffect, useState } from 'react'
+
 import { useCategories } from '../MainPage/use-categories'
-import { useCategoriesNav } from './use-categories-nav'
 
 const { useBreakpoint } = Grid
 

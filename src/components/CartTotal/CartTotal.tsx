@@ -4,6 +4,7 @@ import { Flex } from 'antd'
 import { AppButton } from '../AppButton'
 import { AppText } from '../AppText/AppText'
 import { AppTitle } from '../AppTitle/AppTitle'
+import './CartTotal.scss'
 
 export interface Props extends BaseComponent {
   quantity: number
@@ -13,12 +14,12 @@ export interface Props extends BaseComponent {
 
 export const CartTotal: FC<Props> = ({ testId = 'cart-total', quantity, total, withDiscount }) => {
   return (
-    <Flex data-testid={testId} vertical align="end" style={{ margin: '40px 0 100px 0' }}>
-      <Flex justify="space-between" style={{ width: 250 }}>
+    <Flex data-testid={testId} className="cart-total" vertical align="end" style={{ margin: '40px 0 100px 0' }}>
+      <Flex className="cart-total-row">
         <AppTitle level={5}>Item(s):</AppTitle>
         <AppText>{quantity}</AppText>
       </Flex>
-      <Flex justify="space-between" style={{ width: 250 }}>
+      <Flex className="cart-total-row">
         <AppTitle level={5}>Total:</AppTitle>
         {
           withDiscount > 0
@@ -42,7 +43,7 @@ export const CartTotal: FC<Props> = ({ testId = 'cart-total', quantity, total, w
               )
         }
       </Flex>
-      <AppButton type="primary" style={{ width: 250, marginTop: 20 }}>Checkout</AppButton>
+      <AppButton className="button-checkout" type="primary">Checkout</AppButton>
     </Flex>
   )
 }

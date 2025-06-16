@@ -58,7 +58,6 @@ describe('cartPage', () => {
 
     const headerSection = screen.getByText('CART').parentElement
     expect(headerSection).toHaveStyle('display: flex')
-    expect(headerSection).toHaveStyle('justify-content: space-between')
   })
 
   it('should have proper spacing between sections', () => {

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppButton } from '../AppButton'
 import { AppEmpty } from '../AppEmpty/AppEmpty'
+import './CartTable.scss'
 
 interface Props extends BaseComponent {
   tableData: CartDataType[] | null
@@ -62,6 +63,7 @@ export const CartTable: FC<Props> = ({ testId = 'cart-table', tableData }) => {
 
   return (
     <Table<CartDataType>
+      className="cart-table"
       data-testid={testId}
       columns={columns}
       dataSource={dataSource ?? []}

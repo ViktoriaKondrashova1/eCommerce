@@ -1,8 +1,5 @@
-import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types'
-import { ClearOutlined } from '@ant-design/icons'
-import { Flex, Popconfirm } from 'antd'
-import { observer } from 'mobx-react-lite'
+import type { FC } from 'react'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
@@ -16,7 +13,11 @@ import { cartStore } from '@/entities/cart/model/cart.store'
 import { getFourRandomProducts } from '@/entities/product/api/get-four-random-products'
 import { useRequest } from '@/shared/hooks/use-request'
 import { isNonNullable } from '@/shared/types/is-non-nullable'
+import { ClearOutlined } from '@ant-design/icons'
+import { Flex, Popconfirm } from 'antd'
+import { observer } from 'mobx-react-lite'
 import { adaptCartData } from './adapt-cart-data'
+import './CartPage.scss'
 
 export const CartPage: FC = observer(() => {
   const {
@@ -42,10 +43,11 @@ export const CartPage: FC = observer(() => {
 
   return (
     <Flex vertical style={{ width: '80%', margin: 'auto' }}>
-      <Flex justify="space-between">
+      <Flex className="cart-page">
         <AppTitle level={2}>CART</AppTitle>
         <Popconfirm title="Your shopping cart will be emptied. Continue?" onConfirm={handleClearCart}>
           <AppButton
+            className="clear-cart-button"
             type="primary"
             icon={<ClearOutlined />}
           >

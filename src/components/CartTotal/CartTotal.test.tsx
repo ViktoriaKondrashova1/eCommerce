@@ -64,9 +64,5 @@ describe('cartTotal', () => {
     const container = screen.getByTestId('cart-total')
     expect(container).toHaveStyle('margin: 40px 0 100px 0')
     expect(container).toHaveStyle('align-items: end')
-
-    const checkoutButton = screen.getByRole('button', { name: 'Checkout' })
-    expect(checkoutButton).toHaveStyle('width: 250px')
-    expect(checkoutButton).toHaveStyle('margin-top: 20px')
   })
 })

@@ -1,0 +1,12 @@
+.cart-page {
+  justify-content: space-between;
+  margin-bottom: 10px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.clear-cart-button {
+  max-width: 180px;
+  width: 100%;
+}

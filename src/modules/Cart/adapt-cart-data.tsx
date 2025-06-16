@@ -1,5 +1,5 @@
-import type { LineItem } from '@commercetools/platform-sdk'
 import type { CartDataType } from '@/entities/cart/model/cart.types.ts'
+import type { LineItem } from '@commercetools/platform-sdk'
 import { Incrementer } from '@/components/Incrementer/Incrementer.tsx'
 import { CartTableProduct } from '@/modules/Cart/CartTableProduct/CartTableProduct.tsx'
 

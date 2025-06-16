@@ -1,10 +1,10 @@
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import type { ItemType } from 'antd/es/menu/interface'
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types.ts'
-import { Flex, Grid, Layout, List, Menu, Typography } from 'antd'
-import { useNavigate } from 'react-router-dom'
 import { theme } from '@/shared/configs/theme.ts'
 import { appName } from '@/shared/constants.ts'
+import { Flex, Grid, Layout, List, Menu, Typography } from 'antd'
+import { useNavigate } from 'react-router-dom'
 import { AppTitle } from '../AppTitle/AppTitle'
 import './AppFooter.scss'
 

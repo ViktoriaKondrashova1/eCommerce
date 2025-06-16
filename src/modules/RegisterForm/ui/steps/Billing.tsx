@@ -1,7 +1,7 @@
+import { AppText } from '@/components/AppText/AppText.tsx'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { Form, Switch } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { AppText } from '@/components/AppText/AppText.tsx'
 import { formStore } from '../../model/form-store.ts'
 import { AddressFields } from './Addresses.tsx'
 

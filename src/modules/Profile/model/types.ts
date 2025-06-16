@@ -1,6 +1,6 @@
+import type { AddressWithCustomFields } from '@/modules/RegisterForm/model/form-store.ts'
 import type { Customer, CustomerSignInResult } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
-import type { AddressWithCustomFields } from '@/modules/RegisterForm/model/form-store.ts'
 
 export type Profile = CustomerSignInResult['customer']
 export type FormMode = 'view' | 'edit'

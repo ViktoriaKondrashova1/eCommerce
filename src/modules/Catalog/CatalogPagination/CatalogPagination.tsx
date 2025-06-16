@@ -1,5 +1,5 @@
-import type { FC } from 'react'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
+import type { FC } from 'react'
 import { Pagination } from 'antd'
 
 interface Props extends BaseComponent {

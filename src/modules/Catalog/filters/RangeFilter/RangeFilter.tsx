@@ -1,6 +1,6 @@
-import type { FC } from 'react'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
 import type { Tuple } from '@/shared/types/tuple.ts'
+import type { FC } from 'react'
 
 import { Flex, InputNumber, Slider, Space } from 'antd'
 import { AppTitle } from '../../../../components/AppTitle/AppTitle.tsx'

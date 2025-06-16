@@ -1,11 +1,11 @@
+import type { StateSecurity } from '@/modules/Profile/model/types.ts'
 import type { FormInstance } from 'antd'
 import type { FC } from 'react'
-import type { StateSecurity } from '@/modules/Profile/model/types.ts'
+import { AppInput } from '@/components/AppInput/AppInput.tsx'
+import { confirmPasswordValidationRules, passwordValidationRules } from '@/shared/validators/validate.ts'
 import { LockOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
 import { useEffect } from 'react'
-import { AppInput } from '@/components/AppInput/AppInput.tsx'
-import { confirmPasswordValidationRules, passwordValidationRules } from '@/shared/validators/validate.ts'
 
 interface Props {
   data: StateSecurity

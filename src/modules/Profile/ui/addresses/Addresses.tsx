@@ -1,10 +1,6 @@
+import type { FormDataAddress } from '@/modules/Profile/model/types.ts'
 import type { ErrorResponse } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
-import type { FormDataAddress } from '@/modules/Profile/model/types.ts'
-import { DeleteOutlined, EditOutlined, EnvironmentOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Card, Checkbox, Col, Form, List, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from 'antd'
-import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
 import { AppButton } from '@/components/AppButton'
 import { AppInput } from '@/components/AppInput/AppInput.tsx'
 import { AppText } from '@/components/AppText/AppText.tsx'
@@ -21,6 +17,10 @@ import {
   countryValidationRules,
   postalCodeValidationRules,
 } from '@/shared/validators/validate.ts'
+import { DeleteOutlined, EditOutlined, EnvironmentOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Card, Checkbox, Col, Form, List, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from 'antd'
+import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
 
 interface Props {}
 

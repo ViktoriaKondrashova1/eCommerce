@@ -1,6 +1,6 @@
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import type { SelectProps } from 'antd'
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Select } from 'antd'
 import { useEffect, useState } from 'react'
 import './SortingSelect.scss'

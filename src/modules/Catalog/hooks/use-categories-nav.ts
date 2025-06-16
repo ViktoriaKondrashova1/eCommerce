@@ -1,9 +1,9 @@
 import type { Category } from '@commercetools/platform-sdk'
 import type { RadioChangeEvent } from 'antd'
-import { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getAllCategories } from '@/entities/category/api/get-all-categories.ts'
 import { useNotify } from '@/shared/hooks/use-notify.tsx'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 export function useCategoriesNav() {
   const [categories, setCategories] = useState<Category[]>([])

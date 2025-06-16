@@ -1,5 +1,5 @@
-import type { FC } from 'react'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
+import type { FC } from 'react'
 import { SearchOutlined } from '@ant-design/icons'
 import { Flex, Input } from 'antd'
 import { AppTitle } from '../../../../components/AppTitle/AppTitle.tsx'

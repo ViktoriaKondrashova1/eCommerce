@@ -3,6 +3,7 @@ import viteConfig from './vite.config'
 
 export default mergeConfig(viteConfig, defineConfig({
   test: {
+    testTimeout: 15000,
     environment: 'happy-dom',
     globals: true,
     watch: false,

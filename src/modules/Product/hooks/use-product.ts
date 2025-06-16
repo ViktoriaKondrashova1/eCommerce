@@ -1,8 +1,8 @@
 import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { fetchProductBySlug } from '@/entities/product/api/fetch-products.ts'
 import { importProductAdapter } from '@/shared/adapters/import/product.adapter.ts'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 export function useProductBySlug() {
   const { slug } = useParams()

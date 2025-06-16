@@ -1,10 +1,10 @@
-import type { Category } from '@commercetools/platform-sdk'
 import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
 import type { IFilterForm } from '@/modules/Catalog/hooks/use-filter-form.ts'
-import { useCallback } from 'react'
+import type { Category } from '@commercetools/platform-sdk'
 import { fetchProducts } from '@/entities/product/api/fetch-products.ts'
 import { importProductAdapter } from '@/shared/adapters/import/product.adapter.ts'
 import { useRequest } from '@/shared/hooks/use-request.ts'
+import { useCallback } from 'react'
 
 interface Props {
   currentPage: number

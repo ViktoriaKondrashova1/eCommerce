@@ -1,5 +1,5 @@
-import type { FC } from 'react'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
+import type { FC } from 'react'
 import { Grid, Space } from 'antd'
 import { AppText } from '../../../components/AppText/AppText.tsx'
 import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'

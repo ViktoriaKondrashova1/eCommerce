@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { steps } from '@/modules/RegisterForm/ui/steps/steps-constructor.tsx'
+import { useState } from 'react'
 
 export function useSteps() {
   const [currentStep, setCurrentStep] = useState<number>(0)

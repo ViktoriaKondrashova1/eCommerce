@@ -1,9 +1,9 @@
 import type { AddressDraft, MyCustomerDraft } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
+import { registerCustomer } from '@/entities/customer/api/sign-up.ts'
 import dayjs from 'dayjs'
 import { makeAutoObservable } from 'mobx'
 import { nanoid } from 'nanoid'
-import { registerCustomer } from '@/entities/customer/api/sign-up.ts'
 
 export interface AddressWithCustomFields extends Omit<AddressDraft, 'custom'> {
   custom: {

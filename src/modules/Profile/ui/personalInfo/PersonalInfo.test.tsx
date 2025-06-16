@@ -1,7 +1,7 @@
+import { PersonalInfo } from '@/modules/Profile/ui/personalInfo/PersonalInfo.tsx'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { PersonalInfo } from '@/modules/Profile/ui/personalInfo/PersonalInfo.tsx'
 
 vi.mock('@/entities/customer/model/customer.store', () => ({
   customerStore: {

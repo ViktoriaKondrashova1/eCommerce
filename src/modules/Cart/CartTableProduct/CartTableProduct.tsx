@@ -1,14 +1,15 @@
+import type { ICleanProduct } from '@/entities/product/model/product.types'
 import type { FC } from 'react'
-import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
+import { getProductById } from '@/entities/product/api/fetch-products'
+import { importProductAdapter } from '@/shared/adapters/import/product.adapter'
+import { isNullable } from '@/shared/types/is-nullable'
 import { Flex, Image } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getProductById } from '@/entities/product/api/fetch-products.ts'
-import { importProductAdapter } from '@/shared/adapters/import/product.adapter.ts'
-import { isNullable } from '@/shared/types/is-nullable.ts'
 import { AppEmpty } from '../../../components/AppEmpty/AppEmpty.tsx'
 import { AppText } from '../../../components/AppText/AppText.tsx'
 import { AppTitle } from '../../../components/AppTitle/AppTitle.tsx'
+import './CartTableProduct.scss'
 
 interface Props {
   productId: string
@@ -39,7 +40,7 @@ export const CartTableProduct: FC<Props> = ({ productId }) => {
   const firstImage = product.images?.[0]
 
   return (
-    <Flex gap="middle">
+    <Flex className="cart-table-prduct" gap="middle">
       {firstImage && (
         <Image width={100} height={150} src={firstImage.url} />
       )}

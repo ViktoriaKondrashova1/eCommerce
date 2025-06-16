@@ -1,17 +1,12 @@
+import type { FormMode, StatePersonalInfo } from '@/modules/Profile/model/types.ts'
 import type { ErrorResponse } from '@commercetools/platform-sdk'
 import type { Dayjs } from 'dayjs'
 import type { FC } from 'react'
-import type { FormMode, StatePersonalInfo } from '@/modules/Profile/model/types.ts'
-import { EditOutlined } from '@ant-design/icons'
-import { Flex, Form } from 'antd'
-import { observer } from 'mobx-react-lite'
-import { useEffect, useState } from 'react'
-
-import { useParams } from 'react-router-dom'
 import { AppButton } from '@/components/AppButton'
 import { customerStore } from '@/entities/customer/model/customer.store.ts'
 import { globalStore } from '@/entities/global/model/global.store.ts'
 import { profileAdapter } from '@/modules/Profile/model/adapter.ts'
+
 import { profileService } from '@/modules/Profile/model/service.ts'
 import { PersonalInfoEdit } from '@/modules/Profile/ui/personalInfo/PersonalInfoEdit.tsx'
 import { PersonalInfoView } from '@/modules/Profile/ui/personalInfo/PersonalInfoView.tsx'
@@ -19,6 +14,11 @@ import { useNotify } from '@/shared/hooks/use-notify.tsx'
 import { isNonNullable } from '@/shared/types/is-non-nullable.ts'
 import { isNullable } from '@/shared/types/is-nullable.ts'
 import { isType } from '@/shared/types/is-type.ts'
+import { EditOutlined } from '@ant-design/icons'
+import { Flex, Form } from 'antd'
+import { observer } from 'mobx-react-lite'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 interface Props {}
 

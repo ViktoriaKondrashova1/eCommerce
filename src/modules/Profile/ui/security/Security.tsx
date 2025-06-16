@@ -1,9 +1,6 @@
+import type { StateSecurity } from '@/modules/Profile/model/types.ts'
 import type { ErrorResponse } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
-import type { StateSecurity } from '@/modules/Profile/model/types.ts'
-import { Divider, Flex, Form } from 'antd'
-import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
 import { AppButton } from '@/components/AppButton'
 import { AppText } from '@/components/AppText/AppText.tsx'
 import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
@@ -13,6 +10,9 @@ import { globalStore } from '@/entities/global/model/global.store.ts'
 import { SecurityForm } from '@/modules/Profile/ui/security/SecurityForm.tsx'
 import { useNotify } from '@/shared/hooks/use-notify.tsx'
 import { isType } from '@/shared/types/is-type.ts'
+import { Divider, Flex, Form } from 'antd'
+import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
 
 interface Props {}
 

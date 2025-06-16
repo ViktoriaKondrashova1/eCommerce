@@ -1,14 +1,14 @@
+import type { StatePersonalInfo } from '@/modules/Profile/model/types.ts'
 import type { FormInstance } from 'antd'
 import type { Dayjs } from 'dayjs'
 import type { FC } from 'react'
-import type { StatePersonalInfo } from '@/modules/Profile/model/types.ts'
+import { AppInput } from '@/components/AppInput/AppInput.tsx'
+import { emailValidationRules } from '@/modules/LoginForm/validation.ts'
+import { dateValidationRules, nameValidationRules } from '@/shared/validators/validate.ts'
 import { DatePicker, Form } from 'antd'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
-import { AppInput } from '@/components/AppInput/AppInput.tsx'
-import { emailValidationRules } from '@/modules/LoginForm/validation.ts'
-import { dateValidationRules, nameValidationRules } from '@/shared/validators/validate.ts'
 
 interface Props {
   data: StatePersonalInfo

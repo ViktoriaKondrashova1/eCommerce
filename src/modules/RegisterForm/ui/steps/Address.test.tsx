@@ -1,9 +1,9 @@
 import type { AddressWithCustomFields } from '@/modules/RegisterForm/model/form-store.ts'
+import { RegisterFormProvider } from '@/modules/RegisterForm/model/registration-form-context.tsx'
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { Form } from 'antd'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
-import { RegisterFormProvider } from '@/modules/RegisterForm/model/registration-form-context.tsx'
 import { AddressFields } from './Addresses.tsx'
 
 describe('appAddressFields positive', () => {

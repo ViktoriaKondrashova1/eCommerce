@@ -1,7 +1,4 @@
 import type { AddressWithCustomFields } from '@/modules/RegisterForm/model/form-store.ts'
-import { Card, Checkbox, Col, Form, Row, Select } from 'antd'
-import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
 import { AppInput } from '@/components/AppInput/AppInput.tsx'
 import { useRegisterFormContext } from '@/modules/RegisterForm/model/registration-form-context.tsx'
 import { isNonNullable } from '@/shared/types/is-non-nullable.ts'
@@ -12,6 +9,9 @@ import {
   postalCodeDependOnAddressValidationRules,
   streetValidationRules,
 } from '@/shared/validators/validate.ts'
+import { Card, Checkbox, Col, Form, Row, Select } from 'antd'
+import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
 
 export const AddressFields = observer(
   ({

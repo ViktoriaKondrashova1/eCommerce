@@ -1,6 +1,6 @@
-import type { FC } from 'react'
 import type { ICleanProduct } from '@/entities/product/model/product.types.ts'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
+import type { FC } from 'react'
 import { Col, Row } from 'antd'
 import { ProductCard } from '../../../components/ProductCard/ProductCard.tsx'
 import './ProductList.scss'

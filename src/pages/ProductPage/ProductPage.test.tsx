@@ -1,8 +1,8 @@
 import type { ICleanProduct } from '@/entities/product/model/product.types'
+import { categoryStore } from '@/entities/category/model/category.store'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { vi } from 'vitest'
-import { categoryStore } from '@/entities/category/model/category.store'
 import { useProductBySlug } from './../../modules/Product/hooks/use-product.ts'
 import { ProductPage } from './ProductPage'
 

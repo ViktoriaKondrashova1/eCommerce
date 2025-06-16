@@ -1,7 +1,4 @@
 import type { ErrorResponse } from '@commercetools/platform-sdk'
-import { Flex, Form, Grid, Steps } from 'antd'
-import { observer } from 'mobx-react-lite'
-import { useNavigate } from 'react-router-dom'
 import { fetchMe } from '@/entities/customer/api/fetch-me.ts'
 import { loginCustomer } from '@/entities/customer/api/sign-in.ts'
 import { customerStore } from '@/entities/customer/model/customer.store.ts'
@@ -17,6 +14,9 @@ import { ROUTES } from '@/shared/constants.ts'
 import { useNotify } from '@/shared/hooks/use-notify.tsx'
 import { isNonNullable } from '@/shared/types/is-non-nullable.ts'
 import { isType } from '@/shared/types/is-type.ts'
+import { Flex, Form, Grid, Steps } from 'antd'
+import { observer } from 'mobx-react-lite'
+import { useNavigate } from 'react-router-dom'
 
 const { useBreakpoint } = Grid
 

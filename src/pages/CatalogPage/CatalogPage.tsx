@@ -1,12 +1,8 @@
 import type { FC } from 'react'
-import { FilterOutlined } from '@ant-design/icons'
-import { Flex, Grid } from 'antd'
-import { useEffect, useState } from 'react'
 import { AppBreadcrumb } from '@/components/AppBreadcrumb/AppBreadcrumb'
 import { AppButton } from '@/components/AppButton'
 import { AppEmpty } from '@/components/AppEmpty/AppEmpty'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton'
-
 import {
   CatalogPagination,
   CatalogSearch,
@@ -21,6 +17,10 @@ import {
   useSearch,
 } from '@/modules/Catalog'
 import { catalogPageLimit } from '@/shared/constants'
+import { FilterOutlined } from '@ant-design/icons'
+
+import { Flex, Grid } from 'antd'
+import { useEffect, useState } from 'react'
 
 import { useCategories } from '../MainPage/use-categories'
 

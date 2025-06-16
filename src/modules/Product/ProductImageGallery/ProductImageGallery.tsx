@@ -1,6 +1,6 @@
+import type { BaseComponent } from '@/shared/types/common.types.ts'
 import type { Image as ImageType } from '@commercetools/platform-sdk'
 import type { FC } from 'react'
-import type { BaseComponent } from '@/shared/types/common.types.ts'
 import { Carousel, Image } from 'antd'
 import './ProductImageGallery.scss'
 

@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
 import { theme } from '@/shared/configs/theme.ts'
 import { appName } from '@/shared/constants.ts'
+import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { AppFooter } from './AppFooter.tsx'
 
 describe('appFooter positive', () => {

@@ -1,7 +1,7 @@
+import { appName } from '@/shared/constants.ts'
 import { render, screen } from '@testing-library/react'
 import { Grid } from 'antd'
 import { vi } from 'vitest'
-import { appName } from '@/shared/constants.ts'
 import { HeroSection } from './HeroSection.tsx'
 
 vi.mock('antd', async (importOriginal) => {

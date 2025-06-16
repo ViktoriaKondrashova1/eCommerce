@@ -1,11 +1,11 @@
-import type { FC } from 'react'
 import type { StatePersonalInfo } from '@/modules/Profile/model/types.ts'
+import type { FC } from 'react'
+import { AppText } from '@/components/AppText/AppText.tsx'
+import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
 import { CalendarOutlined, MailOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react-lite'
-import { AppText } from '@/components/AppText/AppText.tsx'
-import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
 
 interface Props {
   data: StatePersonalInfo

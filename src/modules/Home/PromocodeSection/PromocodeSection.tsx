@@ -1,5 +1,5 @@
-import type { FC } from 'react'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
+import type { FC } from 'react'
 import { App as AntApp, Card, Flex, Grid, Space } from 'antd'
 import { AppButton } from '../../../components/AppButton'
 import { AppText } from '../../../components/AppText/AppText.tsx'

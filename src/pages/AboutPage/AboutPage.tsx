@@ -1,11 +1,11 @@
 import type { FC } from 'react'
-import { CodeOutlined, TeamOutlined } from '@ant-design/icons'
-import { Carousel, Col, Divider, Flex, Row, Tag } from 'antd'
 import { AppText } from '@/components/AppText/AppText.tsx'
 import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
 import { aboutPageContent, carouselImages, teamMembers } from '@/pages/AboutPage/constructor.ts'
 import { TeamMemberCard } from '@/pages/AboutPage/MemberCards.tsx'
 import { appName } from '@/shared/constants.ts'
+import { CodeOutlined, TeamOutlined } from '@ant-design/icons'
+import { Carousel, Col, Divider, Flex, Row, Tag } from 'antd'
 import styles from './AboutPage.module.scss'
 
 export const AboutPage: FC = () => {

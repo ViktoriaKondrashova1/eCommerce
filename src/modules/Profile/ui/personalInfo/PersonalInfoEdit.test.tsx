@@ -1,10 +1,10 @@
-import type { ChangeEvent } from 'react'
 import type { StatePersonalInfo } from '@/modules/Profile/model/types.ts'
+import type { ChangeEvent } from 'react'
+import { PersonalInfoEdit } from '@/modules/Profile/ui/personalInfo/PersonalInfoEdit.tsx'
 import { render, screen } from '@testing-library/react'
 import { Form } from 'antd'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
-import { PersonalInfoEdit } from '@/modules/Profile/ui/personalInfo/PersonalInfoEdit.tsx'
 
 vi.mock('@/components/AppInput/AppInput.tsx', () => ({
   AppInput: ({ onChange, value }: {

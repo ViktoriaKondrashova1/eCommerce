@@ -1,11 +1,11 @@
-import type { FC } from 'react'
 import type { IFilterForm, TFilterItemValue } from '@/modules/Catalog/hooks/use-filter-form.ts'
 import type { BaseComponent } from '@/shared/types/common.types.ts'
-import { Drawer, Flex, Grid } from 'antd'
+import type { FC } from 'react'
 import { AppButton } from '@/components/AppButton'
 import { AppSkeleton } from '@/components/AppSkeleton/AppSkeleton.tsx'
 import { Backdrop } from '@/components/Backdrop/Backdrop.tsx'
 import { useFilter } from '@/entities/filter/api/useFilter.ts'
+import { Drawer, Flex, Grid } from 'antd'
 import { RangeFilter } from './../RangeFilter/RangeFilter.tsx'
 import { SortingSelect } from './../SortingSelect/SortingSelect.tsx'
 

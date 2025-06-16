@@ -1,7 +1,7 @@
+import { Addresses } from '@/modules/Profile/ui/addresses/Addresses.tsx'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
-import { Addresses } from '@/modules/Profile/ui/addresses/Addresses.tsx'
 
 vi.mock('@/entities/customer/model/customer.store', () => ({
   customerStore: {

@@ -1,21 +1,23 @@
 /* eslint-disable react-hooks-extra/no-direct-set-state-in-use-effect */
+import type { CartDataType } from '@/entities/cart/model/cart.types'
+import type { BaseComponent } from '@/shared/types/common.types'
 import type { TableColumnsType } from 'antd'
 import type { FC } from 'react'
-import type { CartDataType } from '@/entities/cart/model/cart.types.ts'
+import { updateCart } from '@/entities/cart/api/update-cart'
+import { isNullable } from '@/shared/types/is-nullable'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Popconfirm, Table, Tooltip } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { updateCart } from '@/entities/cart/api/update-cart.ts'
-import { isNullable } from '@/shared/types/is-nullable.ts'
 import { AppButton } from '../../../components/AppButton'
 import { AppEmpty } from '../../../components/AppEmpty/AppEmpty.tsx'
+import './CartTable.scss'
 
-interface Props {
+interface Props extends BaseComponent {
   tableData: CartDataType[] | null
 }
 
-export const CartTable: FC<Props> = ({ tableData }) => {
+export const CartTable: FC<Props> = ({ testId = 'cart-table', tableData }) => {
   const navigate = useNavigate()
   const [dataSource, setDataSource] = useState<CartDataType[] | null>(tableData)
 
@@ -61,6 +63,8 @@ export const CartTable: FC<Props> = ({ tableData }) => {
 
   return (
     <Table<CartDataType>
+      className="cart-table"
+      data-testid={testId}
       columns={columns}
       dataSource={dataSource ?? []}
       pagination={{

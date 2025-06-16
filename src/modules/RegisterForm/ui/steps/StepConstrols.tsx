@@ -1,7 +1,7 @@
-import { observer } from 'mobx-react-lite'
 import { AppButton } from '@/components/AppButton'
 import { useSteps } from '@/modules/RegisterForm/ui/use-steps.ts'
 import { useNotify } from '@/shared/hooks/use-notify.tsx'
+import { observer } from 'mobx-react-lite'
 
 export const StepControls = observer(
   ({

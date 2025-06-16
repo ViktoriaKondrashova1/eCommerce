@@ -1,11 +1,11 @@
 import type { TokenStore } from '@commercetools/sdk-client-v2'
-import { useEffect, useState } from 'react'
 import { fetchMe } from '@/entities/customer/api/fetch-me'
 import { customerStore } from '@/entities/customer/model/customer.store'
 import { profileStore } from '@/modules/Profile/model/profile.store.ts'
 import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
 import { TOKEN_STORAGE_KEY } from '@/shared/constants'
 import { local } from '@/shared/lib/storage'
+import { useEffect, useState } from 'react'
 
 async function setInitialFlow(): Promise<boolean> {
   return new Promise((resolve) => {

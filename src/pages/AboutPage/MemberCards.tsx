@@ -1,13 +1,13 @@
-import type { teamMembers } from '@/pages/AboutPage/constructor.ts'
 import type { FC } from 'react'
-import { AppButton } from '@/components/AppButton'
-import { AppText } from '@/components/AppText/AppText.tsx'
-import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
-
+import type { teamMembers } from '@/pages/AboutPage/constructor.ts'
 import { FileTextOutlined, GithubOutlined, RocketOutlined } from '@ant-design/icons'
 import { Avatar, Card, Flex, List } from 'antd'
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint'
+
 import React, { useState } from 'react'
+import { AppButton } from '@/components/AppButton'
+import { AppText } from '@/components/AppText/AppText.tsx'
+import { AppTitle } from '@/components/AppTitle/AppTitle.tsx'
 
 export const TeamMemberCard: FC<{ member: typeof teamMembers[0] }> = ({ member }) => {
   const [hovered, setHovered] = useState(false)

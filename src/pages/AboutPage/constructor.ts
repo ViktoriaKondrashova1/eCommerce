@@ -7,7 +7,7 @@ export const teamMembers: TeamMember[] = [
     bio: 'As Team Lead, Victoria efficiently organized tasks and distributed responsibilities among team members. She ensured smooth project execution and timely tasks realization.',
     github: 'https://github.com/viktoriakondrashova1',
     resume: 'https://viktoriakondrashova1.github.io/rsschool-cv/',
-    photo: '/src/assets/victoria.jpg',
+    photo: '/victoria.jpg',
     contributions: [
       'Main page layout',
       'Login page implementation',
@@ -27,7 +27,7 @@ export const teamMembers: TeamMember[] = [
     bio: 'Evgeny successfully handled complex tasks and implemented core features efficiently. His attention to detail and proactive approach ensured high-quality deliverables across multiple project areas.',
     github: 'https://github.com/evgenkham',
     resume: 'https://evgenkham.github.io/rsschool-cv/',
-    photo: '/src/assets/evgeny.jpg',
+    photo: '/evgeny.jpg',
     contributions: [
       'Step-by-step registration page',
       'Postal code lookup integration',
@@ -46,7 +46,7 @@ export const teamMembers: TeamMember[] = [
     bio: 'Alina played a crucial role in API integration with Commerce Tools and was always ready to assist teammates. Her problem-solving skills helped overcome technical challenges throughout the project.',
     github: 'https://github.com/lnrzhkv',
     resume: 'https://lnrzhkv.github.io/rsschool-cv/',
-    photo: '/src/assets/alina.jpg',
+    photo: '/alina.jpg',
     contributions: [
       'Initial project setup',
       'Deployment workflow setup',

@@ -1,6 +1,7 @@
 import type { CustomerSignInResult } from '@commercetools/platform-sdk'
 import type { TokenStore } from '@commercetools/sdk-client-v2'
 import { makeAutoObservable } from 'mobx'
+import { cartStore } from '@/entities/cart/model/cart.store.ts'
 import { setCommerceApiFlow } from '@/shared/configs/commerce-client'
 import { TOKEN_STORAGE_KEY } from '@/shared/constants'
 import { local } from '@/shared/lib/storage'
@@ -32,6 +33,7 @@ class CustomerStore {
     this.isAuth = false
     local.remove(TOKEN_STORAGE_KEY)
     setCommerceApiFlow({ flow: 'anonymous' })
+    cartStore.clearCart()
   }
 
   private loadCustomer(): void {

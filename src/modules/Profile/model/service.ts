@@ -16,8 +16,7 @@ export const profileService = {
               isPrimary: address.isPrimary,
             },
             type: {
-              // User-defined unique identifier of the referenced Type. Required if id is absent.
-              // @ts-expect-error - Нужно отключить, чтобы правильно обновить адрес когда нет id
+              typeId: 'type',
               key: 'address-custom-field',
             },
           },
@@ -39,8 +38,7 @@ export const profileService = {
               isPrimary: false,
             },
             type: {
-              // User-defined unique identifier of the referenced Type. Required if id is absent.
-              // @ts-expect-error - Нужно отключить, чтобы правильно обновить адрес когда нет id
+              typeId: 'type',
               key: 'address-custom-field',
             },
           },
@@ -54,7 +52,6 @@ export const profileService = {
       version,
       actions: [{
         action: 'addAddress',
-        addressId: address.id,
         address: {
           ...address,
           ...address,
@@ -63,8 +60,7 @@ export const profileService = {
               isPrimary: address.isPrimary ?? false,
             },
             type: {
-              // User-defined unique identifier of the referenced Type. Required if id is absent.
-              // @ts-expect-error - Нужно отключить, чтобы правильно обновить адрес когда нет id
+              typeId: 'type',
               key: 'address-custom-field',
             },
           },

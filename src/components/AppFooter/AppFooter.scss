@@ -1,0 +1,20 @@
+.footer {
+  .ant-menu-light .ant-menu-item,
+  .ant-typography {
+    color: white;
+    margin: 0;
+  }
+
+  .ant-menu {
+    background: inherit;
+    border-right: none;
+  }
+
+  .ant-list-item {
+    padding: 10px 0;
+  }
+
+  .ant-menu-submenu-title {
+    padding-left: 0;
+  }
+}

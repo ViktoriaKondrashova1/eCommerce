@@ -1,0 +1,7 @@
+
+echo "🚀 lint staged starting"
+npx lint-staged
+
+echo "🚀 typescript checking starting"
+npm run ts-lint
+

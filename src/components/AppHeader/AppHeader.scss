@@ -1,0 +1,19 @@
+.header {
+  background: inherit;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  line-height: 42px;
+
+  .ant-menu .ant-menu-item.ant-menu-item-only-child >.anticon {
+    font-size: 18px;
+  }
+
+  .ant-menu .ant-menu-item .ant-menu-item-icon +span {
+    display: none;
+  } 
+
+  .ant-divider {
+    border-color: inherit;
+  }
+}

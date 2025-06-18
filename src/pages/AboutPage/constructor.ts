@@ -1,0 +1,98 @@
+import type { TeamMember } from '@/pages/AboutPage/types.ts'
+
+export const teamMembers: TeamMember[] = [
+  {
+    name: 'Victoria',
+    role: 'Team Lead & Frontend Developer',
+    bio: 'As Team Lead, Victoria efficiently organized tasks and distributed responsibilities among team members. She ensured smooth project execution and timely tasks realization.',
+    github: 'https://github.com/viktoriakondrashova1',
+    resume: 'https://viktoriakondrashova1.github.io/rsschool-cv/',
+    photo: '/victoria.jpg',
+    contributions: [
+      'Main page layout',
+      'Login page implementation',
+      'Catalog page development',
+      'Application routing setup',
+      'Not-found page',
+      'Shopping cart implementation',
+      'Test coverage implementation',
+      'Figma mockup implementation',
+      'Product database creation',
+    ],
+  },
+
+  {
+    name: 'Evgeny',
+    role: 'Frontend Developer',
+    bio: 'Evgeny successfully handled complex tasks and implemented core features efficiently. His attention to detail and proactive approach ensured high-quality deliverables across multiple project areas.',
+    github: 'https://github.com/evgenkham',
+    resume: 'https://evgenkham.github.io/rsschool-cv/',
+    photo: '/evgeny.jpg',
+    contributions: [
+      'Step-by-step registration page',
+      'Postal code lookup integration',
+      'Registration form validations',
+      'Product page implementation',
+      'Test coverage implementation',
+      'Detailed project README documentation',
+      'Responsive layouts',
+      'Shopping cart implementation',
+      'Accessibility improvements',
+    ],
+  },
+  {
+    name: 'Alina',
+    role: 'Frontend Developer',
+    bio: 'Alina played a crucial role in API integration with Commerce Tools and was always ready to assist teammates. Her problem-solving skills helped overcome technical challenges throughout the project.',
+    github: 'https://github.com/lnrzhkv',
+    resume: 'https://lnrzhkv.github.io/rsschool-cv/',
+    photo: '/alina.jpg',
+    contributions: [
+      'Initial project setup',
+      'Deployment workflow setup',
+      'Commerce API setup and  integration',
+      'Login/registration API integration',
+      'User profile page implementation',
+      'Test coverage implementation',
+      'Performance optimization',
+      'Application architecture',
+      'Important fixes before deployment',
+    ],
+  },
+]
+
+export const aboutPageContent = {
+  description1: 'BrewPort is your gateway to the world of craft beer. We\'ve created a marketplace where enthusiasts can discover unique brews from brewers. What sets us apart is our commitment to quality and authenticity. Each beer in our collection is carefully selected from renowned breweries that share our passion for excellence. ',
+  description2: 'We believe that every sip should tell a story and offer a unique experience. Our selection focuses on quality, flavor, and the stories behind each brewery. ',
+  teamDescription1: 'We\'re frontend developer students at RS School who collaborated to create BrewPort as our final project.',
+  teamDescription2: 'Through pair programming, code reviews, and using our communication skills and focusing on high quality results we transformed our learning into a functional marketplace.',
+  learningDescription: 'As RS School students, we applied modern development practices to build BrewPort:',
+  badges: [
+    'Pair Programming',
+    'Code Reviews',
+    'Git Workflow',
+    'Component Architecture',
+    'React Best Practices',
+    'Ant Design UI library',
+    'State Management (MobX)',
+    'Iterative Development',
+    'User-Centric Design',
+    'Weekly team meetings',
+    'TypeScript',
+    'Vite Build Tool',
+    'Vitest Testing',
+    'Test Coverage',
+    'ESLint',
+    'Husky Git Hooks',
+    'SCSS Styling',
+    'Commercetools SDK',
+    'Responsive Design',
+    'Modular Architecture',
+  ],
+}
+
+export const carouselImages = [
+  'https://images.unsplash.com/photo-1625923359032-41feba792010?q=80&w=2658&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://images.unsplash.com/photo-1715820114735-18ff40a7de87?q=80&w=2675&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://images.unsplash.com/photo-1544001934-31be32bab7af?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+]
